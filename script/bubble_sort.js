@@ -35,6 +35,12 @@ class BubbleSort
 
 		for (var i = 0; i < this.len; i++)
 			this.bars[i].draw(ctx);
+
+		if (!this.isAnimating)
+		{
+			this.bar1.isCompaired = false;
+			this.bar2.isCompaired = false;
+		}
 	}
 
 	swap(j)
@@ -46,8 +52,9 @@ class BubbleSort
 		this.bars[j].targetX = this.bars[j + 1].xPos;
 		this.bars[j + 1].targetX = this.bars[j].xPos;
 
+		/* Redundant
 		this.bar1 = this.bars[j];
-		this.bar2 = this.bars[j + 1];
+		this.bar2 = this.bars[j + 1];*/
 	}
 
 	update(timeStamp)
@@ -65,6 +72,10 @@ class BubbleSort
 		{
 			if ( this.innerVar < this.len - 1 - this.outterVar )
 			{
+				this.bar1 = this.bars[this.innerVar];
+				this.bar2 = this.bars[this.innerVar + 1];
+				this.bars[this.innerVar].isCompaired = true;
+				this.bars[this.innerVar + 1].isCompaired = true;
 				if (this.bars[this.innerVar].len > this.bars[this.innerVar + 1].len)
 				{
 					this.swap(this.innerVar);
@@ -102,6 +113,8 @@ class BubbleSort
 		if ( (this.bar1.xPos == this.bar1.targetX)	&&
 			  (this.bar2.xPos == this.bar2.targetX) )
 		{
+			this.bar1.isCompaired = false;
+			this.bar2.isCompaired = false;
 			this.isAnimating = false;
 		}
 	}
