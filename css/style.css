@@ -1,0 +1,211 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(to left, rgba(34, 193, 195, 0.4), rgba(253, 187, 45, 0.4));
+}
+
+.container
+{
+	width: 70%;
+	margin: auto;
+	margin-left: 1.5em;
+}
+
+.main_header
+{
+	background: url(../images/back2.jpg) center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+.heading_img
+{
+	margin-top: 0.5em;
+	margin-left: 0;
+	width: 70%;
+}
+
+.head_nav
+{
+	padding-bottom: 0.3em;
+	margin-right:0;
+	margin-left: 5%;
+}
+
+.play_button
+{
+	font-size: 2em;
+	background: orange;
+	cursor: pointer;
+}
+
+.play_button:hover
+{
+	background: #aaa;
+}
+
+.play_button:active
+{
+	background: white;
+}
+
+.selection li:last-child
+{
+	padding: 0 0.2em;
+	margin-left: 1em;
+}
+
+.selection
+{
+	margin-top: 1em;
+	padding-top: 0;
+	padding: 0;
+	display: inline-block;
+}
+
+.selection li
+{
+	display: inline;
+	width: 10px;
+	padding-left: 2em;
+	font-size: 1.4em
+	width: 100%;
+	position: relative;
+}
+
+.selection select
+{
+	font-size: 1.2rem;
+}
+
+.sorting_selection::before
+{
+	content: 'Algorithm';
+	display: block;
+	color: yellow;
+	position: absolute;
+	margin-top: -1.5em;
+	margin-left: 1.7em;
+	font-size: 1.2em;
+}
+
+.speed_selection::before
+{
+	content: 'Speed';
+	display: block;
+	color: yellow;
+	width: 100%;
+	position: absolute;
+	margin-top: -1.5em;
+	margin-left: 1.7em;
+	font-size: 1.2em;
+}
+
+.menu_open
+{
+	height: 30px;
+	width: 30px;
+	position : absolute;
+	top: 0.5em;
+	right: 1em;
+	cursor: pointer;
+}
+
+/*#menu_open:hover
+{
+	background: rgba(0, 0, 0, 20);
+}*/
+
+.hamburger,
+.hamburger::before,
+.hamburger::after
+{
+	content: '';
+	display: block;
+	background: white;
+	border-radius: 3px;
+	width: 2em;
+	height: 3px;
+}
+
+.hamburger
+{
+	margin-top: 1em;
+}
+
+.hamburger::before
+{
+	transform: translateY(0.5em);
+}
+
+.hamburger::after
+{
+	transform: translateY(-0.7em);
+}
+
+.vert_nav
+{
+	background: #222;
+	position: absolute;
+	right: 0;
+	top: 0;
+	clip-path: circle(0% at top right);
+	transition: clip-path ease-in-out 300ms;
+}
+
+.vert_nav_open
+{
+	clip-path: circle(150% at top right);
+}
+
+.vert_nav ul
+{
+	padding: 0;
+	margin: 0;
+}
+
+.vert_nav li
+{
+	padding: 0;
+	list-style: none;
+	display: block;
+	font-size: 1.3rem;
+	border-bottom: 1px solid black;
+	padding-top: 1em;
+	padding-right: 2em;
+	padding-left: 2em;
+	padding-bottom: 1em;
+	cursor: pointer;
+
+}
+
+.vert_nav li:hover
+{
+	background: orange;
+}
+
+.vart_nav li:last-child
+{
+	border-bottom: none;
+}
+
+.vert_nav a
+{
+	text-decoration: none;
+	color: white;
+	text-transform: uppercase;
+}
+
+.canvasContainer
+{
+	text-align: center;
+	margin-top: 4em;
+}
+
+#myCanvas
+{
+	background: #ddd;
+	border: 2px solid black;
+}
