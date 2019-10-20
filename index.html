@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!--<meta http-equiv="refresh" content="1" />-->
+	<meta charset="UTF-8" />
+
+	<title>Sorting Visualization</title>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+
+	<script type="text/javascript" src="script/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="script/jquery-ui.js"></script>
+	<script type="text/javascript" src="script/style.js"></script>
+
+	</head>
+
+<body>
+
+	<header class="main_header">
+
+		<div class="container">
+			<img class="heading_img" src="images/bg3.png" alt="main-heading">
+		</div>
+
+		<nav class="head_nav">
+			<ul class="selection">
+				<li class="sorting_selection">
+					<select>
+						<option>Merge Sort</option>
+						<option>Quick Sort</option>
+						<option>Selection Sort</option>
+						<option>Insertion Sort</option>
+					</select>
+				</li>
+				<li class="speed_selection">
+					<select>
+						<option>Slow</option>
+						<option>Medium</option>
+						<option>Fast</option>
+					</select>
+				</li>
+				<li class="play_button">Play</li>
+			</ul>
+		</nav>
+
+		<div class="vert_nav">
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">Something</a></li>
+				<li><a href="">Nothing</a></li>
+				<li><a href="">Everything</a></li>
+			</ul>
+		</div>
+
+		<div class="menu_open">
+			<div class="hamburger"></div>
+		</div>
+
+	</header>
+
+	<div class="canvasContainer">
+		<canvas id="myCanvas" height="400" width="600">
+		</canvas>
+	</div>
+
+	<script type="text/javascript" src="script/bar.js"></script>
+	<script type="text/javascript" src="script/bubble_sort.js"></script>
+	<script type="text/javascript" src="script/main.js"></script>
+
+</body>
+
+</html>
