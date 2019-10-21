@@ -14,10 +14,11 @@ class Sorting
 	constructor(bars, canvasWidth, canvasHeight)
 	{
 		this.bars = bars;				  // The array containing the bars
+		this.len = this.bars.length;	  // The number of bars
 		this.canvasWidth = canvasWidth;   // Width of the canvas
-		this.canvasHight = canvasHeight;  // Height of the canvas
+		this.canvasHeight = canvasHeight;  // Height of the canvas
 
-		this.isAnimating = false;		// Tells if the bars are moving
+		this.isAnimating = true;		// Tells if the bars are moving
 		this.bar1 = null;				// Moving bar 1	
 		this.bar2 = null;				// Moving bar 2
 
@@ -74,5 +75,18 @@ class Sorting
 			this.bar2.isCompaired = false;
 			this.isAnimating = false;
 		}
+	}
+
+
+	/*This is function actually increment or decrement the xPos of
+		the bar  */
+	update2(bar, deltaTime)
+	{
+		if (Math.abs(bar.xPos - bar.targetX) <= (bar.moveSpeed / deltaTime) )
+			bar.xPos = bar.targetX;
+		else if (bar.xPos > bar.targetX)
+			bar.xPos -= bar.moveSpeed / deltaTime;
+		else if (bar.xPos < bar.targetX)
+			bar.xPos += bar.moveSpeed / deltaTime;
 	}
 } 

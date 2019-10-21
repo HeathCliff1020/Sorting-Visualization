@@ -34,7 +34,7 @@ class BubbleSort extends Sorting
 		for (var i = 0; i < this.len; i++)
 			this.bars[i].draw(ctx);
 
-		if (!this.isAnimating)
+		if (!this.isAnimating && this.bar1 != null && this.bar2 != null)
 		{
 			this.bar1.isCompaired = false;
 			this.bar2.isCompaired = false;
@@ -89,19 +89,10 @@ class BubbleSort extends Sorting
 		}
 		else
 		{
-			isAnimating = false;
+			this.isAnimating = false;
 		}
 
 		return false;
 	}
 
-	update2(bar, deltaTime)
-	{
-		if (Math.abs(bar.xPos - bar.targetX) <= (bar.moveSpeed / deltaTime) )
-			bar.xPos = bar.targetX;
-		else if (bar.xPos > bar.targetX)
-			bar.xPos -= bar.moveSpeed / deltaTime;
-		else if (bar.xPos < bar.targetX)
-			bar.xPos += bar.moveSpeed / deltaTime;
-	}
 }
