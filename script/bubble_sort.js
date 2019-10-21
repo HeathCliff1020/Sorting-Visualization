@@ -8,26 +8,24 @@
 	draw(ctx)	: draws the bar on ot the cnavas using its
 				  graphics context passed as ctx. 
 */
-class BubbleSort
+class BubbleSort extends Sorting
 {
 	constructor(bars, canvasWidth, canvasHeight)
 	{
-		this.bars = bars;				// The bars array
-		this.len = this.bars.length;	//
-		this.canvasWidth = canvasWidth;
-		this.canvasHeight = canvasHeight;
 
-		this.isAnimating = false;
-		this.bar1 = null;
-		this.bar2 = null;
+		// Calling the super classes' constuctor
+		super(bars, canvasWidth, canvasHeight)
 
-		this.outterVar = 0;
-		this.innerVar = 0;
-
-		this.done = false;
-		this.lastTime = 0;
+		this.outterVar = 0;			// The i variable in bubble_sort
+		this.innerVar = 0;			// The j variable in bubble_sort
 	}
 
+
+	/*
+	Overridden function 
+
+		: Draws the bars onto the screen
+	*/
 	draw(ctx)
 	{
 		//document.write("Came Here");
@@ -43,20 +41,12 @@ class BubbleSort
 		}
 	}
 
-	swap(j)
-	{
-		var temp = this.bars[j];
-		this.bars[j] = this.bars[j + 1];
-		this.bars[j + 1] = temp;
 
-		this.bars[j].targetX = this.bars[j + 1].xPos;
-		this.bars[j + 1].targetX = this.bars[j].xPos;
+	/* 
+	Overridden function
 
-		/* Redundant
-		this.bar1 = this.bars[j];
-		this.bar2 = this.bars[j + 1];*/
-	}
-
+		: updates the position of the bars when animating.
+	*/
 	update(timeStamp)
 	{
 		var deltaTime = timeStamp - this.lastTime;
@@ -78,7 +68,7 @@ class BubbleSort
 				this.bars[this.innerVar + 1].isCompaired = true;
 				if (this.bars[this.innerVar].len > this.bars[this.innerVar + 1].len)
 				{
-					this.swap(this.innerVar);
+					this.swap(this.innerVar, this.innerVar + 1);
 					this.isAnimating = true;
 				}
 				this.innerVar++;
@@ -103,20 +93,6 @@ class BubbleSort
 		}
 
 		return false;
-	}
-
-	animate(deltaTime)
-	{
-		this.update2(this.bar1, deltaTime);
-		this.update2(this.bar2, deltaTime);
-
-		if ( (this.bar1.xPos == this.bar1.targetX)	&&
-			  (this.bar2.xPos == this.bar2.targetX) )
-		{
-			this.bar1.isCompaired = false;
-			this.bar2.isCompaired = false;
-			this.isAnimating = false;
-		}
 	}
 
 	update2(bar, deltaTime)
