@@ -1,23 +1,46 @@
+/* Bar class contains the information of each bar.
+	The bar represents the array elements.
+*/
+
 class Bar
 {
-	constructor(xPos, yPos, width, len, color, cmpColor)
+	constructor(xPos, yPos, width, len, color, cmpColor, color3)
 	{
-		this.len = len;
-		this.width = width;
-		this.xPos = xPos;
-		this.yPos = yPos;
-		this.color = color;
-		this.cmpColor = cmpColor;
+		this.len = len;				// length of the bar
+		this.width = width;			// width of the bar
+		this.xPos = xPos;			// starting x pos of the bar
+		this.yPos = yPos;			// starting y pos of the bar
+		this.color = color;			// primary color of the bar
+		this.cmpColor = cmpColor;	// color of the bar when compired
+		this.color3 = color3;		// color some other purpose (like
+									// for the key bar in inserting sort)
 
-		this.isCompaired = false;
 
+		this.isCompaired = false;	// flag for compairing color
+		this.useThird = false;		// flag for third color
+
+
+		// for calculating speed for some special bars (value 
+		// 	does not change)
+		this.baseMoveSpeed = 30;
+
+		// speed of the animating of the moving speed of the bar
+		// value can change
 		this.moveSpeed = 30;
-		this.targetX = xPos;
+		
+		// the target positing set for animating
+		// the bar moves towards its target position		
+		this.targetX = xPos;	
 	}
 
+	/* draws a particular bar onto the screen*/
 	draw(ctx)
 	{
-		if (!this.isCompaired)
+		if (this.useThird)
+		{
+			ctx.fillStyle = this.color3;
+		}
+		else if (!this.isCompaired)
 			ctx.fillStyle = this.color;
 		else 
 			ctx.fillStyle = this.cmpColor;

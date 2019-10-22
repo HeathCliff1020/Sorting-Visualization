@@ -8,7 +8,7 @@ var canvasWidth = myCanvas.width;
 var horizMargin = 25;
 var bottomMargin = 30;
 
-var numOfBars = 10;
+var numOfBars = 1000;
 var barMinLength = 10;
 var barMaxLenght = 300;
 var startBarX = horizMargin;
@@ -25,12 +25,12 @@ var y = startBarY;
 for (var i = 0; i < numOfBars; i++)
 {
 	var length = Math.random() * (barMaxLenght - barMinLength) + barMinLength;
-	bars[i] = new Bar(x, y, barWidth, length, "#456533", '#f00');
+	bars[i] = new Bar(x, y, barWidth, length, "#456533", '#f00', ' #b3b300');
 
 	x += barWidth + barGap;
 }
 
-var bubble_sort = new BubbleSort(bars, canvasWidth, canvasHeight);
+var sort = new InsertionSort(bars, canvasWidth, canvasHeight);
 
 var done = false;
 
@@ -40,8 +40,8 @@ function animationLoop(timeStamp)
 {
 	if (!done)
 	{
-		done = bubble_sort.update(timeStamp);
-		bubble_sort.draw(ctx);
+		done = sort.update(timeStamp);
+		sort.draw(ctx);
 	}
 
 	requestAnimationFrame(animationLoop);

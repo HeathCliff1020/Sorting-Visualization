@@ -39,6 +39,11 @@ class Sorting
 	draw(ctx)
 	{
 		console.log('This function is supposed to be overrided.');
+
+		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+		for (var i = 0; i < this.len; i++)
+			this.bars[i].draw(ctx);
 	}
 
 	/*
