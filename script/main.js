@@ -4,14 +4,29 @@ ctx = myCanvas.getContext('2d');
 myCanvas2 = document.getElementById("myCanvas2");
 ctx2 = myCanvas2.getContext('2d');
 
-var canvasHeight = myCanvas.height;
-var canvasWidth = myCanvas.width;
+
+/*	Setting the height of the two canvases	*/
+
+const canvasHeight = 400;
+const canvasWidth = 500;
+
+const canvasHeight2 = 200;
+const canvasWidth2 = 500;
+
+myCanvas.height = canvasHeight;
+myCanvas.width = canvasWidth;
+
+myCanvas2.height = canvasHeight2;
+myCanvas2.width = canvasWidth2;
+
+/**********************************************/
+
 
 
 var horizMargin = 25;
 var bottomMargin = 20;
 
-var numOfBars = 20;
+var numOfBars = 15;
 var barMinLength = 10;
 var barMaxLenght = 300;
 var startBarX = horizMargin;
@@ -35,7 +50,7 @@ for (var i = 0; i < numOfBars; i++)
 
 var sort = new BubbleSort(bars, canvasWidth, canvasHeight);
 
-var done = false;
+var done = false;		// variable for checking if the sorting is completed or not
 
 /*
 	Setting the event listener for the button that moves the animation forward frame by frame.
@@ -60,3 +75,32 @@ function animationLoop(timeStamp)
 	requestAnimationFrame(animationLoop);
 
 }
+
+// Variabled for drawing the array box :- 
+
+var horizMargin2 = 0;
+var boxWidth = 50;
+var boxStartY = ( canvasHeight2 / 2 ) - ( boxWidth / 2 );
+var boxStartX = horizMargin2;
+
+var boxLen = canvasWidth2 - ( 2 * horizMargin2 );
+
+//For divider lines inside the box for array elements
+var lineOffset = canvasWidth / numOfBars;
+
+
+//drawing the box
+
+ctx2.fillStyle = "#000";
+drawRect(ctx2, boxStartX, boxStartY, boxLen, boxWidth);
+
+
+// drawing the divider lines
+
+var startX = lineOffset;	// start drawing lines for the offset 
+
+for (var i = 1; i <= numOfBars - 1; i++)
+{
+	drawLine(ctx2, startX, boxStartY, startX, boxStartY + boxWidth);
+	startX += lineOffset;
+}	
