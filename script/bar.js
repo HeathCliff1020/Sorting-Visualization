@@ -44,7 +44,22 @@ class Bar
 			ctx.fillStyle = this.color;
 		else 
 			ctx.fillStyle = this.cmpColor;
-		ctx.fillRect(this.xPos, this.yPos - this.len, this.width, this.len);	
+		ctx.fillRect(this.xPos, this.yPos - this.len, this.width, this.len);
+
+		//console.log(ctx.measureText('555').width + " " + this.len);
+
+		ctx.font = "8pt Calibari";
+
+		if( ctx.measureText('999').width < this.width )
+		{ 
+			ctx.fillStyle = "#000";
+			var textHeight = parseInt(ctx.font.match(/\d+/), 10);
+			var textWidth = ctx.measureText(this.len.toString()).width;
+			var textY = this.yPos - (this.len - textHeight) / 2;
+			var textX = this.xPos + (this.width - textWidth) / 2;
+			ctx.fillText(this.len.toString(), textX, textY);
+		}
+
 	}
 
 }

@@ -26,6 +26,21 @@ class Sorting
 
 		// This stores the last time the update function is called
 		this.lastTime = 0;
+
+		//for drawing out the index numbers
+		this.startX = bars[0].xPos + bars[0].width / 2;
+		this.increment = 2 * bars[0].width;
+
+		this.waiting = false;	//variable to check if the animation is waiting for the user to continue (for frame by frame animation)
+
+		this.isFrameByFrame = true;			// for the animation mode (frame by frame or continuous)​
+
+		//console.log(this.startX + ' ' + this.increment);
+	}
+
+	nextFrame()
+	{
+		this.waiting = false;
 	}
 
 	/* To update the positions of the bars if animating */
@@ -38,12 +53,33 @@ class Sorting
 	/* To draw the bars onto the screen*/
 	draw(ctx)
 	{
-		console.log('This function is supposed to be overrided.');
 
-		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+		console.log('This function is supposed to be overriden.');
 
+		if (!this.waiting || !this.isFrameByFrame)
+		{
+
+			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+			this.drawIndex(ctx);
+
+			for (var i = 0; i < this.len; i++)
+				this.bars[i].draw(ctx);
+
+			if (!this.isAnimating)
+				this.waiting = true;
+		}
+	}
+
+	drawIndex(ctx)
+	{
+		var startX = this.startX;
 		for (var i = 0; i < this.len; i++)
-			this.bars[i].draw(ctx);
+		{
+			ctx.fillStyle = "#000";
+			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, canvasHeight - 5);
+			startX += this.increment;
+		}
 	}
 
 	/*

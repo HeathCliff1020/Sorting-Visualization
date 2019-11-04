@@ -133,6 +133,7 @@ body
 .hamburger
 {
 	margin-top: 1em;
+	transition: ease-in-out all 100ms;
 }
 
 .hamburger::before
@@ -144,6 +145,22 @@ body
 {
 	transform: translateY(-0.7em);
 }
+
+.hamburger_cross
+{
+	transform: rotate(130deg);
+}
+
+.hamburger_cross::after
+{
+	transform: rotate(-85deg);
+}
+
+.hamburger_cross::before
+{
+	display: none;
+}
+
 
 .vert_nav
 {
@@ -208,4 +225,10 @@ body
 {
 	background: #ddd;
 	border: 2px solid black;
+}
+
+#myCanvas2
+{
+	background: rgba(0, 0, 0, 0);
+	border: 2px solid rgba(0, 0, 0, 1);
 }

@@ -1,14 +1,17 @@
 myCanvas = document.getElementById("myCanvas");
 ctx = myCanvas.getContext('2d');
 
+myCanvas2 = document.getElementById("myCanvas2");
+ctx2 = myCanvas2.getContext('2d');
+
 var canvasHeight = myCanvas.height;
 var canvasWidth = myCanvas.width;
 
 
 var horizMargin = 25;
-var bottomMargin = 30;
+var bottomMargin = 20;
 
-var numOfBars = 1000;
+var numOfBars = 20;
 var barMinLength = 10;
 var barMaxLenght = 300;
 var startBarX = horizMargin;
@@ -24,15 +27,25 @@ var x = startBarX;
 var y = startBarY;
 for (var i = 0; i < numOfBars; i++)
 {
-	var length = Math.random() * (barMaxLenght - barMinLength) + barMinLength;
+	var length = Math.trunc(Math.random() * (barMaxLenght - barMinLength) + barMinLength);
 	bars[i] = new Bar(x, y, barWidth, length, "#456533", '#f00', ' #b3b300');
 
 	x += barWidth + barGap;
 }
 
-var sort = new InsertionSort(bars, canvasWidth, canvasHeight);
+var sort = new BubbleSort(bars, canvasWidth, canvasHeight);
 
 var done = false;
+
+/*
+	Setting the event listener for the button that moves the animation forward frame by frame.
+*/
+document.getElementById('next').addEventListener("click", myFunction); 
+
+function myFunction()
+{
+	sort.nextFrame();
+}
 
 requestAnimationFrame(animationLoop);
 

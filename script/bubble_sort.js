@@ -29,15 +29,23 @@ class BubbleSort extends Sorting
 	draw(ctx)
 	{
 		//document.write("Came Here");
-		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-
-		for (var i = 0; i < this.len; i++)
-			this.bars[i].draw(ctx);
-
-		if (!this.isAnimating && this.bar1 != null && this.bar2 != null)
+		if (!this.waiting || !this.isFrameByFrame)
 		{
-			this.bar1.isCompaired = false;
-			this.bar2.isCompaired = false;
+			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+			this.drawIndex(ctx);
+
+			for (var i = 0; i < this.len; i++)
+				this.bars[i].draw(ctx);
+
+			if (!this.isAnimating && this.bar1 != null && this.bar2 != null)
+			{
+				this.bar1.isCompaired = false;
+				this.bar2.isCompaired = false;
+			}
+
+			if (!this.isAnimating)
+				this.waiting = true;
 		}
 	}
 
@@ -54,42 +62,49 @@ class BubbleSort extends Sorting
 		
 		if (this.done) 
 		{
-			alert("Sorted");
+			//alert("Sorted");
 			return this.done;
 		}
 
-		if (!this.isAnimating)
+		if (!this.waiting || !this.isFrameByFrame)
 		{
-			if ( this.innerVar < this.len - 1 - this.outterVar )
+
+			if (!this.isAnimating)
 			{
-				this.bar1 = this.bars[this.innerVar];
-				this.bar2 = this.bars[this.innerVar + 1];
-				this.bars[this.innerVar].isCompaired = true;
-				this.bars[this.innerVar + 1].isCompaired = true;
-				if (this.bars[this.innerVar].len > this.bars[this.innerVar + 1].len)
+				if ( this.innerVar < this.len - 1 - this.outterVar )
 				{
-					this.swap(this.innerVar, this.innerVar + 1);
-					this.isAnimating = true;
+					this.bar1 = this.bars[this.innerVar];
+					this.bar2 = this.bars[this.innerVar + 1];
+					this.bars[this.innerVar].isCompaired = true;
+					this.bars[this.innerVar + 1].isCompaired = true;
+					if (this.bars[this.innerVar].len > this.bars[this.innerVar + 1].len)		// swap if the elements are not in order
+					{
+						this.swap(this.innerVar, this.innerVar + 1);
+
+						//setting animation to true for swapping the bars
+						this.isAnimating = true;					
+					}
+					this.innerVar++;
 				}
-				this.innerVar++;
+				else
+				{
+					this.outterVar++;
+					this.innerVar = 0;
+					if ( !(this.outterVar < this.len - 1) )
+						this.done = true;
+				}
+			}
+			else if (this.bar1 != null && this.bar2 != null)
+			{
+				//document.write("The animate function is calles");
+				
+				//Update the positions of the bars
+				this.animate(deltaTime);
 			}
 			else
 			{
-				this.outterVar++;
-				this.innerVar = 0;
-				if ( !(this.outterVar < this.len - 1) )
-					this.done = true;
+				this.isAnimating = false;
 			}
-		}
-		else if (this.bar1 != null && this.bar2 != null)
-		{
-			//document.write("The animate function is calles");
-			//Update the positions of the bars
-			this.animate(deltaTime);
-		}
-		else
-		{
-			this.isAnimating = false;
 		}
 
 		return false;
