@@ -50,11 +50,11 @@ class Bar
 			ctx.fillStyle = this.color;
 		else 
 			ctx.fillStyle = this.cmpColor;
-		ctx.fillRect(this.xPos, this.yPos - this.len, this.width, this.len);
+		ctx.fillRect(this.xPos, this.yPos - (this.len * 3), this.width, (this.len * 3));
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
 
-		ctx2.fillStyle = "#f00";
+		ctx2.fillStyle = "#0066cc";
 		ctx2.font = "bold 10pt Calibari";
 		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 
@@ -65,9 +65,9 @@ class Bar
 			ctx.fillStyle = "#000";
 			var textHeight = parseInt(ctx.font.match(/\d+/), 10);
 			var textWidth = ctx.measureText(this.len.toString()).width;
-			var textY = this.yPos - (this.len - textHeight) / 2;
+			var textY = this.yPos - ( (this.len * 3) - textHeight) / 2;
 			var textX = this.xPos + (this.width - textWidth) / 2;
-			ctx.fillText(this.index.toString(), textX, textY);
+			ctx.fillText(this.len.toString(), textX, textY);
 		}
 
 	}

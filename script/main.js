@@ -44,8 +44,8 @@ var horizMargin = 25;
 var bottomMargin = 20;
 
 var numOfBars = 15;
-var barMinLength = 10;
-var barMaxLenght = 300;
+var barMinLength = 1;
+var barMaxLenght = 100;
 var startBarX = horizMargin;
 var startBarY = canvasHeight - bottomMargin;
 
@@ -60,7 +60,7 @@ var x = startBarX;
 var y = startBarY;
 for (var i = 0; i < numOfBars; i++)
 {
-	var length = Math.trunc(Math.random() * (barMaxLenght - barMinLength) + barMinLength);
+	var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
 	bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
 
 	bars[i].index = i;
