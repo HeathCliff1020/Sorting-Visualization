@@ -11,12 +11,14 @@
 
 class Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
 	{
 		this.bars = bars;				  // The array containing the bars
 		this.len = this.bars.length;	  // The number of bars
 		this.canvasWidth = canvasWidth;   // Width of the canvas
 		this.canvasHeight = canvasHeight;  // Height of the canvas
+		this.canvasHeight2 = canvasHeight2;	//Height of the second canvas
+		this.canvasWidth2 = canvasWidth2;	//Width of the second canvas
 
 		this.isAnimating = true;		// Tells if the bars are moving
 		this.bar1 = null;				// Moving bar 1	
@@ -36,6 +38,31 @@ class Sorting
 		this.isFrameByFrame = true;			// for the animation mode (frame by frame or continuous)​
 
 		//console.log(this.startX + ' ' + this.increment);
+
+		this.boxWidth = 50;			// Width of the box containing the array elements
+		this.lineOffset = this.canvasWidth2 / this.bars.length;		// lineOffset is the lenght of the containers for each array element
+		this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
+	}
+
+	//Draw the rectangular box inside which the array elements can reside
+	drawArrayBox(ctx)
+	{
+		//console.log("Draws the box for the array elements.");
+
+		//drawing the box
+
+		ctx.fillStyle = "#000";
+		drawRect(ctx, 0, this.boxStartY, this.canvasWidth2, this.boxWidth);
+		
+		// drawing the divider lines
+
+		var startX = this.lineOffset;	// start drawing lines for the offset 
+
+		for (var i = 1; i <= this.bars.length - 1; i++)
+		{
+			drawLine(ctx, startX, this.boxStartY, startX, this.boxStartY + this.boxWidth);
+			startX += this.lineOffset;
+		}	
 	}
 
 	nextFrame()
@@ -51,7 +78,7 @@ class Sorting
 	}
 
 	/* To draw the bars onto the screen*/
-	draw(ctx)
+	draw(ctx, ctx2)
 	{
 
 		console.log('This function is supposed to be overriden.');
@@ -59,9 +86,17 @@ class Sorting
 		if (!this.waiting || !this.isFrameByFrame)
 		{
 
+			//For the second canvas
+
+			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+			drawArrayBox(ctx2);
+
+			//For the second canvas	
+
+
 			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-			this.drawIndex(ctx);
+			this.drawIndex(ctx, ctx2);
 
 			for (var i = 0; i < this.len; i++)
 				this.bars[i].draw(ctx);

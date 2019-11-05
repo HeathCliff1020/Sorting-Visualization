@@ -10,11 +10,11 @@
 */
 class BubbleSort extends Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
 	{
 
 		// Calling the super classes' constuctor
-		super(bars, canvasWidth, canvasHeight)
+		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 
 		this.outterVar = 0;			// The i variable in bubble_sort
 		this.innerVar = 0;			// The j variable in bubble_sort
@@ -26,17 +26,27 @@ class BubbleSort extends Sorting
 
 		: Draws the bars onto the screen
 	*/
-	draw(ctx)
+	draw(ctx, ctx2)
 	{
+
 		//document.write("Came Here");
 		if (!this.waiting || !this.isFrameByFrame)
 		{
+
+			//For the second canvas
+
+			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+			this.drawArrayBox(ctx2);
+
+			//For the second canvas	
+
+
 			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
 			this.drawIndex(ctx);
 
 			for (var i = 0; i < this.len; i++)
-				this.bars[i].draw(ctx);
+				this.bars[i].draw(ctx, ctx2);
 
 			if (!this.isAnimating && this.bar1 != null && this.bar2 != null)
 			{

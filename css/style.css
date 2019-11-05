@@ -235,9 +235,10 @@ body
 
 #next
 {
-	background:	rgb(255, 255, 255) url(../images/play.png);
+	background:	rgb(255, 0, 0) url(../images/play.png);
 	background-size: 4em 4em;
 	background-position: center;
 	width: 4em;
 	height: 4em;
+	border-radius: 2em;
 }

@@ -23,11 +23,11 @@ void insertionSort(int arr[], int n)
 
 class InsertionSort extends Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
 	{
 
 		// Calling the super classes' constuctor
-		super(bars, canvasWidth, canvasHeight);
+		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 
 		// for variable i in the insertion sort algo.
 		this.outterVar = 1;		

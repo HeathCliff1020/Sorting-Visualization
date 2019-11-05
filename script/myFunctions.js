@@ -10,6 +10,5 @@ function drawRect(ctx, x1, y1, width, height)
 {
 	ctx.beginPath();
 	ctx.rect(x1, y1, width, height);
-	console.log("Drawn");
 	ctx.stroke();
 }

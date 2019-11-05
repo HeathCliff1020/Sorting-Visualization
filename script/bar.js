@@ -30,11 +30,16 @@ class Bar
 		
 		// the target positing set for animating
 		// the bar moves towards its target position		
-		this.targetX = xPos;	
+		this.targetX = xPos;
+
+
+		//positions for the array element element in the box
+		this.numberXPos = 0;		
+		this.numberYPos = 0;		
 	}
 
 	/* draws a particular bar onto the screen*/
-	draw(ctx)
+	draw(ctx, ctx2)
 	{
 		if (this.useThird)
 		{
@@ -47,6 +52,8 @@ class Bar
 		ctx.fillRect(this.xPos, this.yPos - this.len, this.width, this.len);
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
+
+		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 
 		ctx.font = "8pt Calibari";
 
