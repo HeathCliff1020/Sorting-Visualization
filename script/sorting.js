@@ -39,9 +39,11 @@ class Sorting
 
 		//console.log(this.startX + ' ' + this.increment);
 
+		this.horizMargin = 5;		// horizontal margins (from right and left of the canvas) for the array box
 		this.boxWidth = 50;			// Width of the box containing the array elements
-		this.lineOffset = this.canvasWidth2 / this.bars.length;		// lineOffset is the lenght of the containers for each array element
+		this.lineOffset = (this.canvasWidth2 - (2 * this.horizMargin)) / this.bars.length;		// lineOffset is the lenght of the containers for each array element
 		this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
+		this.boxLength = this.canvasWidth2 - (2 * this.horizMargin);	//length of the array box
 	}
 
 	//Draw the rectangular box inside which the array elements can reside
@@ -51,16 +53,28 @@ class Sorting
 
 		//drawing the box
 
+		ctx.fillStyle = "#99ff99";
+		ctx.fillRect(this.horizMargin, this.boxStartY, this.boxLength, this.boxWidth);
+		ctx.lineWidth = 3;
 		ctx.fillStyle = "#000";
-		drawRect(ctx, 0, this.boxStartY, this.canvasWidth2, this.boxWidth);
+		drawRect(ctx, this.horizMargin, this.boxStartY, this.boxLength, this.boxWidth);
 		
 		// drawing the divider lines
 
-		var startX = this.lineOffset;	// start drawing lines for the offset 
+		var startX = this.lineOffset + this.horizMargin;	// start drawing lines for the offset 
 
 		for (var i = 1; i <= this.bars.length - 1; i++)
 		{
 			drawLine(ctx, startX, this.boxStartY, startX, this.boxStartY + this.boxWidth);
+			startX += this.lineOffset;
+		}
+
+		startX = this.horizMargin + (this.lineOffset / 2);
+		for (var i = 0; i < this.len; i++)
+		{
+			ctx.fillStyle = "#000";
+			ctx.font = "bold 10pt Calibari";
+			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, this.boxStartY - 5);
 			startX += this.lineOffset;
 		}	
 	}
@@ -129,6 +143,10 @@ class Sorting
 		var temp = this.bars[first];
 		this.bars[first] = this.bars[second];
 		this.bars[second] = temp;
+
+		var temp2 = this.bars[first].index;
+		this.bars[first].index = this.bars[second].index;
+		this.bars[second].index = temp2;
 
 		this.bars[first].targetX = this.bars[second].xPos;
 		this.bars[second].targetX = this.bars[first].xPos;

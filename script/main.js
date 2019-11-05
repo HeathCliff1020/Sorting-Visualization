@@ -7,17 +7,34 @@ ctx2 = myCanvas2.getContext('2d');
 
 /*	Setting the height of the two canvases	*/
 
-const canvasHeight = 400;
-const canvasWidth = 600;
 
-const canvasHeight2 = 200;
-const canvasWidth2 = 500;
+var canvasHeight = 400;
+var canvasWidth = 600;
+
+var canvasHeight2 = 200;
+var canvasWidth2 = 500;
+
+
+// variable values to canvas values
+
 
 myCanvas.height = canvasHeight;
 myCanvas.width = canvasWidth;
 
 myCanvas2.height = canvasHeight2;
 myCanvas2.width = canvasWidth2;
+
+
+
+// canvas values to variable values
+
+/*
+canvasHeight = myCanvas.height;
+canvasWidth = myCanvas.width;
+
+canvasHeight2 = myCanvas2.height;
+canvasWidth2 = myCanvas2.width;
+*/
 
 /**********************************************/
 
@@ -44,7 +61,9 @@ var y = startBarY;
 for (var i = 0; i < numOfBars; i++)
 {
 	var length = Math.trunc(Math.random() * (barMaxLenght - barMinLength) + barMinLength);
-	bars[i] = new Bar(x, y, barWidth, length, "#456533", '#f00', ' #b3b300');
+	bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+
+	bars[i].index = i;
 
 	x += barWidth + barGap;
 }
@@ -55,7 +74,7 @@ var done = false;		// variable for checking if the sorting is completed or not
 
 
 //Settirg the values for the positions of array element in the box (container)
-var startX = sort.lineOffset / 2;
+var startX = (sort.lineOffset / 2) + sort.horizMargin;
 for (var i = 0; i < bars.length; i++)
 {
 	bars[i].numberYPos = sort.boxStartY + (sort.boxWidth / 2);

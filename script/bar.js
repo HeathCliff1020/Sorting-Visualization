@@ -12,8 +12,8 @@ class Bar
 		this.yPos = yPos;			// starting y pos of the bar
 		this.color = color;			// primary color of the bar
 		this.cmpColor = cmpColor;	// color of the bar when compired
-		this.color3 = color3;		// color some other purpose (like
-									// for the key bar in inserting sort)
+		this.color3 = color3;		// color some other purposes (like
+									// for the key-bar(element that is to be inserted in the sorted array) in insertion sort)
 
 
 		this.isCompaired = false;	// flag for compairing color
@@ -35,7 +35,8 @@ class Bar
 
 		//positions for the array element element in the box
 		this.numberXPos = 0;		
-		this.numberYPos = 0;		
+		this.numberYPos = 0;
+		this.index = 0;		
 	}
 
 	/* draws a particular bar onto the screen*/
@@ -53,6 +54,8 @@ class Bar
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
 
+		ctx2.fillStyle = "#f00";
+		ctx2.font = "bold 10pt Calibari";
 		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 
 		ctx.font = "8pt Calibari";
@@ -64,7 +67,7 @@ class Bar
 			var textWidth = ctx.measureText(this.len.toString()).width;
 			var textY = this.yPos - (this.len - textHeight) / 2;
 			var textX = this.xPos + (this.width - textWidth) / 2;
-			ctx.fillText(this.len.toString(), textX, textY);
+			ctx.fillText(this.index.toString(), textX, textY);
 		}
 
 	}
