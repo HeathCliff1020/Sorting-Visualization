@@ -35,7 +35,7 @@ class Sorting
 
 		this.waiting = false;	//variable to check if the animation is waiting for the user to continue (for frame by frame animation)
 
-		this.isFrameByFrame = true;			// for the animation mode (frame by frame or continuous)​
+		this.isFrameByFrame = false;			// for the animation mode (frame by frame or continuous)​
 
 		//console.log(this.startX + ' ' + this.increment);
 

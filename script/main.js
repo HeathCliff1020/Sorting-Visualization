@@ -43,7 +43,7 @@ canvasWidth2 = myCanvas2.width;
 var horizMargin = 25;
 var bottomMargin = 20;
 
-var numOfBars = 15;
+var numOfBars = document.getElementById("myRange").value;
 var barMinLength = 1;
 var barMaxLenght = 100;
 var startBarX = horizMargin;
@@ -54,33 +54,13 @@ var barWidth = barGap;
 
 //var barWidth = (canvasWidth - ((numOfBars + 1) * barGap)) / numOfBars;
 
-var bars = new Array(numOfBars);
+var bars;
+var sort;
+var done;
 
-var x = startBarX;
-var y = startBarY;
-for (var i = 0; i < numOfBars; i++)
-{
-	var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
-	bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+var animating = true;
 
-	bars[i].index = i;
-
-	x += barWidth + barGap;
-}
-
-var sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
-
-var done = false;		// variable for checking if the sorting is completed or not
-
-
-//Settirg the values for the positions of array element in the box (container)
-var startX = (sort.lineOffset / 2) + sort.horizMargin;
-for (var i = 0; i < bars.length; i++)
-{
-	bars[i].numberYPos = sort.boxStartY + (sort.boxWidth / 2);
-	bars[i].numberXPos = startX;
-	startX += sort.lineOffset;
-}
+createArray();
 
 /*
 	Setting the event listener for the button that moves the animation forward frame by frame.
@@ -102,6 +82,71 @@ function animationLoop(timeStamp)
 		sort.draw(ctx, ctx2);
 	}
 
-	requestAnimationFrame(animationLoop);
+
+	if (animating)
+		requestAnimationFrame(animationLoop);
+}
+
+
+// Finction to create the new Array with random values
+
+function createArray()
+{
+	bars = new Array(numOfBars);
+
+	var x = startBarX;
+	var y = startBarY;
+	for (var i = 0; i < numOfBars; i++)
+	{
+		var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
+		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+
+		bars[i].index = i;
+
+		x += barWidth + barGap;
+	}
+
+	sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+
+	done = false;		// variable for checking if the sorting is completed or not
+
+
+	//Settirg the values for the positions of array element in the box (container)
+	var startX = (sort.lineOffset / 2) + sort.horizMargin;
+	for (var i = 0; i < bars.length; i++)
+	{
+		bars[i].numberYPos = sort.boxStartY + (sort.boxWidth / 2);
+		bars[i].numberXPos = startX;
+		startX += sort.lineOffset;
+	}
+
+}
+
+
+/* Function to change the number of bars that are being sorted.
+
+	  It does 3 things:
+	  	
+	  	1. Stops the animation.
+	  	2. Creates the new array with the updated value of numberOfBars.
+	  	3. Starts the animation again.
+
+*/
+
+function recreateBars(changedValue)
+{
+	// 1.
+	animating = false;		
+
+
+	//2.
+	numOfBars = changedValue;
+	barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
+	barWidth = barGap;
+	createArray();
+
+
+	//3.
+	animating = true;
 
 }
