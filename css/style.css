@@ -39,6 +39,7 @@ body
 	font-size: 2em;
 	background: orange;
 	cursor: pointer;
+	display: block;
 }
 
 .play_button:hover
@@ -54,13 +55,15 @@ body
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 10%; /* Full-width */
+  width: 20%; /* Full-width */
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  margin-left: 5.5em;
+  display: inline;
 }
 
 /* Mouse-over effects */
@@ -72,6 +75,13 @@ body
 {
 
 }
+
+#checkbox_text
+{
+	display: inline;
+	color: rgb(200, 200, 200);
+}
+
 
 .selection li:last-child
 {

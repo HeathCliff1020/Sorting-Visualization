@@ -39,7 +39,6 @@ canvasWidth2 = myCanvas2.width;
 /**********************************************/
 
 
-
 var horizMargin = 25;
 var bottomMargin = 20;
 
@@ -60,6 +59,8 @@ var done;
 
 var animating = false;
 
+var isFrameByFrame = document.getElementById("frameByFrame").checked;
+
 createArray();
 
 /*
@@ -76,7 +77,7 @@ requestAnimationFrame(animationLoop);
 
 function animationLoop(timeStamp)
 {
-	if (animating)
+	if (animating || isFrameByFrame)
 	{
 		if (!done)
 		{
@@ -120,9 +121,10 @@ function createArray()
 		bars[i].numberXPos = startX;
 		startX += sort.lineOffset;
 	}
-
+	
 	sort.draw(ctx, ctx2);
 
+	sort.isFrameByFrame = isFrameByFrame;
 }
 
 
@@ -156,4 +158,14 @@ function startAnimation()
 function pauseAnimation()
 {
 	animating = false;
+}
+
+/*The function toggles between the animation and the frame by frame state*/
+
+function changeFrameByFrame(changedValue)
+{
+	//console.log(changedValue);
+	isFrameByFrame = changedValue;
+
+	sort.isFrameByFrame = isFrameByFrame;
 }

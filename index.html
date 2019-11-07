@@ -41,13 +41,16 @@
 						<option>Fast</option>
 					</select>
 				</li>
-				<li onclick="pauseAnimation()">Pause</li>
-				<li class="play_button" onclick="startAnimation()">Play</li>
+				<button  onclick="pauseAnimation()">Pause</button>
+				<button onclick="startAnimation()">Play</button>
 			</ul>
 
 			<div class="slidecontainer">
   				<input type="range" min="5" max="25" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
 			</div>
+
+			<input type="checkbox" id="frameByFrame" onclick="changeFrameByFrame(this.checked)" /><div id="checkbox_text">Frame By Fame Animation</div>
+
 		</nav>
 
 		<div class="vert_nav">

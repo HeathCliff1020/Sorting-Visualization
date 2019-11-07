@@ -82,6 +82,8 @@ class Sorting
 	nextFrame()
 	{
 		this.waiting = false;
+
+		//console.log("This functin is called");
 	}
 
 	/* To update the positions of the bars if animating */
