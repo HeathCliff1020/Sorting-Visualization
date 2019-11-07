@@ -58,7 +58,7 @@ var bars;
 var sort;
 var done;
 
-var animating = true;
+var animating = false;
 
 createArray();
 
@@ -76,15 +76,16 @@ requestAnimationFrame(animationLoop);
 
 function animationLoop(timeStamp)
 {
-	if (!done)
+	if (animating)
 	{
-		done = sort.update(timeStamp);
-		sort.draw(ctx, ctx2);
+		if (!done)
+		{
+			done = sort.update(timeStamp);
+			sort.draw(ctx, ctx2);
+		}
 	}
 
-
-	if (animating)
-		requestAnimationFrame(animationLoop);
+	requestAnimationFrame(animationLoop);
 }
 
 
@@ -120,6 +121,8 @@ function createArray()
 		startX += sort.lineOffset;
 	}
 
+	sort.draw(ctx, ctx2);
+
 }
 
 
@@ -129,8 +132,6 @@ function createArray()
 	  	
 	  	1. Stops the animation.
 	  	2. Creates the new array with the updated value of numberOfBars.
-	  	3. Starts the animation again.
-
 */
 
 function recreateBars(changedValue)
@@ -138,15 +139,21 @@ function recreateBars(changedValue)
 	// 1.
 	animating = false;		
 
-
 	//2.
 	numOfBars = changedValue;
 	barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 	barWidth = barGap;
 	createArray();
+}
 
-
-	//3.
+/*Starts the animating*/
+function startAnimation()
+{
 	animating = true;
+}
 
+/*Pauses the animation*/
+function pauseAnimation()
+{
+	animating = false;
 }

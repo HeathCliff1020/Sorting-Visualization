@@ -245,6 +245,7 @@ body
 	grid-template-columns:50% 5% 45%;
 	align-items: center;
 	//grid-auto-rows:minmax(100px, auto);
+	margin-bottom: 2em;
 }
 
 #myCanvas

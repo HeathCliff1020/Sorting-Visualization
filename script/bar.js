@@ -60,12 +60,22 @@ class Bar
 
 		ctx.font = "8pt Calibari";
 
-		if( ctx.measureText('999').width < this.width )
+		//if( ctx.measureText('999').width < this.width )
+		if (true)
 		{ 
-			ctx.fillStyle = "#000";
+			ctx.fillStyle = "#248f24";
+			ctx.font = "bold 11pt Calibari"
 			var textHeight = parseInt(ctx.font.match(/\d+/), 10);
 			var textWidth = ctx.measureText(this.len.toString()).width;
-			var textY = this.yPos - ( (this.len * 3) - textHeight) / 2;
+
+			var textY;
+
+			//if (textHeight >= (this.len * 3) + 5)
+			if (true)
+				textY = this.yPos - this.len * 3 - textHeight + 5;
+			else
+				textY = this.yPos - ( (this.len * 3) - textHeight) / 2;
+			
 			var textX = this.xPos + (this.width - textWidth) / 2;
 			ctx.fillText(this.len.toString(), textX, textY);
 		}
