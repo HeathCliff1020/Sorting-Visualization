@@ -97,7 +97,7 @@ class Sorting
 	draw(ctx, ctx2)
 	{
 
-		console.log('This function is supposed to be overriden.');
+		//console.log('This function is supposed to be overriden.');
 
 		if (!this.waiting || !this.isFrameByFrame)
 		{
@@ -185,4 +185,38 @@ class Sorting
 		else if (bar.xPos < bar.targetX)
 			bar.xPos += bar.moveSpeed / deltaTime;
 	}
+
+
+	/* Draw function that is to be called by the functions other than update()
+
+		Purpose : Called when things change outside the update and chnges are to be 
+					reflected without affecting the animation
+				   
+	    Function : only draws the bars without affcting any varialbes.
+	*/
+	onlyDraw(ctx, ctx2)
+	{
+		if (!this.waiting || !this.isFrameByFrame)
+		{
+
+			//For the second canvas
+
+			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+			drawArrayBox(ctx2);
+
+			//For the second canvas	
+
+
+			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+			this.drawIndex(ctx, ctx2);
+
+			for (var i = 0; i < this.len; i++)
+				this.bars[i].draw(ctx);
+
+			if (!this.isAnimating)
+				this.waiting = true;
+		}
+	}
+
 } 

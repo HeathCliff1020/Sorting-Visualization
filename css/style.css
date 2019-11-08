@@ -114,7 +114,7 @@ body
 
 .sorting_selection::before
 {
-	content: 'Algorithm';
+	//content: 'Algorithm';
 	display: block;
 	color: yellow;
 	position: absolute;
@@ -125,7 +125,7 @@ body
 
 .speed_selection::before
 {
-	content: 'Speed';
+	//content: 'Speed';
 	display: block;
 	color: yellow;
 	width: 100%;

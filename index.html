@@ -41,12 +41,23 @@
 						<option>Fast</option>
 					</select>
 				</li>
-				<li class="speed_selection">
-					<select id="numbers">
-					</select>
-				</li>
+	
 				<button  onclick="pauseAnimation()">Pause</button>
 				<button onclick="startAnimation()">Play</button>
+
+				<li>
+					<input type="checkbox" id="changeNumber" onclick="changeValues(this.checked)" />
+				</li>
+
+				<li class="speed_selection">
+					<select id="index">
+					</select>
+				</li>
+
+				<li class="speed_selection">
+					<input type="range" min="1" max="100" class="slider" id="numbers" oninput="changeArrayElement()" />
+					</select>
+				</li>
 			</ul>
 
 			<div class="slidecontainer">
@@ -79,6 +90,8 @@
 		<canvas id="myCanvas2" height="400" width="500">
 		</canvas>
 	</div>
+
+	<image src="images/up-arrow.png" id="upArrow" style="display:none;" onload="loadImage()"/>
 
 	<script type="text/javascript" src="script/myFunctions.js"></script>
 	<script type="text/javascript" src="script/bar.js"></script>

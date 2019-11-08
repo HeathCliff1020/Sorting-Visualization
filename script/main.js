@@ -56,12 +56,15 @@ var barWidth = barGap;
 var bars;
 var sort;
 var done;
+var upArrowImg = null;
 
 var animating = false;
-
+var changingValue = document.getElementById("changeNumber").checked;
 var isFrameByFrame = document.getElementById("frameByFrame").checked;
 
-createArray();
+fillIndexSelection();
+
+createArray(1);
 
 /*
 	Setting the event listener for the button that moves the animation forward frame by frame.
@@ -77,12 +80,26 @@ requestAnimationFrame(animationLoop);
 
 function animationLoop(timeStamp)
 {
-	if (animating || isFrameByFrame)
+	if (!changingValue)
 	{
-		if (!done)
+
+		if (animating || isFrameByFrame)
 		{
-			done = sort.update(timeStamp);
-			sort.draw(ctx, ctx2);
+			if (!done)
+			{
+				done = sort.update(timeStamp);
+				sort.draw(ctx, ctx2);
+			}
+		}
+	}
+	else
+	{
+		if (upArrowImg != null)
+		{
+			var index = document.getElementById("index").selectedIndex;
+			var x = bars[index].numberXPos;
+			ctx2.drawImage(upArrowImg, x - 10, canvasHeight2 - 70, bars[index].len, 70);
+			console.log(x);
 		}
 	}
 
@@ -90,18 +107,35 @@ function animationLoop(timeStamp)
 }
 
 
-// Finction to create the new Array with random values
+/* Finction to create the new Array with random values
 
-function createArray()
+		The mode parameter tells weather to generate random values ( for mode = 1 )
+		or only to create the new sorting object and keeping the previous values as they are. (for mode = 0)
+	
+*/
+
+function createArray(mode)
 {
-	bars = new Array(numOfBars);
+	if (mode == 1)
+		bars = new Array(numOfBars);
 
 	var x = startBarX;
 	var y = startBarY;
+
+
 	for (var i = 0; i < numOfBars; i++)
 	{
-		var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
-		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+		if (mode == 1)
+		{
+			var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
+			bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+		}
+		else
+		{
+			bars[i].xPos = bars[i].targetX = x;
+			bars[i].isCompaired = false;
+			bars[i].useThird = false;
+		}
 
 		bars[i].index = i;
 
@@ -112,7 +146,18 @@ function createArray()
 
 	done = false;		// variable for checking if the sorting is completed or not
 
+	setPosInBox();
 
+	sort.draw(ctx, ctx2);
+
+	animating = false;
+	sort.isFrameByFrame = isFrameByFrame;
+	changingValue = document.getElementById("changeNumber").checked;
+}
+
+/* Function to set the array element positions in the array bar (In the second canvas) */ 
+function setPosInBox()
+{
 	//Settirg the values for the positions of array element in the box (container)
 	var startX = (sort.lineOffset / 2) + sort.horizMargin;
 	for (var i = 0; i < bars.length; i++)
@@ -121,12 +166,27 @@ function createArray()
 		bars[i].numberXPos = startX;
 		startX += sort.lineOffset;
 	}
-	
-	sort.draw(ctx, ctx2);
-
-	sort.isFrameByFrame = isFrameByFrame;
 }
 
+/* Function setting the values for the array element selectors .*/
+
+function fillIndexSelection()
+{
+
+	for(var i=0; i < numOfBars; i++){
+
+	    	var select = document.getElementById("index");
+		    var option = document.createElement("OPTION");
+		    select.options.add(option);
+		    option.text = i;
+		    option.value = i;
+	}
+}
+
+function emptySelections()
+{
+	$('#index').empty();
+}
 
 /* Function to change the number of bars that are being sorted.
 
@@ -145,7 +205,10 @@ function recreateBars(changedValue)
 	numOfBars = changedValue;
 	barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 	barWidth = barGap;
-	createArray();
+	createArray(1);
+
+	emptySelections();
+	fillIndexSelection();
 }
 
 /*Starts the animating*/
@@ -168,4 +231,45 @@ function changeFrameByFrame(changedValue)
 	isFrameByFrame = changedValue;
 
 	sort.isFrameByFrame = isFrameByFrame;
+	animating = false;
+}
+
+
+/* Function to change the array element */ 
+
+function changeArrayElement()
+{
+	if (changingValue)
+	{
+		var index = document.getElementById("index");
+		var selection = document.getElementById("numbers");
+
+		bars[index.selectedIndex].len = selection.value;
+
+		sort.draw(ctx, ctx2);
+	}
+}
+
+/*
+
+	This function is for the value change mode
+
+*/
+function changeValues(checkValue)
+{
+	changingValue = checkValue;
+	animating = false;
+	sort.draw(ctx, ctx2);
+
+	if (checkValue)
+	{
+		createArray(0);
+	}
+}
+
+
+//Loads the up arrow image
+function loadImage()
+{
+	upArrowImg = document.getElementById("upArrow");
 }
