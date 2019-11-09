@@ -94,13 +94,15 @@ function animationLoop(timeStamp)
 	}
 	else
 	{
+		/*
 		if (upArrowImg != null)
 		{
 			var index = document.getElementById("index").selectedIndex;
-			var x = bars[index].numberXPos;
-			ctx2.drawImage(upArrowImg, x - 10, canvasHeight2 - 70, bars[index].len, 70);
+			var x = bars[index].numberXPos - (sort.lineOffset / 4);
+			ctx2.drawImage(upArrowImg, x - 10, canvasHeight2 - 70, sort.lineOffset - 5, 70);
 			console.log(x);
 		}
+		*/
 	}
 
 	requestAnimationFrame(animationLoop);
@@ -116,8 +118,12 @@ function animationLoop(timeStamp)
 
 function createArray(mode)
 {
-	if (mode == 1)
-		bars = new Array(numOfBars);
+	var oldBars;
+
+	if (mode == 0)
+		oldBars = bars;
+
+	bars = new Array(numOfBars);
 
 	var x = startBarX;
 	var y = startBarY;
@@ -125,18 +131,17 @@ function createArray(mode)
 
 	for (var i = 0; i < numOfBars; i++)
 	{
+		var length;
+
 		if (mode == 1)
 		{
-			var length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
-			bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+			length = Math.floor(Math.random() * (barMaxLenght - barMinLength + 1)) + barMinLength;
 		}
 		else
-		{
-			bars[i].xPos = bars[i].targetX = x;
-			bars[i].isCompaired = false;
-			bars[i].useThird = false;
-		}
+			length = oldBars[i].len;
 
+		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+		
 		bars[i].index = i;
 
 		x += barWidth + barGap;
@@ -148,7 +153,7 @@ function createArray(mode)
 
 	setPosInBox();
 
-	sort.draw(ctx, ctx2);
+	sort.onlyDraw(ctx, ctx2);
 
 	animating = false;
 	sort.isFrameByFrame = isFrameByFrame;
@@ -164,6 +169,8 @@ function setPosInBox()
 	{
 		bars[i].numberYPos = sort.boxStartY + (sort.boxWidth / 2);
 		bars[i].numberXPos = startX;
+		bars[i].boxWidth = sort.boxWidth;
+		bars[i].boxStartY = sort.boxStartY;
 		startX += sort.lineOffset;
 	}
 }
@@ -227,6 +234,10 @@ function pauseAnimation()
 
 function changeFrameByFrame(changedValue)
 {
+
+	for (var i = 0; i < bars.length; i++)
+		console.log(i + " :-" + bars[i].len);
+
 	//console.log(changedValue);
 	isFrameByFrame = changedValue;
 
@@ -244,9 +255,9 @@ function changeArrayElement()
 		var index = document.getElementById("index");
 		var selection = document.getElementById("numbers");
 
-		bars[index.selectedIndex].len = selection.value;
+		bars[index.selectedIndex].len = eval(selection.value);
 
-		sort.draw(ctx, ctx2);
+		sort.onlyDraw(ctx, ctx2);
 	}
 }
 
@@ -259,7 +270,7 @@ function changeValues(checkValue)
 {
 	changingValue = checkValue;
 	animating = false;
-	sort.draw(ctx, ctx2);
+	sort.onlyDraw(ctx, ctx2);
 
 	if (checkValue)
 	{

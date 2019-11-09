@@ -21,6 +21,7 @@ class Sorting
 		this.canvasWidth2 = canvasWidth2;	//Width of the second canvas
 
 		this.isAnimating = true;		// Tells if the bars are moving
+		this.comparing = false;
 		this.bar1 = null;				// Moving bar 1	
 		this.bar2 = null;				// Moving bar 2
 
@@ -44,6 +45,11 @@ class Sorting
 		this.lineOffset = (this.canvasWidth2 - (2 * this.horizMargin)) / this.bars.length;		// lineOffset is the lenght of the containers for each array element
 		this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
 		this.boxLength = this.canvasWidth2 - (2 * this.horizMargin);	//length of the array box
+
+		this.numOfComparisions = 0;
+		this.numOfSwaps = 0;
+
+		//this.animationStoped = false;		// for retaiming the colors one frame longer in case of animation
 	}
 
 	//Draw the rectangular box inside which the array elements can reside
@@ -82,7 +88,7 @@ class Sorting
 	nextFrame()
 	{
 		this.waiting = false;
-
+		this.comparing = false;
 		//console.log("This functin is called");
 	}
 
@@ -105,7 +111,7 @@ class Sorting
 			//For the second canvas
 
 			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-			drawArrayBox(ctx2);
+			this.drawArrayBox(ctx2);
 
 			//For the second canvas	
 
@@ -115,7 +121,7 @@ class Sorting
 			this.drawIndex(ctx, ctx2);
 
 			for (var i = 0; i < this.len; i++)
-				this.bars[i].draw(ctx);
+				this.bars[i].draw(ctx, ctx2);
 
 			if (!this.isAnimating)
 				this.waiting = true;
@@ -153,6 +159,8 @@ class Sorting
 		this.bars[first].targetX = this.bars[second].xPos;
 		this.bars[second].targetX = this.bars[first].xPos;
 
+		this.numOfSwaps++;
+
 		/* Redundant
 		this.bar1 = this.bars[j];
 		this.bar2 = this.bars[j + 1];*/
@@ -169,7 +177,17 @@ class Sorting
 		{
 			this.bar1.isCompaired = false;
 			this.bar2.isCompaired = false;
+			this.bar1.useThird = true;
+			this.bar2.useThird = true;
 			this.isAnimating = false;
+
+			var temp = this.bar1.numberXPos;
+			this.bar1.numberXPos = this.bar2.numberXPos;
+			this.bar2.numberXPos = temp;
+
+			temp = this.bar1.compairednumberXPos;
+			this.bar1.compairednumberXPos = this.bar2.compairednumberXPos;
+			this.bar2.compairednumberXPos = temp;
 		}
 	}
 
@@ -202,7 +220,7 @@ class Sorting
 			//For the second canvas
 
 			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-			drawArrayBox(ctx2);
+			this.drawArrayBox(ctx2);
 
 			//For the second canvas	
 
@@ -212,11 +230,25 @@ class Sorting
 			this.drawIndex(ctx, ctx2);
 
 			for (var i = 0; i < this.len; i++)
-				this.bars[i].draw(ctx);
+				this.bars[i].draw(ctx, ctx2);
 
 			if (!this.isAnimating)
 				this.waiting = true;
 		}
+	}
+
+
+	unColorBars()
+	{
+
+		if (this.bar1 != null && this.bar2 != null)
+		{
+			this.bar1.useThird = false;
+			this.bar2.useThird = false;
+			this.bar1.isCompaired = false;
+			this.bar2.isCompaired = false;
+		}
+
 	}
 
 } 

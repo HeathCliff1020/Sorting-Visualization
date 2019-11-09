@@ -36,7 +36,11 @@ class Bar
 		//positions for the array element element in the box
 		this.numberXPos = 0;		
 		this.numberYPos = 0;
-		this.index = 0;		
+		this.index = 0;	
+
+		this.boxStartY = 0;
+		this.boxWidth = 0;
+		this.compairednumberXPos = 0;	
 	}
 
 	/* draws a particular bar onto the screen*/
@@ -54,7 +58,22 @@ class Bar
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
 
-		ctx2.fillStyle = "#0066cc";
+		if (this.isCompaired || this.useThird)
+		{
+			if (this.useThird)
+				ctx2.fillStyle = "#f00";
+
+			var startY = this.boxStartY + this.boxWidth;
+			var lineLen = 30;
+			var width = ctx2.lineWidth / 2;
+			var xWidth = this.numberXPos - this.compairednumberXPos;
+			drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
+			drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
+			ctx2.fillStyle = "#000";
+		}
+		else
+			ctx2.fillStyle = "#0066cc";
+		
 		ctx2.font = "bold 10pt Calibari";
 		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 
