@@ -53,88 +53,147 @@ class InsertionSort extends Sorting
 			return this.done;
 		}
 
-		if (!this.isAnimating)
+		if (!this.waiting || !this.isFrameByFrame)
 		{
-			// changing back the colors of the animating bars to normal
-			for (var i = 0; i < this.animatingBars.length; i++)
+
+			if (!this.isAnimating)
 			{
+				// changing back the colors of the animating bars to normal
+				for (var i = 0; i < this.animatingBars.length; i++)
+				{
 
-				// resetting the key bar movespeed to normal	
-				this.key.moveSpeed = this.key.baseMoveSpeed;
+					// resetting the key bar movespeed to normal	
+					this.key.moveSpeed = this.key.baseMoveSpeed;
 
-				this.animatingBars[i].useThird = false;
-				this.animatingBars[i].isCompaired = false;
+					this.animatingBars[i].useThird = false;
+					this.animatingBars[i].isCompaired = false;
+				}
+
+				//Empting the animatngBars array
+				this.animatingBars = [];
+
+				if (this.outterVar < this.len)
+				{
+					this.key = this.bars[this.outterVar];
+					// changing the color of the key element
+					this.bars[this.outterVar].useThird = true;  
+			        this.innerVar = this.outterVar - 1;
+
+			        while (this.innerVar >= 0 && this.bars[this.innerVar].len > this.key.len) 
+			        {  
+			        	// changing color of the compaired bar
+			        	this.bars[this.innerVar].isCompaired = true;
+			        	this.bars[this.innerVar].compairednumberXPos = -1;
+			        	// moving the bar to the next index
+			            this.bars[this.innerVar].targetX = this.bars[this.innerVar + 1].xPos;
+			            // puhing the bar to the animating list of bar
+			            this.animatingBars.push(this.bars[this.innerVar]);
+			            //actually moving the bar one index ahead in the array
+			            this.bars[this.innerVar + 1] = this.bars[this.innerVar];
+
+			            this.innerVar = this.innerVar - 1;  
+			        }
+
+			        //Setting the values for drawing the feedback lines
+			        if (this.animatingBars.length > 0)
+			        {
+			        	this.key.compairednumberXPos = this.animatingBars[this.animatingBars.length - 1].numberXPos;
+			        	this.animatingBars[this.animatingBars.length - 1].compairednumberXPos = this.key.numberXPos;
+
+			        	this.comparing = true;
+			        }
+			        else 
+			        {
+			        	this.key.compairednumberXPos = -1;
+			        }
+
+			        // updating the target position of the key element(bar)
+			        this.key.targetX = this.bars[this.innerVar + 1].xPos;
+			        // placing the key element(bar) in its correct position  
+			        this.bars[this.innerVar + 1] = this.key;		        
+			        //adding the key element to the animating list
+			        this.animatingBars.push(this.key);	
+
+			        this.outterVar++;
+
+			        this.isAnimating = true;
+
+			        this.key.moveSpeed = this.key.baseMoveSpeed * (this.animatingBars.length);
+				}
+				else
+				{
+					this.done = true;
+				}
 			}
-
-			//Empting the animatngBars array
-			this.animatingBars = [];
-
-			if (this.outterVar < this.len)
+			else if (this.animatingBars.length > 0)
 			{
-				this.key = this.bars[this.outterVar];
-				// changing the color of the key element
-				this.bars[this.outterVar].useThird = true;  
-		        this.innerVar = this.outterVar - 1;  
-		  
-		        while (this.innerVar >= 0 && this.bars[this.innerVar].len > this.key.len) 
-		        {  
-		        	// changing color of the compaired bar
-		        	this.bars[this.innerVar].isCompaired = true;
-		        	// moving the bar to the next index
-		            this.bars[this.innerVar].targetX = this.bars[this.innerVar + 1].xPos;
-		            // puhing the bar to the animating list of bar
-		            this.animatingBars.push(this.bars[this.innerVar]);
-		            //actually moving the bar one index ahead in the array
-		            this.bars[this.innerVar + 1] = this.bars[this.innerVar];  
-		            this.innerVar = this.innerVar - 1;  
-		        }
-		        // updating the target position of the key element(bar)
-		        this.key.targetX = this.bars[this.innerVar + 1].xPos;
-		        // placing the key element(bar) in its correct position  
-		        this.bars[this.innerVar + 1] = this.key;		        
-		        //adding the key element to the animating list
-		        this.animatingBars.push(this.key);	
+				if (!this.comparing || !this.isFrameByFrame)
+				{
+					let flag = true;
+					for (var i = 0; i < this.animatingBars.length; i++)
+					{
+						if (this.animatingBars[i].xPos != this.animatingBars[i].targetX)
+						{
+							flag = false;
+							this.update2(this.animatingBars[i], deltaTime);
+						}
+					}
 
-		        this.outterVar++;
-		        this.isAnimating = true;
+					if (flag)
+					{
+						this.isAnimating = false;
+						this.swapped = true;
 
-		        this.key.moveSpeed = this.key.baseMoveSpeed * (this.animatingBars.length);
+						for (var i = 0; i < this.animatingBars.length - 1; i++)
+						{
+							this.animatingBars[i].numberXPos += this.animatingBars[i].lineOffset;
+							this.animatingBars[i].index++;
+						}
+						this.key.numberXPos -= (this.key.lineOffset * (this.animatingBars.length - 1));
+
+						if (this.animatingBars.length > 1)
+						{
+							this.key.index = this.animatingBars[0].index - 1;
+							this.key.compairednumberXPos = this.animatingBars[0].numberXPos;
+							this.animatingBars[0].compairednumberXPos = this.key.numberXPos;
+
+							if (this.animatingBars.length != 2)
+								this.animatingBars[this.animatingBars.length - 2].compairednumberXPos = -1;
+						}
+					}
+
+					this.comparing = false;
+				}
 			}
 			else
 			{
-				this.done = true;
-			}
-		}
-		else if (this.animatingBars.length > 0)
-		{
-			let flag = true;
-			for (var i = 0; i < this.animatingBars.length; i++)
-			{
-				if (this.animatingBars[i].xPos != this.animatingBars[i].targetX)
-				{
-					flag = false;
-					this.update2(this.animatingBars[i], deltaTime);
-				}
-			}
-
-			if (flag)
-			{
 				this.isAnimating = false;
-
-				for (var i = 0; i < this.animatingBars.length; i++)
-				{
-					this.animatingBars[i].numberXPos += this.animatingBars[i].lineOffset;
-				}
-				this.key.numberXPos -= (this.key.lineOffset * this.animatingBars.length);
 			}
-		}
-		else
-		{
-			this.isAnimating = false;
 		}
 
 		return false;
 
+	}
+
+	animationMessage()
+	{
+		return "Moving Elements.";
+	}
+
+	swappingMessage()
+	{
+		if (this.animatingBars.length > 1)
+			return this.key.len + " placed in its correct position.";
+		else
+			return this.key.len + " is already in its correct position.";
+	}
+
+	comparingMessage()
+	{
+		if (this.animatingBars.length > 1)
+			return this.key.len + " should be at index " + this.animatingBars[this.animatingBars.length - 2].index;
+		else
+			return " ";
 	}
 
 }

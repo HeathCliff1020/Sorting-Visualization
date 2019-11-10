@@ -98,8 +98,11 @@ class Bar
 			var lineLen = 30;
 			var width = ctx2.lineWidth / 2;
 			var xWidth = this.numberXPos - this.compairednumberXPos;
-			drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
-			drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
+			if (this.compairednumberXPos != -1)
+			{
+				drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
+				drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
+			}
 			ctx2.fillStyle = "#000";
 		}
 		else

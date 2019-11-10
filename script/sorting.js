@@ -20,7 +20,7 @@ class Sorting
 		this.canvasHeight2 = canvasHeight2;	//Height of the second canvas
 		this.canvasWidth2 = canvasWidth2;	//Width of the second canvas
 
-		this.isAnimating = true;		// Tells if the bars are moving
+		this.isAnimating = false;		// Tells if the bars are moving
 		this.comparing = false;
 		this.swapped = false;
 		this.bar1 = null;				// Moving bar 1	
@@ -100,33 +100,23 @@ class Sorting
 			startX += this.lineOffset;
 		}
 
-		if (this.bar1 != null)
+		if (this.done)
 		{
-			var startY = this.bar1.boxStartY + this.bar1.boxWidth;
-			var whichBar;	// the bar whose numberxPos is less
-
-			if (this.bar1.numberXPos < this.bar2.numberXPos)
-				whichBar = this.bar1;
-			else
-				whichBar = this.bar2;
-
-			if (this.done)
-			{
-				this.printMessage(ctx, "Array Sorted", this.canvasHeight2 - 25);
-			}
-			else if (this.isAnimating && !this.comparing)
-			{
-				this.printMessage(ctx, this.animationMessage(), this.canvasHeight2 - 25);
-			}
-			else if (this.comparing)
-			{
-				this.printMessage(ctx, this.comparingMessage(), this.canvasHeight2 - 25);
-			}	
-			else if (this.swapped)
-			{
-				this.printMessage(ctx, this.swappingMessage(), this.canvasHeight2 - 25);
-			}
+			this.printMessage(ctx, "Array Sorted", this.canvasHeight2 - 25);
 		}
+		else if (this.isAnimating && !this.comparing)
+		{
+			this.printMessage(ctx, this.animationMessage(), this.canvasHeight2 - 25);
+		}
+		else if (this.comparing)
+		{
+			this.printMessage(ctx, this.comparingMessage(), this.canvasHeight2 - 25);
+		}	
+		else if (this.swapped)
+		{
+			this.printMessage(ctx, this.swappingMessage(), this.canvasHeight2 - 25);
+		}
+
 	}
 
 	abs(num)
@@ -158,7 +148,7 @@ class Sorting
 		//console.log('This function is supposed to be overriden.');
 
 		if (!this.waiting || !this.isFrameByFrame)
-	{
+		{
 
 			//For the second canvas
 
