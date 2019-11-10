@@ -49,7 +49,7 @@ class InsertionSort extends Sorting
 		
 		if (this.done) 
 		{
-			alert("Sorted");
+			this.resetFlags();	
 			return this.done;
 		}
 
@@ -118,7 +118,15 @@ class InsertionSort extends Sorting
 			}
 
 			if (flag)
+			{
 				this.isAnimating = false;
+
+				for (var i = 0; i < this.animatingBars.length; i++)
+				{
+					this.animatingBars[i].numberXPos += this.animatingBars[i].lineOffset;
+				}
+				this.key.numberXPos -= (this.key.lineOffset * this.animatingBars.length);
+			}
 		}
 		else
 		{

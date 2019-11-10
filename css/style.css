@@ -268,7 +268,7 @@ body
 #myCanvas2
 {
 	background: rgba(0, 0, 0, 0);
-	border: 2px solid rgba(0, 0, 0, 1);
+	//border: 2px solid rgba(0, 0, 0, 1);
 	margin-left: 2em;
 }
 

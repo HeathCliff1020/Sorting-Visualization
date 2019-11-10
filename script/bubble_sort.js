@@ -67,7 +67,7 @@ class BubbleSort extends Sorting
 		if (this.done) 
 		{
 			//alert("Sorted");
-			this.unColorBars();
+			this.resetFlags();
 			return this.done;
 		}
 
@@ -79,7 +79,6 @@ class BubbleSort extends Sorting
 				if ( this.innerVar < this.len - 1 - this.outterVar )
 				{
 					this.compareBars();
-					this.comparing = true;
 				}
 				else
 				{
@@ -90,7 +89,8 @@ class BubbleSort extends Sorting
 					else
 					{
 						this.compareBars();
-						this.comparing = true;
+				
+						this.bars[this.bars.length - this.outterVar].useFourth = true;
 					}
 				}
 			}
@@ -100,7 +100,10 @@ class BubbleSort extends Sorting
 				
 				//Update the positions of the bars
 				if (!this.comparing || !this.isFrameByFrame)
+				{
+					this.comparing = false;
 					this.animate(deltaTime);
+				}
 			}
 			else
 			{
@@ -111,10 +114,22 @@ class BubbleSort extends Sorting
 		return false;
 	}
 
+	
 	compareBars()
 	{
+		this.swapped = false;
 
-		this.unColorBars();
+		if (this.bar1 != null && this.bar2 != null)
+		{
+			this.bar1.useThird = false;
+			this.bar1.isCompaired = false;
+			this.bar2.useThird = false;
+			this.bar2.isCompaired = false;
+		} 
+
+		this.comparing = true;
+		this.isAnimating = false;
+		this.Swapped = false;
 
 		this.bar1 = this.bars[this.innerVar];
 		this.bar2 = this.bars[this.innerVar + 1];
@@ -131,6 +146,30 @@ class BubbleSort extends Sorting
 		}
 		this.innerVar++;
 		this.numOfComparisions++;
+	}
+
+	animationMessage()
+	{
+		return "Swapping " + this.bar1.len + " and " + this.bar2.len;
+	}
+
+	swappingMessage()
+	{
+		return "Swapped " + this.bar2.len + " and " + this.bar1.len;
+	}
+
+	comparingMessage()
+	{
+		var msg = "Comparing : ";
+
+		if (this.bar1.len > this.bar2.len)
+			msg += this.bar1.len + " > " + this.bar2.len + ", so will be swapped.";
+		else if (this.bar1.len < this.bar2.len) 
+			msg += this.bar1.len + " < " + this.bar2.len + ", so not be swapped.";
+		else
+			msg += this.bar1.len + " = " + this.bar2.len + ", so not be swapped.";
+
+		return msg;
 	}
 
 }

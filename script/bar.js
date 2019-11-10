@@ -4,7 +4,7 @@
 
 class Bar
 {
-	constructor(xPos, yPos, width, len, color, cmpColor, color3)
+	constructor(xPos, yPos, width, len, color, cmpColor, color3, color4, color5, color6)
 	{
 		this.len = len;				// length of the bar
 		this.width = width;			// width of the bar
@@ -14,11 +14,15 @@ class Bar
 		this.cmpColor = cmpColor;	// color of the bar when compired
 		this.color3 = color3;		// color some other purposes (like
 									// for the key-bar(element that is to be inserted in the sorted array) in insertion sort)
-
+		this.color4 = color4;				
+		this.color5 = color5;
+		this.color6 = color6;			
 
 		this.isCompaired = false;	// flag for compairing color
 		this.useThird = false;		// flag for third color
-
+		this.useFourth = false; 	// to use the fourthColor
+		this.finishColor = false;
+		this.finishColor2 = false;
 
 		// for calculating speed for some special bars (value 
 		// 	does not change)
@@ -40,7 +44,9 @@ class Bar
 
 		this.boxStartY = 0;
 		this.boxWidth = 0;
-		this.compairednumberXPos = 0;	
+		this.lineOffset = 0;
+		this.compairednumberXPos = 0;
+		
 	}
 
 	/* draws a particular bar onto the screen*/
@@ -50,6 +56,12 @@ class Bar
 		{
 			ctx.fillStyle = this.color3;
 		}
+		else if (this.useFourth)
+			ctx.fillStyle = this.color4;
+		else if (this.finishColor)
+			ctx.fillStyle = this.color5;
+		else if (this.finishColor2)
+			ctx.fillStyle = this.color6;
 		else if (!this.isCompaired)
 			ctx.fillStyle = this.color;
 		else 
@@ -57,6 +69,25 @@ class Bar
 		ctx.fillRect(this.xPos, this.yPos - (this.len * 3), this.width, (this.len * 3));
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
+
+		if (this.useFourth || this.finishColor || this.finishColor2 || this.isCompaired || this.useThird)
+		{
+			if (this.useFourth)
+				ctx2.fillStyle = this.color4;
+			else if (this.finishColor)
+				ctx2.fillStyle = this.color5;
+			else if (this.finishColor2)
+				ctx2.fillStyle = this.color6;
+			else if (this.isCompaired)
+				ctx2.fillStyle = this.cmpColor;
+			else if (this.useThird)
+				ctx2.fillStyle = this.color3;
+			
+			var xPos = this.numberXPos - this.lineOffset / 2;
+			var yPos = this.boxStartY;
+			ctx2.fillRect(xPos, yPos, this.lineOffset, this.boxWidth);
+			drawRect(ctx2, xPos, yPos, this.lineOffset, this.boxWidth);
+		}
 
 		if (this.isCompaired || this.useThird)
 		{
@@ -99,6 +130,13 @@ class Bar
 			ctx.fillText(this.len.toString(), textX, textY);
 		}
 
+	}
+
+	resetFlags()
+	{
+		this.useThird = false;
+		this.isCompaired = false;
+		this.useFourth = false;
 	}
 
 }

@@ -22,6 +22,7 @@ class Sorting
 
 		this.isAnimating = true;		// Tells if the bars are moving
 		this.comparing = false;
+		this.swapped = false;
 		this.bar1 = null;				// Moving bar 1	
 		this.bar2 = null;				// Moving bar 2
 
@@ -40,7 +41,7 @@ class Sorting
 
 		//console.log(this.startX + ' ' + this.increment);
 
-		this.horizMargin = 5;		// horizontal margins (from right and left of the canvas) for the array box
+		this.horizMargin = 10;		// horizontal margins (from right and left of the canvas) for the array box
 		this.boxWidth = 50;			// Width of the box containing the array elements
 		this.lineOffset = (this.canvasWidth2 - (2 * this.horizMargin)) / this.bars.length;		// lineOffset is the lenght of the containers for each array element
 		this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
@@ -50,6 +51,21 @@ class Sorting
 		this.numOfSwaps = 0;
 
 		//this.animationStoped = false;		// for retaiming the colors one frame longer in case of animation
+	}
+
+	animationMessage()
+	{
+		return "Swapping";
+	}
+
+	swappingMessage()
+	{
+		return "Swapped";
+	}
+
+	comparingMessage()
+	{
+		return "Comparing";
 	}
 
 	//Draw the rectangular box inside which the array elements can reside
@@ -82,7 +98,43 @@ class Sorting
 			ctx.font = "bold 10pt Calibari";
 			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, this.boxStartY - 5);
 			startX += this.lineOffset;
-		}	
+		}
+
+		if (this.bar1 != null)
+		{
+			var startY = this.bar1.boxStartY + this.bar1.boxWidth;
+			var whichBar;	// the bar whose numberxPos is less
+
+			if (this.bar1.numberXPos < this.bar2.numberXPos)
+				whichBar = this.bar1;
+			else
+				whichBar = this.bar2;
+
+			if (this.done)
+			{
+				this.printMessage(ctx, "Array Sorted", this.canvasHeight2 - 25);
+			}
+			else if (this.isAnimating && !this.comparing)
+			{
+				this.printMessage(ctx, this.animationMessage(), this.canvasHeight2 - 25);
+			}
+			else if (this.comparing)
+			{
+				this.printMessage(ctx, this.comparingMessage(), this.canvasHeight2 - 25);
+			}	
+			else if (this.swapped)
+			{
+				this.printMessage(ctx, this.swappingMessage(), this.canvasHeight2 - 25);
+			}
+		}
+	}
+
+	abs(num)
+	{
+		if (num > 0)
+			return num;
+		else
+			return -num;
 	}
 
 	nextFrame()
@@ -106,7 +158,7 @@ class Sorting
 		//console.log('This function is supposed to be overriden.');
 
 		if (!this.waiting || !this.isFrameByFrame)
-		{
+	{
 
 			//For the second canvas
 
@@ -180,6 +232,7 @@ class Sorting
 			this.bar1.useThird = true;
 			this.bar2.useThird = true;
 			this.isAnimating = false;
+			this.swapped = true;
 
 			var temp = this.bar1.numberXPos;
 			this.bar1.numberXPos = this.bar2.numberXPos;
@@ -188,6 +241,7 @@ class Sorting
 			temp = this.bar1.compairednumberXPos;
 			this.bar1.compairednumberXPos = this.bar2.compairednumberXPos;
 			this.bar2.compairednumberXPos = temp;
+
 		}
 	}
 
@@ -238,17 +292,28 @@ class Sorting
 	}
 
 
-	unColorBars()
+	//the limit variable tells which bars to ommit for resetting
+	resetFlags()
 	{
 
-		if (this.bar1 != null && this.bar2 != null)
-		{
-			this.bar1.useThird = false;
-			this.bar2.useThird = false;
-			this.bar1.isCompaired = false;
-			this.bar2.isCompaired = false;
-		}
+		for (var i = 0; i < this.bars.length; i++)
+			this.bars[i].resetFlags();
 
+		this.comparing = false;
+		this.isAnimating = false;
+		this.isFrameByFrame = false;
+		this.Swapped = false;
+	}
+
+	printMessage(ctx, msg, textY)
+	{
+
+		ctx.font = "bold 16pt Calibari";
+		ctx.fillStyle = "green";
+		
+		var textX = (this.canvasWidth2 -  ctx.measureText(msg).width) / 2;
+
+		ctx.fillText(msg, textX, textY);
 	}
 
 } 

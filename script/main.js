@@ -12,7 +12,7 @@ var canvasHeight = 400;
 var canvasWidth = 600;
 
 var canvasHeight2 = 200;
-var canvasWidth2 = 500;
+var canvasWidth2 = 550;
 
 
 // variable values to canvas values
@@ -56,7 +56,12 @@ var barWidth = barGap;
 var bars;
 var sort;
 var done;
+var onlyOnce;
 var upArrowImg = null;
+var index;
+var finishSpeed = 2;
+var finish;
+var finishInc; 
 
 var animating = false;
 var changingValue = document.getElementById("changeNumber").checked;
@@ -89,6 +94,36 @@ function animationLoop(timeStamp)
 			{
 				done = sort.update(timeStamp);
 				sort.draw(ctx, ctx2);
+			}
+			else if (onlyOnce)
+			{
+				finish++;
+
+				if (finish >= finishSpeed)
+				{
+					if (finishInc == 1)
+						bars[index].finishColor = true;
+					else
+					{
+						console.log(index);
+						bars[index].finishColor = false;
+						bars[index].finishColor2 = true;
+					}
+					
+					sort.onlyDraw(ctx, ctx2);
+					index += finishInc;
+
+					if (index == bars.length)
+					{
+						finishInc = -1;
+						index = bars.length - 1;
+					}
+
+					if (index == -1)
+						onlyOnce = false;
+
+					finish = 0;
+				}
 			}
 		}
 	}
@@ -140,16 +175,20 @@ function createArray(mode)
 		else
 			length = oldBars[i].len;
 
-		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', ' #b3b300');
+		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', '#b3b300', '#0f0', "#352", "#ff9900");
 		
 		bars[i].index = i;
 
 		x += barWidth + barGap;
 	}
 
-	sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+	sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 
 	done = false;		// variable for checking if the sorting is completed or not
+	onlyOnce = true;
+	index = 0;
+	finish = finishSpeed;
+	finishInc = 1;
 
 	setPosInBox();
 
@@ -171,6 +210,7 @@ function setPosInBox()
 		bars[i].numberXPos = startX;
 		bars[i].boxWidth = sort.boxWidth;
 		bars[i].boxStartY = sort.boxStartY;
+		bars[i].lineOffset = sort.lineOffset;
 		startX += sort.lineOffset;
 	}
 }
