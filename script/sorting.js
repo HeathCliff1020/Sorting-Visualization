@@ -258,27 +258,24 @@ class Sorting
 	*/
 	onlyDraw(ctx, ctx2)
 	{
-		if (!this.waiting || !this.isFrameByFrame)
-		{
 
-			//For the second canvas
+		//For the second canvas
 
-			ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-			this.drawArrayBox(ctx2);
+		ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+		this.drawArrayBox(ctx2);
 
-			//For the second canvas	
+		//For the second canvas	
 
 
-			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-			this.drawIndex(ctx, ctx2);
+		this.drawIndex(ctx, ctx2);
 
-			for (var i = 0; i < this.len; i++)
-				this.bars[i].draw(ctx, ctx2);
+		for (var i = 0; i < this.len; i++)
+			this.bars[i].draw(ctx, ctx2);
 
-			if (!this.isAnimating)
-				this.waiting = true;
-		}
+		if (!this.isAnimating)
+			this.waiting = true;
 	}
 
 
@@ -299,6 +296,7 @@ class Sorting
 	{
 
 		ctx.font = "bold 16pt Calibari";
+
 		ctx.fillStyle = "green";
 		
 		var textX = (this.canvasWidth2 -  ctx.measureText(msg).width) / 2;

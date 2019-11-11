@@ -78,7 +78,8 @@ document.getElementById('next').addEventListener("click", myFunction);
 
 function myFunction()
 {
-	sort.nextFrame();
+	if (isFrameByFrame)
+		sort.nextFrame();
 }
 
 requestAnimationFrame(animationLoop);
@@ -102,7 +103,10 @@ function animationLoop(timeStamp)
 				if (finish >= finishSpeed)
 				{
 					if (finishInc == 1)
+					{
 						bars[index].finishColor = true;
+						bars[index].finishColor2 = false;
+					}
 					else
 					{
 						console.log(index);
@@ -120,7 +124,11 @@ function animationLoop(timeStamp)
 					}
 
 					if (index == -1)
+					{
 						onlyOnce = false;
+						finishInc = 1;
+						index = 0;
+					}
 
 					finish = 0;
 				}
@@ -182,7 +190,7 @@ function createArray(mode)
 		x += barWidth + barGap;
 	}
 
-	sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+	sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 
 	done = false;		// variable for checking if the sorting is completed or not
 	onlyOnce = true;
