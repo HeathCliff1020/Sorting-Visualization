@@ -205,9 +205,10 @@ function createArray(mode)
 		sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 	else if (whichAlgo == 2)
 		sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
-	else
+	else if (whichAlgo == 3)
 		sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
-
+	else
+		sort = new MergeSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
 
 	done = false;		// variable for checking if the sorting is completed or not
 	onlyOnce = true;
