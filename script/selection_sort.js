@@ -29,10 +29,11 @@ class SelectionSort extends Sorting
 		// for variable i in the selection sort algo.
 		this.outterVar = 0;		
 
-		this.min = 0;
+		this.min = -1; // assigning min to -1 so the the outter varialble will not be incremented the first time
+					   // , the outter variable is incremented early(before animations) if its value is same as min
 
 		this.showingMinimum = false;
-
+		this.tweak = false;	// For handling error when min = outterVar + 1
 	}
 
 	update(timeStamp)
@@ -65,8 +66,14 @@ class SelectionSort extends Sorting
 
 				if (this.outterVar < this.bars.length - 1)		// Loop will run from the first element to the second last element
 				{
-					if (!this.showingMinimum)
+					if (!this.showingMinimum || this.min == this.outterVar)
 					{
+
+						if (this.min == this.outterVar && !this.tweak)
+							this.outterVar++;
+
+						this.tweak = false;
+
 						this.min = this.outterVar;				// assuming the first element is the minimum
 
 						// Finding the minimim element among the remaining unsorted array
@@ -77,6 +84,7 @@ class SelectionSort extends Sorting
 						}
 
 						this.showingMinimum = true;
+
 					}
 					else 
 						this.showingMinimum = false;
@@ -102,6 +110,8 @@ class SelectionSort extends Sorting
 						//setting animation to true for swapping the bars
 						this.isAnimating = true;					
 
+						if (this.min == this.outterVar + 1)
+							this.tweak = true;
 
 						this.outterVar++;
 					}

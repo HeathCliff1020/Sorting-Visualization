@@ -39,6 +39,17 @@ canvasWidth2 = myCanvas2.width;
 /**********************************************/
 
 
+/*	Which Algo stores which sorting algorithm is being used
+
+		1 --> Bubble Sort
+		2 --> Insertion Sort
+		3 --> Selection Sort
+		4 --> Merge Sort
+		5 --> Quick Sort
+
+*/
+var whichAlgo = document.getElementById("select_sort").selectedIndex + 1;
+
 var horizMargin = 25;
 var bottomMargin = 20;
 
@@ -190,7 +201,13 @@ function createArray(mode)
 		x += barWidth + barGap;
 	}
 
-	sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+	if (whichAlgo ==1)
+		sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+	else if (whichAlgo == 2)
+		sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+	else
+		sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+
 
 	done = false;		// variable for checking if the sorting is completed or not
 	onlyOnce = true;
@@ -331,4 +348,12 @@ function changeValues(checkValue)
 function loadImage()
 {
 	upArrowImg = document.getElementById("upArrow");
+}
+
+
+//Changes the algorithm used for sorting
+function changeAlgo()
+{
+	whichAlgo = document.getElementById("select_sort").selectedIndex + 1;
+	createArray(0);
 }
