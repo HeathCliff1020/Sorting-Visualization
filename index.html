@@ -1,111 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
 	<!--<meta http-equiv="refresh" content="1" />-->
-	<meta charset="UTF-8" />
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>Sorting Visualization</title>
 
-	<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
+	<link rel="stylesheet" href="css/style.css">
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
-
-	<script type="text/javascript" src="script/jquery-3.4.1.min.js"></script>
-	<script type="text/javascript" src="script/jquery-ui.js"></script>
-	<script type="text/javascript" src="script/style.js"></script>
-
-	</head>
+</head>
 
 <body>
 
-	<header class="main_header">
+	<nav class="navbar navbar-expand-lg navbar-fixed-top">
 
-		<div class="container">
-			<img class="heading_img" src="images/bg3.png" alt="main-heading">
-		</div>
+		<div class="bg"></div>
 
-		<nav class="head_nav">
-			<ul class="selection">
-				<select class="sorting_selection" id="select_sort" onchange="changeAlgo()">
-					<option>Bubble Sort</option>
-					<option>Insertion Sort</option>
-					<option>Selection Sort</option>
-					<option>Merge Sort</option>
-					<option>Quick Sort</option>
-				</select>
-				<li class="speed_selection">
-					<select>
-						<option>Slow</option>
-						<option>Medium</option>
-						<option>Fast</option>
-					</select>
-				</li>
+	  <h1 class="navbar-brand title">Sorting Visualizer</h1>
+	 
+	  <div class="dropdown">
+		<select class="form-control text-center" id="select_sort" onchange="changeAlgo()">
+			<option>Bubble Sort</option>
+			<option>Selection Sort</option>
+			<option>Insertion Sort</option>
+			<option>Merge Sort</option>
+			<option>Quick Sort</option>
+		</select>
+	  </div>
+
+	  <div class="dropdown">
+		<select class="form-control text-center">
+			<option>Slow</option>
+			<option>Medium</option>
+			<option>Fast</option>
+		</select>
+	  </div>
+
+	  <div class="buttons">
 	
-				<button  onclick="pauseAnimation()">Pause</button>
-				<button onclick="startAnimation()">Play</button>
+	  	<input type="button" value="Play" class="btn form-control" onclick="startAnimation()"/>
+	
+	  	<input type="button" value="Pause" class="btn form-control" onclick="pauseAnimation()"/>
+	
+	  </div>
 
-				<li>
-					<input type="checkbox" id="changeNumber" onclick="changeValues(this.checked)" />
-				</li>
+	  <div class="slidecontainer">
+  		<input type="range" min="5" max="25" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+	  </div>
 
-				<li class="speed_selection">
-					<select id="index">
-					</select>
-				</li>
+	  <input type="range" min="1" max="100" class="slider2" id="numbers" oninput="changeArrayElement()" />
 
-				<li>
-					<input type="range" min="1" max="100" class="slider" id="numbers" oninput="changeArrayElement()" />
-					</select>
-				</li>
-			</ul>
+	  <input type="checkbox" id="frameByFrame" onclick="changeFrameByFrame(this.checked)" />
+	  <input type="checkbox" id="changeNumber" onclick="changeValues(this.checked)" />
 
-			<div class="slidecontainer">
-  				<input type="range" min="5" max="25" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+	  <select id="index">
+	  </select>
+	
+	</nav>
+
+	<div class="container canvasContainer">
+		
+		<div class="row my-row align-items-center">
+			
+			<div class="col-lg-5 my-col">
+				<canvas id="myCanvas" height="400" width="200"></canvas>
 			</div>
 
-			<input type="checkbox" id="frameByFrame" onclick="changeFrameByFrame(this.checked)" /><div id="checkbox_text">Frame By Fame Animation</div>
+			<div class="col-lg-2 my-col-button">
+				<input type="button" value="" id="next" class="align-self-center"/>
+			</div>
 
-		</nav>
+			<div class="col-lg-5 my-col">
+				<canvas id="myCanvas2" height="400" width="200"></canvas>
+			</div>
 
-		<div class="vert_nav">
-			<ul>
-				<li><a href="">Home</a></li>
-				<li><a href="">Something</a></li>
-				<li><a href="">Nothing</a></li>
-				<li><a href="">Everything</a></li>
-			</ul>
 		</div>
 
-		<div class="menu_open">
-			<div class="hamburger"></div>
-		</div>
-
-	</header>
-
-	<div class="canvasContainer">
-		<canvas id="myCanvas" height="400" width="700">
-		</canvas>
-		<input type="button" value="" id="next"/>
-		<canvas id="myCanvas2" height="400" width="500">
-		</canvas>
 	</div>
 
-	<image src="images/up-arrow.png" id="upArrow" style="display:none;" onload="loadImage()"/>
 
 	<script type="text/javascript" src="script/myFunctions.js"></script>
 	<script type="text/javascript" src="script/bar.js"></script>

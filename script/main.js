@@ -11,8 +11,8 @@ ctx2 = myCanvas2.getContext('2d');
 var canvasHeight = 400;
 var canvasWidth = 600;
 
-var canvasHeight2 = 200;
-var canvasWidth2 = 550;
+var canvasHeight2 = 400;
+var canvasWidth2 = 600;
 
 
 // variable values to canvas values
@@ -238,6 +238,11 @@ function setPosInBox()
 		bars[i].boxStartY = sort.boxStartY;
 		bars[i].lineOffset = sort.lineOffset;
 		startX += sort.lineOffset;
+
+		if (whichAlgo == 4)
+		{
+			bars[i].numberYPos += sort.boxAdjustment;
+		}
 	}
 }
 

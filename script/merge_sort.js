@@ -95,64 +95,240 @@ class MergeSort extends Sorting
 
 		this.callStack = [];       // stack to store the starting, mid and end of the array at different splits.
 
-		this.callStack.push( new Info(0, parseInt(this.bars.length / 2), this.bars.length - 1, 0) );
+		this.callStack.push( new Info(0, parseInt((this.bars.length - 1) / 2), this.bars.length - 1, 0) );
+
+		this.tempBoxPadding = 120;
+		this.centerUp = 30;
+		this.boxAdjustment = (this.tempBoxPadding / 2) + (this.boxWidth / 2) - this.centerUp;
+
+		this.splitting = false;
+		this.merging = false;
+
+		this.top = null;		
+		this.temp = new Array(this.bars.length);
+
+		for (var i = 0; i < this.bars.length; i++)
+		{
+			this.temp[i] = null;
+		}
+
+		this.i = 0;
+		this.j = 0;
+		this.k = 0;
+		this.startX2 = 0;
+		this.startX3 = 0;
+
+		this.tempBoxStartY = this.boxStartY - this.tempBoxPadding + this.boxAdjustment;
 	}
 
-	merge(start, mid, end)
+	printNumber(ctx, num, size, xPos, yPos, color)
+	{
+		ctx.fillStyle = color;
+		var font = "bold " + size + "pt Calibari"
+		ctx.font = font;
+		var x = xPos - ctx.measureText(num.toString()).width / 2;
+		var y = yPos + parseInt(ctx.font.match(/\d+/), 10) / 2;
+		ctx.fillText(num.toString(), x, y);
+	}
+
+	drawBoxWithIndex(boxStartY, ctx)
+	{
+		ctx.fillStyle = "#99ff99";
+		ctx.fillRect(this.horizMargin, boxStartY, this.boxLength, this.boxWidth);
+		ctx.lineWidth = 3;
+		ctx.fillStyle = "#000";
+		drawRect(ctx, this.horizMargin, boxStartY, this.boxLength, this.boxWidth);
+		
+		// drawing the divider lines
+
+		var startX = this.lineOffset + this.horizMargin;	// start drawing lines for the offset 
+
+		for (var i = 1; i <= this.bars.length - 1; i++)
+		{
+			drawLine(ctx, startX, boxStartY, startX, boxStartY + this.boxWidth);
+			startX += this.lineOffset;
+		}
+
+		startX = this.horizMargin + (this.lineOffset / 2);
+		for (var i = 0; i < this.len; i++)
+		{
+			ctx.fillStyle = "#000";
+			ctx.font = "bold 10pt Calibari";
+			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, boxStartY - 5);
+			startX += this.lineOffset;
+		}	
+	}
+
+	drawArrayBox(ctx)
+	{
+		//console.log("Draws the box for the array elements.");
+
+		//drawing the box
+
+		this.drawBoxWithIndex(this.boxStartY + this.boxAdjustment, ctx);
+		this.drawBoxWithIndex(this.tempBoxStartY, ctx);
+
+		ctx.font = "bold 20pt Calibari";
+		ctx.fillStyle = "#00f";
+		ctx.fillText("Temporary Array", this.horizMargin, this.tempBoxStartY - 30);
+
+		var size = 10;
+		var x = this.horizMargin + this.lineOffset / 2;
+		var y = this.tempBoxStartY + this.bars[0].boxWidth / 2;
+
+		for (var i = 0; i < this.temp.length; i++)
+		{
+			if (this.temp[i] != null)
+				this.printNumber(ctx, this.temp[i].len, size, x, y, "#00f");
+			x += this.lineOffset;
+		}
+
+
+		var max = -1;
+
+		for ( var i = this.callStack.length - 1; i >= 0 ; i-- )
+		{
+			if (this.callStack[i].start > max)
+			{
+				max = this.callStack[i].end;
+				this.drawSplitLine(this.callStack[i].start, this.callStack[i].end, ctx);
+			}
+		}
+
+		if (this.done)
+		{
+			this.printMessage(ctx, "Array Sorted", this.boxStartY + this.boxWidth + 60);
+		}
+		else if (this.isAnimating && !this.comparing)
+		{
+			this.printMessage(ctx, this.animationMessage(), this.boxStartY + this.boxWidth + 60);
+		}
+		else if (this.comparing)
+		{
+			this.printMessage(ctx, this.comparingMessage(), this.boxStartY + this.boxWidth + 60);
+		}	
+		else if (this.swapped)
+		{
+			this.printMessage(ctx, this.swappingMessage(), this.boxStartY + this.boxWidth + 60);
+		}
+
+	}
+
+	drawSplitLine(start, end, ctx)
+	{
+		var x1 = this.bars[start].numberXPos;
+		var x2 = this.bars[end].numberXPos;
+		var y1 = this.bars[start].numberYPos;
+		var y2 = this.bars[end].numberYPos;
+		var w = this.bars[start].boxWidth;
+		drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
+		drawLine(ctx, x2, y2 + w / 2, x2, y2 + w / 2 + 30);
+		drawLine(ctx, x1, y1 + w / 2 + 30, x2, y2 + w / 2 + 30);
+	}
+
+	merge()
 	{
 
-		var temp = array(this.bars.length);
-		var i = start;
-		var j = mid + 1, k = start;
-
-
-		while (i < mid && j < end)
+		if (!this.merging)
 		{
-			if (this.bars[i].len <= this.bars[j].len)
-				temp[k++] = bars[i++];
+
+			console.log("came here");
+
+			this.i = this.top.start;
+			this.j = this.top.mid + 1;
+			this.k = this.top.start;
+
+			//starting pos for the bor
+			this.startX2 = this.bars[this.top.start].xPos;
+			this.startX3 = this.bars[this.top.start].numberXPos;
+
+			this.merging = true;
+		}
+
+
+		if (this.i > this.top.mid && this.j > this.top.end )
+		{
+			this.merging = false;
+			for (var a = this.top.start; a <= this.top.end; a++)
+			{	
+				this.bars[a] = this.temp[a];
+				this.bars[a].xPos = this.startX2;
+				this.bars[a].numberXPos = this.startX3;
+
+				this.startX2 += (this.bars[a].width * 2 );
+				this.startX3 += this.lineOffset;
+
+				this.temp[a] = null;
+			}
+
+			this.callStack.pop();
+			return; 
+		}
+
+		if (this.i <= this.top.mid && this.j <= this.top.end )
+		{
+
+			if (this.bars[this.i].len <= this.bars[this.j].len)
+				this.temp[this.k++] = this.bars[this.i++];
 			else
-				temp[k++] = bars[j++];
+				this.temp[this.k++] = this.bars[this.j++];
 		}
-
-		while (i < mid)
+		else
 		{
-			temp[k++] = bars[i++];
+			if (this.i <= this.top.mid)
+			{
+				this.temp[this.k++] = this.bars[this.i++];
+			}
+			if (this.j <= this.top.end)
+			{
+				this.temp[this.k++] = this.bars[this.j++];
+			}
 		}
-		while (j < end)
-		{
-			temp[k++] = bars[j++];
-		}
-
-		for (var a = start; a <= end; a++)
-			bars[a] = temp[a];
-
 	}
 
 	update(timeStamp)
 	{
-		while( this.callStack.length > 0 )
-		{
-			var top = this.callStack[this.callStack.length - 1];
 
-			if (top.split == 0)
+		if (this.callStack.length <= 0 )
+			this.done = true;
+
+		else
+		{
+
+			if (this.isFrameByFrame && this.waiting)
+				return;
+
+			if (!this.merging)
 			{
-				if (top.mid + 1 < top.end)
+				this.top = this.callStack[this.callStack.length - 1];
+
+				if (this.top.split == 0)
 				{
-					this.callStack.push( new Info(top.mid + 1, parseInt( (top.mid + 1 + top.end) / 2), top.end, 0 ) );
+					if (this.top.mid + 1 < this.top.end)
+					{
+						this.callStack.push( new Info(this.top.mid + 1, parseInt( (this.top.mid + 1 + this.top.end) / 2), this.top.end, 0 ) );
+					}
+					if (this.top.start < this.top.mid)
+					{
+						this.callStack.push( new Info(this.top.start, parseInt( (this.top.start + this.top.mid) / 2), this.top.mid, 0 ) );		
+					}
+
+					this.top.split = 1;
 				}
-				if (top.start < top.mid)
+				else
 				{
-					this.callStack.push( new Info(top.start, parseInt( (top.start + top.mid) / 2), top.mid, 0 ) );
+					this.merge();
 				}
 			}
+
 			else
 			{
-				this.merge(top.start, top.mid, top.end);
-				this.callStack.pop();
+				this.merge();
 			}
 		}
-
-		this.done = true;
+		
+		
+		return this.done;
 	}
 
 	animationMessage()

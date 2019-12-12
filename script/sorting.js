@@ -102,19 +102,19 @@ class Sorting
 
 		if (this.done)
 		{
-			this.printMessage(ctx, "Array Sorted", this.canvasHeight2 - 25);
+			this.printMessage(ctx, "Array Sorted", this.boxStartY + this.boxWidth + 60);
 		}
 		else if (this.isAnimating && !this.comparing)
 		{
-			this.printMessage(ctx, this.animationMessage(), this.canvasHeight2 - 25);
+			this.printMessage(ctx, this.animationMessage(), this.boxStartY + this.boxWidth + 60);
 		}
 		else if (this.comparing)
 		{
-			this.printMessage(ctx, this.comparingMessage(), this.canvasHeight2 - 25);
+			this.printMessage(ctx, this.comparingMessage(), this.boxStartY + this.boxWidth + 60);
 		}	
 		else if (this.swapped)
 		{
-			this.printMessage(ctx, this.swappingMessage(), this.canvasHeight2 - 25);
+			this.printMessage(ctx, this.swappingMessage(), this.boxStartY + this.boxWidth + 60);
 		}
 
 	}
