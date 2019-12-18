@@ -18,13 +18,13 @@
 
 </head>
 
-<body>
+<body id="mainBody">
 
 	<nav class="navbar navbar-expand-lg navbar-fixed-top">
 
 		<div class="bg"></div>
 
-	  <h1 class="navbar-brand title">Sorting Visualizer</h1>
+	  <h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
 	 
 	  <div class="dropdown">
 		<select class="form-control text-center" id="select_sort" onchange="changeAlgo()">
@@ -44,19 +44,11 @@
 		</select>
 	  </div>
 
-	  <div class="buttons">
-	
-	  	<input type="button" value="Play" class="btn form-control" onclick="startAnimation()"/>
-	
-	  	<input type="button" value="Pause" class="btn form-control" onclick="pauseAnimation()"/>
-	
-	  </div>
-
 	  <div class="slidecontainer">
-  		<input type="range" min="5" max="25" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+  		<input type="range" min="5" max="20" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
 	  </div>
 
-	  <input type="range" min="1" max="100" class="slider2" id="numbers" oninput="changeArrayElement()" />
+	  <input type="range" min="1" max="99" class="slider2" id="numbers" oninput="changeArrayElement()" />
 
 	  <input type="checkbox" id="frameByFrame" onclick="changeFrameByFrame(this.checked)" />
 	  <input type="checkbox" id="changeNumber" onclick="changeValues(this.checked)" />
@@ -66,19 +58,31 @@
 	
 	</nav>
 
-	<div class="container canvasContainer">
+	<div class="container">
 		
+		<div class="row buttons">
+
+			<div class="col-1"">
+				<input type="button" value="Play" class="btn" onclick="startAnimation()"/>
+			</div>
+
+			<div class="col-1">
+	  			<input type="button" value="Pause" class="btn form-control" onclick="pauseAnimation()"/>
+			</div>
+
+		</div>
+
 		<div class="row my-row align-items-center">
 			
-			<div class="col-lg-5 my-col">
+			<div class="col-lg-6 my-col" id="firstCanvas">
 				<canvas id="myCanvas" height="400" width="200"></canvas>
 			</div>
 
-			<div class="col-lg-2 my-col-button">
+			<div class="col-lg-1 my-col-button">
 				<input type="button" value="" id="next" class="align-self-center"/>
 			</div>
 
-			<div class="col-lg-5 my-col">
+			<div class="col-lg-5 my-col" id="secondCanvas">
 				<canvas id="myCanvas2" height="400" width="200"></canvas>
 			</div>
 

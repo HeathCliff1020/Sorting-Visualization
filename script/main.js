@@ -4,15 +4,14 @@ ctx = myCanvas.getContext('2d');
 myCanvas2 = document.getElementById("myCanvas2");
 ctx2 = myCanvas2.getContext('2d');
 
-
 /*	Setting the height of the two canvases	*/
 
 
-var canvasHeight = 400;
-var canvasWidth = 600;
+var canvasHeight = 350;
+var canvasWidth = document.getElementById("firstCanvas").offsetWidth - 12;
 
-var canvasHeight2 = 400;
-var canvasWidth2 = 600;
+var canvasHeight2 = 350;
+var canvasWidth2 = document.getElementById("secondCanvas").offsetWidth;
 
 
 // variable values to canvas values
@@ -55,7 +54,7 @@ var bottomMargin = 20;
 
 var numOfBars = document.getElementById("myRange").value;
 var barMinLength = 1;
-var barMaxLenght = 100;
+var barMaxLenght = 99;
 var startBarX = horizMargin;
 var startBarY = canvasHeight - bottomMargin;
 
@@ -362,4 +361,71 @@ function changeAlgo()
 {
 	whichAlgo = document.getElementById("select_sort").selectedIndex + 1;
 	createArray(0);
+}
+
+elem1 = $("#firstCanvas")[0]; 
+  
+        let resizeObserver1 = new ResizeObserver(() => { 
+            canvasWidth = document.getElementById("firstCanvas").offsetWidth - 12; 
+            myCanvas.width = canvasWidth;
+
+            changePosAndWidth();
+
+            sort.draw(ctx, ctx2);
+    }); 
+  
+resizeObserver1.observe(elem1);
+
+elem2 = $("#secondCanvas")[0]; 
+  
+        let resizeObserver2 = new ResizeObserver(() => { 
+            canvasWidth2 = document.getElementById("secondCanvas").offsetWidth;
+            myCanvas2.width = canvasWidth2;
+
+            changePosAndWidth();
+
+            sort.draw(ctx, ctx2);
+        }); 
+  
+resizeObserver2.observe(elem2);  
+
+
+function changePosAndWidth()
+{
+
+	startBarY = canvasHeight - bottomMargin;
+
+	barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
+	barWidth = barGap;
+
+	var x = startBarX;
+	var y = startBarY;
+
+
+	for (var i = 0; i < numOfBars; i++)
+	{
+		bars[i].xPos = x;
+		bars[i].yPos = y;
+		bars[i].width = barWidth;
+
+		bars[i].targetX = x;
+
+		x += barWidth + barGap;
+	}
+
+	sort.canvasWidth = canvasWidth;
+	sort.canvasWidth2 = canvasWidth2;
+
+	sort.startX = bars[0].xPos + bars[0].width / 2;
+	sort.increment = 2 * bars[0].width;
+
+	sort.lineOffset = (canvasWidth2 - (2 * sort.horizMargin)) / bars.length;
+	sort.boxLength = canvasWidth2 - (2 * sort.horizMargin);
+
+	if (window.innerWidth >= 992)
+		sort.boxStartY = (canvasHeight2 / 2) - (sort.boxWidth / 2);
+	else
+		sort.boxStartY = 20;
+
+	setPosInBox();
 }

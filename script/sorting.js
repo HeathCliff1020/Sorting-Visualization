@@ -44,7 +44,10 @@ class Sorting
 		this.horizMargin = 10;		// horizontal margins (from right and left of the canvas) for the array box
 		this.boxWidth = 50;			// Width of the box containing the array elements
 		this.lineOffset = (this.canvasWidth2 - (2 * this.horizMargin)) / this.bars.length;		// lineOffset is the lenght of the containers for each array element
-		this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
+		if (window.innerWidth >= 992)
+			this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
+		else
+			this.boxStartY = 20;
 		this.boxLength = this.canvasWidth2 - (2 * this.horizMargin);	//length of the array box
 
 		this.numOfComparisions = 0;
@@ -176,6 +179,14 @@ class Sorting
 		for (var i = 0; i < this.len; i++)
 		{
 			ctx.fillStyle = "#000";
+
+			if (this.bars[0].width >= 10)
+				ctx.font = "bold 10pt Calibari";
+			else if (this.bars[0].width >= 8)
+				ctx.font = "bold 8pt Calibari";
+			else
+				ctx.font = "bold 7pt Calibari";
+
 			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, canvasHeight - 5);
 			startX += this.increment;
 		}

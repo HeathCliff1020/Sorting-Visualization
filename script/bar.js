@@ -108,7 +108,11 @@ class Bar
 		else
 			ctx2.fillStyle = "#0066cc";
 		
-		ctx2.font = "bold 10pt Calibari";
+		if (this.lineOffset >= 15)
+			ctx2.font = "bold 10pt Calibari";
+		else
+			ctx2.font = "bold 7pt Calibari";
+
 		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 
 		ctx.font = "8pt Calibari";
@@ -117,7 +121,14 @@ class Bar
 		if (true)
 		{ 
 			ctx.fillStyle = "#248f24";
-			ctx.font = "bold 11pt Calibari"
+
+			if (this.width >= 10)
+				ctx.font = "bold 11pt Calibari";
+			else if (this.width >= 8)
+				ctx.font = "bold 8pt Calibari";
+			else
+				ctx.font = "bold 7pt Calibari";
+
 			var textHeight = parseInt(ctx.font.match(/\d+/), 10);
 			var textWidth = ctx.measureText(this.len.toString()).width;
 

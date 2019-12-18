@@ -18,6 +18,10 @@ body
 {
 	background: url(../images/g.jpg) no-repeat center center fixed;
 	background-size: cover;
+  background-attachment: fixed;
+
+  margin: 0;
+  padding: 0;
 }
 
 .dropdown
@@ -33,6 +37,14 @@ body
 	padding-right: 1em;
 	-webkit-text-stroke: 1px black;
 }*/
+
+#g-logo
+{
+  height: 120px;
+  width: 120px;
+  margin-right: 10px;
+  margin-left: 0px;
+}
 
 .title
 {
@@ -61,9 +73,9 @@ body
 	color: red;
 	font-size: 20px;
 	border-radius: 10px;
-	margin-left: 1em;
 	border: 2px solid #66b3ff;
-
+  margin: 0;
+  
 	width: auto;
 	height: auto;
 }
@@ -75,26 +87,29 @@ body
 
 #myCanvas
 {
-	background: rgba(0, 0, 0, 0.4);
-	border: 1px solid black;
+	background: rgba(255, 255, 255, 0.4);
+	border: 6px solid black;
 	margin: 0;
 	position: absolute;
-	left: -2px;
+	left: 0px;
 	right: 0;
-	top: -2px;
+	top: 0px;
 	bottom: 0;
+  //display: none;
 }
 
 #myCanvas2
 {
 	background: rgba(0, 0, 0, 0);
 	//border: 2px solid rgba(0, 0, 0, 1);
+  margin: 0;
+  position: absolute;
+  left: 0px;
+  right: 0;
+  top: 0px;
+  bottom: 0;
 }
 
-.canvasContainer
-{
-	margin-top: 50px;
-}
 
 #next
 {
@@ -111,14 +126,15 @@ body
 
 .my-col
 {
-	border: 1px solid black;
-	height: 400px;
+  //border: 5px solid black;
+	height: 350px;
 }
 
 .my-col-button
 {
-	border: 1px solid black;
-	margin: 10px 0px;
+	//border: 5px solid black;
+	margin-top: 20px;
+  margin-bottom: 10px;
 	height: auto;
 }
 
@@ -134,7 +150,43 @@ body
    
 	.title
    {
-    font-size: 40px !important;
+    font-size: 30px !important;
+  }
+
+  #g-logo
+  {
+    height: 100px;
+    width: 100px;
+    margin-right: 4px;
+    margin-left: 0px;
+  }
+
+  body
+  {
+    background: url(../images/g2.jpg) no-repeat center center fixed;
+    background-size: cover;
+  }
+}
+
+@media screen and (max-width: 400px) {
+   
+  .title
+   {
+    font-size: 25px !important;
+  }
+
+  #g-logo
+  {
+    height: 90px;
+    width: 90px;
+    margin-right: 4px;
+    margin-left: 0px;
+  }
+
+  body
+  {
+    background: url(../images/g2.jpg) no-repeat center center fixed;
+    background-size: cover;
   }
 }
 
@@ -174,4 +226,10 @@ body
 #changeNumber
 {
 	margin-left: 10px;
+}
+
+.buttons
+{
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
