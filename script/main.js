@@ -60,6 +60,7 @@ var startBarY = canvasHeight - bottomMargin;
 
 var barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 var barWidth = barGap;
+var ratio = 1; 	//ratio of the new screen width to the old screen width
 
 //var barWidth = (canvasWidth - ((numOfBars + 1) * barGap)) / numOfBars;
 
@@ -201,13 +202,13 @@ function createArray(mode)
 	}
 
 	if (whichAlgo ==1)
-		sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		sort = new BubbleSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 	else if (whichAlgo == 2)
-		sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 	else if (whichAlgo == 3)
-		sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 	else
-		sort = new MergeSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		sort = new MergeSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 
 	done = false;		// variable for checking if the sorting is completed or not
 	onlyOnce = true;
@@ -369,9 +370,10 @@ elem1 = $("#firstCanvas")[0];
             canvasWidth = document.getElementById("firstCanvas").offsetWidth - 12; 
             myCanvas.width = canvasWidth;
 
+            ratio = 1;
             changePosAndWidth();
 
-            sort.draw(ctx, ctx2);
+            sort.onlyDraw(ctx, ctx2);
     }); 
   
 resizeObserver1.observe(elem1);
@@ -379,12 +381,14 @@ resizeObserver1.observe(elem1);
 elem2 = $("#secondCanvas")[0]; 
   
         let resizeObserver2 = new ResizeObserver(() => { 
+        	var oldWidth = canvasWidth2;
             canvasWidth2 = document.getElementById("secondCanvas").offsetWidth;
             myCanvas2.width = canvasWidth2;
 
+            ratio = canvasWidth2 / oldWidth;
             changePosAndWidth();
 
-            sort.draw(ctx, ctx2);
+            sort.onlyDraw(ctx, ctx2);
         }); 
   
 resizeObserver2.observe(elem2);  
@@ -411,6 +415,9 @@ function changePosAndWidth()
 		bars[i].targetX = x;
 
 		x += barWidth + barGap;
+
+		bars[i].compairednumberXPos = bars[i].compairednumberXPos * ratio;
+
 	}
 
 	sort.canvasWidth = canvasWidth;

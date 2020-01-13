@@ -66,7 +66,7 @@ class Bar
 			ctx.fillStyle = this.color;
 		else 
 			ctx.fillStyle = this.cmpColor;
-		ctx.fillRect(this.xPos, this.yPos - (this.len * 3), this.width, (this.len * 3));
+		ctx.fillRect(this.xPos, this.yPos - (this.len * 2.5), this.width, (this.len * 2.5));
 
 		//console.log(ctx.measureText('555').width + " " + this.len);
 
@@ -136,9 +136,9 @@ class Bar
 
 			//if (textHeight >= (this.len * 3) + 5)
 			if (true)
-				textY = this.yPos - this.len * 3 - textHeight + 5;
+				textY = this.yPos - this.len * 2.5 - textHeight + 5;
 			else
-				textY = this.yPos - ( (this.len * 3) - textHeight) / 2;
+				textY = this.yPos - ( (this.len * 2.5) - textHeight) / 2;
 			
 			var textX = this.xPos + (this.width - textWidth) / 2;
 			ctx.fillText(this.len.toString(), textX, textY);

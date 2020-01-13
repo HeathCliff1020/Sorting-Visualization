@@ -11,7 +11,7 @@
 
 class Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo)
 	{
 		this.bars = bars;				  // The array containing the bars
 		this.len = this.bars.length;	  // The number of bars
@@ -25,6 +25,8 @@ class Sorting
 		this.swapped = false;
 		this.bar1 = null;				// Moving bar 1	
 		this.bar2 = null;				// Moving bar 2
+
+		this.whichAlgo = whichAlgo;
 
 		this.done = false;
 
@@ -160,10 +162,12 @@ class Sorting
 
 			//For the second canvas	
 
-
 			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
 			this.drawIndex(ctx, ctx2);
+
+
+			this.drawStats(ctx);
 
 			for (var i = 0; i < this.len; i++)
 				this.bars[i].draw(ctx, ctx2);
@@ -280,6 +284,8 @@ class Sorting
 
 		ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
+		this.drawStats(ctx);
+
 		this.drawIndex(ctx, ctx2);
 
 		for (var i = 0; i < this.len; i++)
@@ -287,6 +293,52 @@ class Sorting
 
 		if (!this.isAnimating)
 			this.waiting = true;
+	}
+
+	drawStats(ctx)
+	{
+
+		ctx.fillStyle = "#436268";
+		ctx.font = "bold 17pt Calibari";
+
+		var text1, cmpx;
+
+		if (this.whichAlgo == 1)
+		{
+			text1 = "Bubble Sort ==> O(n^2)";
+		}
+		else if (this.whichAlgo == 2)
+		{
+			text1 = "Insertion Sort ==> O(n^2)";
+		}
+		else if (this.whichAlgo == 3)
+		{
+			text1 = "Selection Sort ==> O(n^2)";
+		}
+		else if (this.whichAlgo == 4)
+		{
+			text1 = "Merge Sort ==> O(n.logn)";
+		}
+		else
+		{
+			text1 = "Quick Sort ==> O(n.logn)";
+		}
+
+		ctx.fillText(text1, this.canvasWidth / 2 - ctx.measureText(text1).width / 2, 18);
+
+		ctx.fillStyle = "#cc0000";
+		ctx.font = "bold 13pt Calibari";
+
+		var text;
+		if (this.whichAlgo != 2)
+			text = `No. of swaps :- ${this.numOfSwaps}`;
+		else
+			text=`No. of shifts :- ${this.numOfSwaps}`;
+		
+		var text2 = `No. of comparisions :- ${this.numOfComparisions}`;
+
+		ctx.fillText(text, 5, 37);
+		ctx.fillText(text2, 5, 57);
 	}
 
 

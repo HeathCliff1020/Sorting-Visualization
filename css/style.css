@@ -1,5 +1,4 @@
 .bg{
-  //background: url(../images/back.jpg);
   box-shadow: 0px 0px 3px #008ae6;
   height: 100%;
   width: 100%;
@@ -16,7 +15,7 @@
 
 body
 {
-	background: url(../images/g.jpg) no-repeat center center fixed;
+	background: url(../images/g95.jpg) no-repeat center center fixed;
 	background-size: cover;
   background-attachment: fixed;
 
@@ -40,8 +39,8 @@ body
 
 #g-logo
 {
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   margin-right: 10px;
   margin-left: 0px;
 }
@@ -64,31 +63,52 @@ body
     color: #ffa64d!important;
     font-weight: bold !important;
     padding-right: 1em;
+    padding-left: 30px;
 }
 
 .btn
 {
-	background-color: #70db70;
-	font-weight: bold;
-	color: red;
-	font-size: 20px;
-	border-radius: 10px;
-	border: 2px solid #66b3ff;
-  margin: 0;
-  
-	width: auto;
-	height: auto;
+	background: url(../images/play2.png);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid black;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline;
 }
 
 .btn:hover
 {
-	background: #adebad;
+  opacity: 0.9;
+}
+
+.btn2
+{
+  background: url(../images/pause.png);
+  background-position: center;
+  background-size: cover;
+  border: 2px solid black;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline;
+}
+
+
+.btn22
+{
+  display: none;
 }
 
 #myCanvas
 {
-	background: rgba(255, 255, 255, 0.4);
-	border: 6px solid black;
+	background: rgba(255, 255, 255, 0.7);
+	border: 6px solid #000033;
 	margin: 0;
 	position: absolute;
 	left: 0px;
@@ -110,7 +130,6 @@ body
   bottom: 0;
 }
 
-
 #next
 {
 	background:	rgb(255, 0, 0) url(../images/play.png);
@@ -121,27 +140,26 @@ body
 	border-radius: 2em;
 	margin-left: auto;
 	margin-right: auto;
-	display: block;
 }
 
 .my-col
 {
   //border: 5px solid black;
-	height: 350px;
+	height: 400px;
+  margin-bottom: -25px;
 }
 
 .my-col-button
 {
 	//border: 5px solid black;
-	margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 	height: auto;
 }
 
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
   .title {
-    font-size: 50px !important;
+    font-size: 40px !important;
   }
 }
 
@@ -150,35 +168,13 @@ body
    
 	.title
    {
-    font-size: 30px !important;
-  }
-
-  #g-logo
-  {
-    height: 100px;
-    width: 100px;
-    margin-right: 4px;
-    margin-left: 0px;
-  }
-
-  body
-  {
-    background: url(../images/g2.jpg) no-repeat center center fixed;
-    background-size: cover;
-  }
-}
-
-@media screen and (max-width: 400px) {
-   
-  .title
-   {
     font-size: 25px !important;
   }
 
   #g-logo
   {
-    height: 90px;
-    width: 90px;
+    height: 80px;
+    width: 80px;
     margin-right: 4px;
     margin-left: 0px;
   }
@@ -193,34 +189,44 @@ body
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 200px; /* Full-width */
+  width: 100%; /* Full-width */
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
-  margin-left: 30px;
   display: inline;
+  border: 1px solid black;
 }
 
 .slider2 {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 100px; /* Full-width */
+  width: 100%; /* Full-width */
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
-  margin-left: 30px;
+  display: none;
+  border: 1px solid black;
+}
+
+.slider12
+{
+  display: none;
+}
+.slider22
+{
   display: inline;
 }
 
 #frameByFrame
 {
-	margin-left: 10px;
+	margin-left: auto;
+  margin-right: auto;
 }
 
 #changeNumber
@@ -232,4 +238,46 @@ body
 {
   margin-top: 20px;
   margin-bottom: 10px;
+  height: 45px;
+}
+
+.test
+{
+  height : 100px;
+  border: 1px solid black;
+}
+
+.my-row
+{
+  min-height: 100px;
+}
+
+.label1
+{
+    color: black;
+    font-weight: bold;
+
+}
+
+.index
+{
+  display: none;
+}
+
+.index2
+{
+  display: inline;
+}
+
+footer div
+{
+  background: #333333;
+  color: white;
+}
+
+.icons
+{
+  margin-right: 20px;
+  font-size: 30px;
+  color: #4da6ff;
 }

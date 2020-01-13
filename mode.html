@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--<meta http-equiv="refresh" content="1" />-->
+	<title>Sorting Visualization</title>
+
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+  
+  	<!--
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+	-->
+
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<script src="script/jquery-3.4.1.min.js"></script>
+
+	<script src="script/script.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style2.css">
+
+</head>
+
+<body id="mainBody">
+
+	<nav class="navbar navbar-expand-lg navbar-fixed-top">
+
+		<div class="bg"></div>
+
+		<span class="toggle-button">
+        	<div class="menu-bar menu-bar-top"></div>
+        	<div class="menu-bar menu-bar-middle"></div>
+        	<div class="menu-bar menu-bar-bottom"></div>
+        </span>
+		<div class="menu-wrap">
+			<div class="menu-sidebar">
+				<ul class="menu">
+					<li><a href="index.html" style="text-decoration: none;">Home</a></li>
+					<li><a href="about.html" style="text-decoration: none;">About</a></li>
+					<li><a href="learn.html" style="text-decoration: none;">Learn</a></li>
+					<li><a href="#" style="text-decoration: none;">Mode 2</a></li>
+				</ul>			
+			</div>
+		</div>
+
+	  <h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
+	 
+	  <div class="dropdown">
+		<select class="form-control text-center" id="select_sort" onchange="changeAlgo()">
+			<option>Bubble Sort</option>
+			<option>Insertion Sort</option>
+			<option>Selection Sort</option>
+			<option>Merge Sort</option>
+			<option>Quick Sort</option>
+		</select>
+	  </div>
+	
+	</nav>
+
+	<div class="container">
+		
+		<div class="row buttons align-items-center">
+
+			<div class="col-1 col-sm-1 col-md-2 d-lg-none">
+			</div>
+
+			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
+				<input type="button" value="Play" class="btn" onclick="startAnimation()"/>
+			</div>
+
+			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
+	  			<input type="button" value="Pause" class="btn" onclick="pauseAnimation()"/>
+			</div>
+
+			<div class="slidecontainer col-4 col-sm-4 col-md-4 col-lg-4">
+  				<input type="range" min="200" max="700" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+	  		</div>
+
+		</div>
+
+		<div class="row my-row align-items-center">
+			
+			<div class="col-lg-12 my-col" id="firstCanvas">
+				<canvas id="myCanvas" height="400" width="200"></canvas>
+			</div>
+
+		</div>
+
+	</div>
+
+	<footer>
+		<p> Sorting Visualizer &copy; GEHU </p>
+	</footer>
+
+	<script type="text/javascript" src="script/myFunctions.js"></script>
+	<script type="text/javascript" src="script2/bar.js"></script>
+	<script type="text/javascript" src="script2/sorting.js"></script>
+	<script type="text/javascript" src="script2/bubble_sort.js"></script>
+	<script type="text/javascript" src="script2/insertion_sort.js"></script>
+	<script type="text/javascript" src="script2/selection_sort.js"></script>
+	<script type="text/javascript" src="script2/merge_sort.js"></script>
+	<script type="text/javascript" src="script2/main.js"></script>
+
+</body>
+
+</html>

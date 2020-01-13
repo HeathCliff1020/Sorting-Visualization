@@ -20,11 +20,11 @@ void selectionSort(int arr[], int n)
 
 class SelectionSort extends Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo)
 	{
 
 		// Calling the super classes' constuctor
-		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 
 		// for variable i in the selection sort algo.
 		this.outterVar = 0;		
@@ -79,6 +79,7 @@ class SelectionSort extends Sorting
 						// Finding the minimim element among the remaining unsorted array
 						for (var innerVar = this.min + 1; innerVar < this.bars.length; innerVar++)
 						{
+							this.numOfComparisions++;
 							if (this.bars[innerVar].len < this.bars[this.min].len)
 								this.min = innerVar;
 						}

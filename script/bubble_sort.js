@@ -10,11 +10,11 @@
 */
 class BubbleSort extends Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2)
+	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo)
 	{
 
 		// Calling the super classes' constuctor
-		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2);
+		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 
 		this.outterVar = 0;			// The i variable in bubble_sort
 		this.innerVar = 0;			// The j variable in bubble_sort
@@ -42,6 +42,8 @@ class BubbleSort extends Sorting
 
 
 			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+			this.drawStats(ctx);
 
 			this.drawIndex(ctx);
 

@@ -1,0 +1,147 @@
+a {
+	text-decoration: none;
+}
+ul {
+	padding-left: 0;
+}
+li {
+	list-style: none;
+}
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Montserrat', Arial, serif;
+}
+
+
+/* ==================================== */
+/*		  	  Navigaton Menu		
+/* ==================================== */
+
+.menu-wrap {
+  	background: #f2f2f2;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 280px;
+	margin-left: -280px;
+	font-size: 1em;
+	font-weight: 700;
+	overflow: auto;
+	transition: .25s;
+	z-index: 10;
+}
+.menu-show {
+	margin-left: 0;
+	box-shadow: 4px 2px 15px 1px #B9ADAD;
+}
+.menu-sidebar {
+	margin: 20px 0 80px 10px;
+	position: relative;
+	top: 70px;
+}
+.menu-sidebar li {
+	padding: 18px 22px 0;
+}
+.menu-sidebar li > a {
+	font-weight: 1px;
+	color: #666666;
+	font-size: 1.4em;
+	position: relative;
+}
+.menu-sidebar li > a::after {
+	content: "";
+	display: block;
+	height: 0.15em;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	left: 50%;
+	transform: translate(-50%);
+	background-image: linear-gradient(to right, transparent 50.3%, #80bfff 50.3%);
+	transition: background-position .2s .1s ease-out;
+	background-size: 200% auto;
+}
+.menu-sidebar li > a:hover::after {
+	background-position: -100% 0;
+}
+.menu-sidebar .menu-item-has-children {
+	position: relative;
+}
+.menu-sidebar .menu-item-has-children .sub-menu {
+	display: none;
+}
+.sidebar-menu-arrow::after {
+	content: "\f107";
+	font-family: 'FontAwesome';
+	padding: 10px;
+	color: #FFFA3B;
+	position: relative;
+}
+.sidebar-menu-arrow:hover::after {
+	cursor: pointer;
+	color: #fff;
+}
+.sidebar-menu-arrow:active::after {
+	top: 2px;
+}
+
+
+/*Hamburger Button*/
+.toggle-button {
+	position: absolute;
+	width: 44px;
+	height: 40px;
+	top: 20px;
+	left: 5px;
+	padding: 4px;
+	transition: .25s;
+	z-index: 15;
+}
+.toggle-button:hover {
+	cursor: pointer;
+}
+.toggle-button .menu-bar {
+	position: absolute;
+	border-radius: 2px;
+	width: 80%;
+	transition: .5s;
+}
+.toggle-button .menu-bar-top {
+	border: 4px solid white;
+	border-bottom: none;
+	top: 0;
+}
+.toggle-button .menu-bar-middle {
+	height: 4px;
+	background-color: white;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	top: 4px;
+}
+.toggle-button .menu-bar-bottom {
+	border: 4px solid white;
+	border-top: none;
+	top: 22px;
+}
+.button-open {
+	left: 25px;
+}
+.button-open .menu-bar-top {
+	border-color:  #a6a6a6;
+	transform: rotate(45deg) translate(8px, 8px);
+	transition: .5s;
+}
+.button-open .menu-bar-middle {
+	background-color:  #a6a6a6;
+	transform: translate(230px);
+	transition: .1s ease-in;
+	opacity: 0;
+}
+.button-open .menu-bar-bottom {
+	border-color:  #a6a6a6;
+	transform: rotate(-45deg) translate(7px, -7px);
+	transition: .5s;
+}
