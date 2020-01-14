@@ -7,19 +7,11 @@
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
   
-  	<!--
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
-	-->
-
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+  	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 	<script src="script/jquery-3.4.1.min.js"></script>
+
+	<link rel="stylesheet" href="css/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="css/fontawesome/css/solid.min.css">
 
 	<script src="script/script.js"></script>
 
@@ -42,10 +34,10 @@
 		<div class="menu-wrap">
 			<div class="menu-sidebar">
 				<ul class="menu">
-					<li><a href="index.html" style="text-decoration: none;">Home</a></li>
-					<li><a href="about.html" style="text-decoration: none;">About</a></li>
-					<li><a href="learn.html" style="text-decoration: none;">Learn</a></li>
-					<li><a href="#" style="text-decoration: none;">Mode 2</a></li>
+					<li><i class="fa fa-home icons"></i><a href="index.html" style="text-decoration: none;">Home</a></li>
+					<li><i class="fa fa-id-card-alt icons"></i><a href="about.html" style="text-decoration: none;">About</a></li>
+					<li><i class="fa fa-graduation-cap icons"></i><a href="learn.html" style="text-decoration: none;">Learn</a></li>
+					<li><i class="fa fa-arrow-circle-right icons"></i><a href="#" style="text-decoration: none;">Mode 2</a></li>
 				</ul>			
 			</div>
 		</div>
@@ -72,11 +64,11 @@
 			</div>
 
 			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
-				<input type="button" value="Play" class="btn" onclick="startAnimation()"/>
+				<input type="button" value="" class="btn" onclick="startAnimation()"/>
 			</div>
 
 			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
-	  			<input type="button" value="Pause" class="btn" onclick="pauseAnimation()"/>
+	  			<input type="button" value="" class="btn2" onclick="pauseAnimation()"/>
 			</div>
 
 			<div class="slidecontainer col-4 col-sm-4 col-md-4 col-lg-4">
@@ -95,8 +87,15 @@
 
 	</div>
 
-	<footer>
-		<p> Sorting Visualizer &copy; GEHU </p>
+	<footer class="page-footer font-small">
+
+	  <div class="footer-copyright text-center py-3">
+	  	<div>
+	  		© 2020 Copyright:
+	    	<a href="https://mdbootstrap.com/education/bootstrap/"> Sorting Visualizer</a>
+	    </div>
+	  </div>
+
 	</footer>
 
 	<script type="text/javascript" src="script/myFunctions.js"></script>
