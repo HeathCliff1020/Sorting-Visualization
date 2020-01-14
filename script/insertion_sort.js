@@ -52,7 +52,6 @@ class InsertionSort extends Sorting
 			this.resetFlags();	
 			return this.done;
 		}
-
 		if (!this.waiting || !this.isFrameByFrame)
 		{
 
@@ -97,8 +96,8 @@ class InsertionSort extends Sorting
 			        //Setting the values for drawing the feedback lines
 			        if (this.animatingBars.length > 0)
 			        {
-			        	this.key.compairednumberXPos = this.animatingBars[this.animatingBars.length - 1].numberXPos;
-			        	this.animatingBars[this.animatingBars.length - 1].compairednumberXPos = this.key.numberXPos;
+			        	this.key.compairednumberXPos = this.animatingBars[this.animatingBars.length - 1].index + 1;
+			        	this.animatingBars[this.animatingBars.length - 1].compairednumberXPos = this.key.index - 1;
 
 			        	this.comparing = true;
 			        }
@@ -156,8 +155,8 @@ class InsertionSort extends Sorting
 						if (this.animatingBars.length > 1)
 						{
 							this.key.index = this.animatingBars[0].index - 1;
-							this.key.compairednumberXPos = this.animatingBars[0].numberXPos;
-							this.animatingBars[0].compairednumberXPos = this.key.numberXPos;
+							this.key.compairednumberXPos = this.animatingBars[0].index;
+							this.animatingBars[0].compairednumberXPos = this.key.index;
 
 							if (this.animatingBars.length != 2)
 								this.animatingBars[this.animatingBars.length - 2].compairednumberXPos = -1;

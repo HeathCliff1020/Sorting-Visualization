@@ -60,7 +60,6 @@ var startBarY = canvasHeight - bottomMargin;
 
 var barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 var barWidth = barGap;
-var ratio = 1; 	//ratio of the new screen width to the old screen width
 
 //var barWidth = (canvasWidth - ((numOfBars + 1) * barGap)) / numOfBars;
 
@@ -194,7 +193,7 @@ function createArray(mode)
 		else
 			length = oldBars[i].len;
 
-		bars[i] = new Bar(x, y, barWidth, length, "#e65c00", '#f00', '#b3b300', '#0f0', "#352", "#ff9900");
+		bars[i] = new Bar(bars, x, y, barWidth, length, whichAlgo, "#e65c00", '#f00', '#b3b300', '#0f0', "#352", "#ff9900");
 		
 		bars[i].index = i;
 
@@ -370,7 +369,6 @@ elem1 = $("#firstCanvas")[0];
             canvasWidth = document.getElementById("firstCanvas").offsetWidth - 12; 
             myCanvas.width = canvasWidth;
 
-            ratio = 1;
             changePosAndWidth();
 
             sort.onlyDraw(ctx, ctx2);
@@ -381,11 +379,9 @@ resizeObserver1.observe(elem1);
 elem2 = $("#secondCanvas")[0]; 
   
         let resizeObserver2 = new ResizeObserver(() => { 
-        	var oldWidth = canvasWidth2;
             canvasWidth2 = document.getElementById("secondCanvas").offsetWidth;
             myCanvas2.width = canvasWidth2;
 
-            ratio = canvasWidth2 / oldWidth;
             changePosAndWidth();
 
             sort.onlyDraw(ctx, ctx2);
@@ -415,9 +411,6 @@ function changePosAndWidth()
 		bars[i].targetX = x;
 
 		x += barWidth + barGap;
-
-		bars[i].compairednumberXPos = bars[i].compairednumberXPos * ratio;
-
 	}
 
 	sort.canvasWidth = canvasWidth;
@@ -429,7 +422,7 @@ function changePosAndWidth()
 	sort.lineOffset = (canvasWidth2 - (2 * sort.horizMargin)) / bars.length;
 	sort.boxLength = canvasWidth2 - (2 * sort.horizMargin);
 
-	if (window.innerWidth >= 992)
+	if (window.innerWidth >= 992 || this.whichAlgo == 4)
 		sort.boxStartY = (canvasHeight2 / 2) - (sort.boxWidth / 2);
 	else
 		sort.boxStartY = 20;

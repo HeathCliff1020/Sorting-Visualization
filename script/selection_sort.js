@@ -101,8 +101,8 @@ class SelectionSort extends Sorting
 						this.bar2 = this.bars[this.outterVar];	// The element at position one after the sorted array
 						this.bars[this.min].isCompaired = true;
 						this.bars[this.outterVar].isCompaired = true;
-						this.bar1.compairednumberXPos = this.bar2.numberXPos;
-						this.bar2.compairednumberXPos = this.bar1.numberXPos;
+						this.bar1.compairednumberXPos = this.bar2.index;
+						this.bar2.compairednumberXPos = this.bar1.index;
 
 						//console.log(minimum + " " + this.outterVar);
 

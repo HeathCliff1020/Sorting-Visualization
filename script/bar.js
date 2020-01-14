@@ -4,8 +4,11 @@
 
 class Bar
 {
-	constructor(xPos, yPos, width, len, color, cmpColor, color3, color4, color5, color6)
+	constructor(bars, xPos, yPos, width, len, whichAlgo, color, cmpColor, color3, color4, color5, color6)
 	{
+
+		this.bars = bars;
+
 		this.len = len;				// length of the bar
 		this.width = width;			// width of the bar
 		this.xPos = xPos;			// starting x pos of the bar
@@ -47,6 +50,11 @@ class Bar
 		this.lineOffset = 0;
 		this.compairednumberXPos = 0;
 		
+		this.whichAlgo = whichAlgo;
+
+		this.tempBoxPadding = 120;
+		this.centerUp = 30;
+		this.boxAdjustment = (this.tempBoxPadding / 2) + (this.boxWidth / 2) - this.centerUp;
 	}
 
 	/* draws a particular bar onto the screen*/
@@ -85,6 +93,8 @@ class Bar
 			
 			var xPos = this.numberXPos - this.lineOffset / 2;
 			var yPos = this.boxStartY;
+			if (this.whichAlgo == 4)
+				yPos += this.boxAdjustment + 25;
 			ctx2.fillRect(xPos, yPos, this.lineOffset, this.boxWidth);
 			drawRect(ctx2, xPos, yPos, this.lineOffset, this.boxWidth);
 		}
@@ -97,9 +107,9 @@ class Bar
 			var startY = this.boxStartY + this.boxWidth;
 			var lineLen = 30;
 			var width = ctx2.lineWidth / 2;
-			var xWidth = this.numberXPos - this.compairednumberXPos;
 			if (this.compairednumberXPos != -1)
 			{
+				var xWidth = this.numberXPos - this.bars[this.compairednumberXPos].numberXPos;
 				drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
 				drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
 			}

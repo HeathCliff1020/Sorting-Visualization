@@ -137,8 +137,8 @@ class BubbleSort extends Sorting
 		this.bar2 = this.bars[this.innerVar + 1];
 		this.bars[this.innerVar].isCompaired = true;
 		this.bars[this.innerVar + 1].isCompaired = true;
-		this.bar1.compairednumberXPos = this.bar2.numberXPos;
-		this.bar2.compairednumberXPos = this.bar1.numberXPos;
+		this.bar1.compairednumberXPos = this.bar2.index;
+		this.bar2.compairednumberXPos = this.bar1.index;
 		if (this.bars[this.innerVar].len > this.bars[this.innerVar + 1].len)		// swap if the elements are not in order
 		{
 			this.swap(this.innerVar, this.innerVar + 1);

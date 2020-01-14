@@ -46,7 +46,7 @@ class Sorting
 		this.horizMargin = 10;		// horizontal margins (from right and left of the canvas) for the array box
 		this.boxWidth = 50;			// Width of the box containing the array elements
 		this.lineOffset = (this.canvasWidth2 - (2 * this.horizMargin)) / this.bars.length;		// lineOffset is the lenght of the containers for each array element
-		if (window.innerWidth >= 992)
+		if (window.innerWidth >= 992 || this.whichAlgo == 4)
 			this.boxStartY = (this.canvasHeight2 / 2) - (this.boxWidth / 2);		// the starting position of the box (at the center of the canvas)
 		else
 			this.boxStartY = 20;
@@ -205,6 +205,10 @@ class Sorting
 	*/
 	swap(first, second)
 	{
+
+		this.first = first;
+		this.second = second;
+
 		var temp = this.bars[first];
 		this.bars[first] = this.bars[second];
 		this.bars[second] = temp;
@@ -212,6 +216,10 @@ class Sorting
 		var temp2 = this.bars[first].index;
 		this.bars[first].index = this.bars[second].index;
 		this.bars[second].index = temp2;
+
+		temp2 = this.bars[first].compairednumberXPos;
+		this.bars[first].compairednumberXPos = this.bars[second].compairednumberXPos;
+		this.bars[second].compairednumberXPos= temp2;
 
 		this.bars[first].targetX = this.bars[second].xPos;
 		this.bars[second].targetX = this.bars[first].xPos;
@@ -243,9 +251,9 @@ class Sorting
 			this.bar1.numberXPos = this.bar2.numberXPos;
 			this.bar2.numberXPos = temp;
 
-			temp = this.bar1.compairednumberXPos;
-			this.bar1.compairednumberXPos = this.bar2.compairednumberXPos;
-			this.bar2.compairednumberXPos = temp;
+			//temp = this.bar1.compairednumberXPos;
+			//this.bar1.compairednumberXPos = this.bar2.compairednumberXPos;
+			//this.bar2.compairednumberXPos = temp;
 
 		}
 	}
