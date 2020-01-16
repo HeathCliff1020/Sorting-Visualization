@@ -368,9 +368,12 @@ class Sorting
 
 		ctx.font = "bold 16pt Calibari";
 
-		ctx.fillStyle = "green";
+		ctx.fillStyle = "#800000";
 		
 		var textX = (this.canvasWidth2 -  ctx.measureText(msg).width) / 2;
+
+		if (this.whichAlgo == 4)
+			textY += 55;
 
 		ctx.fillText(msg, textX, textY);
 	}

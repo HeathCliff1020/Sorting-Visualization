@@ -127,6 +127,18 @@ class MergeSort extends Sorting
 		this.showArrows = false;
 		this.showIndex1 = -1;
 		this.showIndex2 = -1;
+
+		this.showArrows2 = false;
+		this.show2Index1 = -1;
+		this.show2Index2 = -1;
+		this.show2Index3 = -1;
+
+		this.showArrows3 = false;
+		this.show3Index1 = -1;
+		this.show3Index2 = -1;
+		this.show3Index3 = -1;
+		this.shos3Index4 = -1;
+		this.show3Num = -1;
 	}
 
 	printNumber(ctx, num, size, xPos, yPos, color)
@@ -216,11 +228,79 @@ class MergeSort extends Sorting
 				drawLine(ctx, x, y, x, y + 48);
 				drawLine(ctx, x, y + 48, x - 8, y + 40);
 				drawLine(ctx, x, y + 48, x + 8, y + 40);
+
+				this.bars[i].useFourth = true;
 			}
 
 			ctx.lineWidth = 3;
 			ctx.strokeStyle = '#000';
 			this.showArrows = false;
+
+			for (i = this.showIndex1; i <= this.showIndex2; i++)
+				this.temp[i] = null;
+		}
+		else
+		{
+			if (this.showIndex1 != -1)
+			{
+				for (var i = this.showIndex1; i <= this.showIndex2; i++)
+				{
+					this.bars[i].useFourth = false;
+				}
+			}			
+		}
+
+		if (this.showArrows2)
+		{
+			ctx.strokeStyle = '#000066';
+			ctx.lineWidth = 2;
+
+			this.drawLineItoJ(ctx, this.show2Index1, this.show2Index2);
+
+			this.bars[this.show2Index1].useThird = true;
+			this.bars[this.show2Index3].useThird = true;
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = '#000';
+			this.showArrows2 = false;
+		}
+		else
+		{
+			if (this.show2Index1 != -1)
+			{
+				this.bars[this.show2Index1].useThird = false;
+				this.bars[this.show2Index3].useThird = false;
+			}
+		}
+
+		if (this.showArrows3)
+		{
+			ctx.strokeStyle = '#000066';
+			ctx.lineWidth = 2;
+
+			var I = this.show3Index2;
+			var K = this.show3Index1;
+			for (var k = 0; k < this.show3Num; k++)
+			{
+				this.drawLineItoJ(ctx, I, K);
+				I++;
+				K++;
+			}
+
+			for (var i = this.show3Index3; i <= this.show3Index4; i++)
+			{
+				this.bars[i].finishColor = true;
+			}
+
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = '#000';
+			this.showArrows3 = false;
+		}
+		else if (this.show3Index1 != -1)
+		{
+			for (var i = this.show3Index3; i <= this.show3Index4; i++)
+			{
+				this.bars[i].finishColor = false;
+			}
 		}
 
 		if (this.done)
@@ -252,6 +332,28 @@ class MergeSort extends Sorting
 		drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
 		drawLine(ctx, x2, y2 + w / 2, x2, y2 + w / 2 + 30);
 		drawLine(ctx, x1, y1 + w / 2 + 30, x2, y2 + w / 2 + 30);
+	}
+
+	drawLineItoJ(ctx, i, j)
+	{
+		var y = this.boxStartY + this.boxAdjustment - 18;
+		var x = this.bars[i].numberXPos;
+
+		if (i == j)
+		{
+			drawLine(ctx, x, y, x, y - 45);
+			drawLine(ctx, x, y - 45, x - 8, y - 37);
+			drawLine(ctx, x, y - 45, x + 8, y -37);
+		}
+		else
+		{
+			var x2 = this.bars[j].numberXPos;
+			drawLine(ctx, x, y, x, y - 22);
+			drawLine(ctx, x, y - 22, x2 , y - 22);
+			drawLine(ctx, x2, y - 22, x2, y - 45);
+			drawLine(ctx, x2, y - 45, x2 - 8, y - 37);
+			drawLine(ctx, x2, y - 45, x2 + 8, y - 37);
+		}
 	}
 
 	merge()
@@ -287,8 +389,6 @@ class MergeSort extends Sorting
 				this.startX2 += (this.bars[a].width * 2 );
 				this.startX3 += this.lineOffset;
 
-				this.temp[a] = null;
-
 				this.showArrows = true;
 				this.showIndex1 = this.top.start;
 				this.showIndex2 = this.top.end;
@@ -313,14 +413,30 @@ class MergeSort extends Sorting
 			{
 
 				if (this.previ != -1)
+				{
 					this.bars[this.previ].isCompaired = false;
+				}
 				if (this.prevj != -1)
+				{
 					this.bars[this.prevj].isCompaired = false;
+				}
 
-				if (this.bars[this.i].len <= this.bars[this.j].len)
+				if (++this.numOfComparisions && this.bars[this.i].len <= this.bars[this.j].len)
+				{
 					this.temp[this.k++] = this.bars[this.i++];
+					this.showArrows2 = true;
+					this.show2Index1 = this.i - 1;
+					this.show2Index2 = this.k - 1;
+					this.show2Index3 = this.j;
+				}
 				else
+				{
 					this.temp[this.k++] = this.bars[this.j++];
+					this.showArrows2 = true;
+					this.show2Index1 = this.j - 1;
+					this.show2Index2 = this.k - 1;
+					this.show2Index3 = this.i;				
+				}
 		
 				this.displayComparision = true;
 			}
@@ -328,13 +444,27 @@ class MergeSort extends Sorting
 		}
 		else
 		{
+			this.showArrows3 = true;
+			this.show3Index1 = this.k;
+			this.show3Index3 = this.top.start;
+			this.show3Index4 = this.top.end;
+
 			if (this.i <= this.top.mid)
+				this.show3Index2 = this.i;
+			else
+				this.show3Index2 = this.j;
+
+			this.show3Num = 0;
+
+			while (this.i <= this.top.mid)
 			{
 				this.temp[this.k++] = this.bars[this.i++];
+				this.show3Num++;
 			}
-			if (this.j <= this.top.end)
+			while (this.j <= this.top.end)
 			{
 				this.temp[this.k++] = this.bars[this.j++];
+				this.show3Num++;
 			}
 		}
 	}

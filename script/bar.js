@@ -97,6 +97,7 @@ class Bar
 				yPos += this.boxAdjustment + 25;
 			ctx2.fillRect(xPos, yPos, this.lineOffset, this.boxWidth);
 			drawRect(ctx2, xPos, yPos, this.lineOffset, this.boxWidth);
+
 		}
 
 		if (this.isCompaired || this.useThird)
@@ -121,6 +122,9 @@ class Bar
 		}
 		else
 			ctx2.fillStyle = "#0066cc";
+
+		if (this.finishColor)
+				ctx2.fillStyle = "white";
 		
 		if (this.lineOffset >= 20)
 			ctx2.font = "bold 10pt Calibari";
