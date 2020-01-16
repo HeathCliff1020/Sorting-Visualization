@@ -119,6 +119,14 @@ class MergeSort extends Sorting
 		this.startX3 = 0;
 
 		this.tempBoxStartY = this.boxStartY - this.tempBoxPadding + this.boxAdjustment;
+
+		this.displayComparision = false;
+		this.previ = -1;
+		this.prevj = -1;
+
+		this.showArrows = false;
+		this.showIndex1 = -1;
+		this.showIndex2 = -1;
 	}
 
 	printNumber(ctx, num, size, xPos, yPos, color)
@@ -195,6 +203,26 @@ class MergeSort extends Sorting
 			}
 		}
 
+		if (this.showArrows)
+		{
+
+			ctx.strokeStyle = '#000066';
+			ctx.lineWidth = 2;
+
+			for (var i = this.showIndex1; i <= this.showIndex2; i++)
+			{
+				var y = this.tempBoxStartY + this.boxWidth + 1;
+				var x = this.bars[i].numberXPos;
+				drawLine(ctx, x, y, x, y + 48);
+				drawLine(ctx, x, y + 48, x - 8, y + 40);
+				drawLine(ctx, x, y + 48, x + 8, y + 40);
+			}
+
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = '#000';
+			this.showArrows = false;
+		}
+
 		if (this.done)
 		{
 			this.printMessage(ctx, "Array Sorted", this.boxStartY + this.boxWidth + 60);
@@ -243,6 +271,7 @@ class MergeSort extends Sorting
 			this.startX3 = this.bars[this.top.start].numberXPos;
 
 			this.merging = true;
+			this.displayComparision = true;
 		}
 
 
@@ -259,19 +288,43 @@ class MergeSort extends Sorting
 				this.startX3 += this.lineOffset;
 
 				this.temp[a] = null;
+
+				this.showArrows = true;
+				this.showIndex1 = this.top.start;
+				this.showIndex2 = this.top.end;
 			}
 
 			this.callStack.pop();
 			return; 
 		}
 
+
 		if (this.i <= this.top.mid && this.j <= this.top.end )
 		{
-
-			if (this.bars[this.i].len <= this.bars[this.j].len)
-				this.temp[this.k++] = this.bars[this.i++];
+			if (this.displayComparision)
+			{
+				this.bars[this.i].isCompaired = true;
+				this.bars[this.j].isCompaired = true;
+				this.displayComparision = false;
+				this.previ = this.i;
+				this.prevj = this.j;
+			}
 			else
-				this.temp[this.k++] = this.bars[this.j++];
+			{
+
+				if (this.previ != -1)
+					this.bars[this.previ].isCompaired = false;
+				if (this.prevj != -1)
+					this.bars[this.prevj].isCompaired = false;
+
+				if (this.bars[this.i].len <= this.bars[this.j].len)
+					this.temp[this.k++] = this.bars[this.i++];
+				else
+					this.temp[this.k++] = this.bars[this.j++];
+		
+				this.displayComparision = true;
+			}
+
 		}
 		else
 		{

@@ -101,18 +101,22 @@ class Bar
 
 		if (this.isCompaired || this.useThird)
 		{
-			if (this.useThird)
+			if (this.whichAlgo != 4)
+			{
+				if (this.useThird)
 				ctx2.fillStyle = "#f00";
 
-			var startY = this.boxStartY + this.boxWidth;
-			var lineLen = 30;
-			var width = ctx2.lineWidth / 2;
-			if (this.compairednumberXPos != -1)
-			{
-				var xWidth = this.numberXPos - this.bars[this.compairednumberXPos].numberXPos;
-				drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
-				drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
+				var startY = this.boxStartY + this.boxWidth;
+				var lineLen = 30;
+				var width = ctx2.lineWidth / 2;
+				if (this.compairednumberXPos != -1)
+				{
+					var xWidth = this.numberXPos - this.bars[this.compairednumberXPos].numberXPos;
+					drawLine(ctx2, this.numberXPos, startY, this.numberXPos, startY + lineLen );
+					drawLine(ctx2, this.numberXPos, startY + lineLen - width, this.numberXPos - xWidth, startY + lineLen - width );
+				}
 			}
+
 			ctx2.fillStyle = "#000";
 		}
 		else
