@@ -373,7 +373,7 @@ class Sorting
 		var textX = (this.canvasWidth2 -  ctx.measureText(msg).width) / 2;
 
 		if (this.whichAlgo == 4)
-			textY += 55;
+			textY += 45;
 
 		ctx.fillText(msg, textX, textY);
 	}

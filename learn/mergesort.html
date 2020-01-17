@@ -1,0 +1,184 @@
+<!Doctype html>
+<html>
+<head><title>MERGESORT</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="merge.css" type="text/css" >
+</head>
+
+<body>
+
+	<header>
+		<h1>MERGE SORTING</h1>
+
+		<input type="checkbox" class="nav-toggle" id="nav-toggle" >
+		<nav>
+			<ul>
+				<li><a href="mergesort.html" alt=""> MERGE SORTING </a> </li>
+				<li><a href="selectionsort.html " > SELECTION SORT </a> </li>
+				<li><a href=" "> BUBBLE SORT </a> </li>
+				<li><a href="insertion.html "  > INSERTION SORT </a> </li>
+				<li><a href="mainpage.html">SORTING</a></li>
+                <li><a href="../index.html">HOME</a></li>
+
+			</ul>	
+		</nav>	
+		<label for="nav-toggle" class="nav-toggle-label" id="nav-toggle-label">
+			<span> </span>
+		</label>
+
+	</header>
+
+<section class="content">
+	<p class="p1">
+		<h1 class="h1"> What is Merge Sort and how is it associated with Algorithms?</h1>
+
+Merge Sort is a sorting algorithm, which is commonly used in computer science. Merge Sort is a divide and conquer algorithm. It works by recursively breaking down a problem into two or more sub-problems of the same or related type, until these become simple enough to be solved directly. The solutions to the sub-problems are then combined to give a solution to the original problem. So Merge Sort first divides the array into equal halves and then combines them in a sorted manner.
+
+
+	</p>
+
+	<p class="p1">
+		<h1 class="h1"> Merge Sort Algorithms: Steps on how it works:</h1>
+<ul>
+	<li>If it is only one element in the list it is already sorted, return.</li>
+	<li>Divide the list recursively into two halves until it can no more be divided.</li>
+	<li>Merge the smaller lists into new list in sorted order.
+	</li>
+</ul>
+
+
+	</p>
+
+	<p class="p1">
+			<h1 class="h1"> Below is an image of an array, which needs to be sorted. We will use Merge Sort Algorithm, to sort this array:</h1>
+
+			<img src="merg.png" href="file:///C:/Users/Dell/Desktop/mn/merg.png">
+				
+    </p>
+    <p class="p1">
+    	<h1 class="h1">Important Characteristics of Merge Sort:</h1>
+    		<ul>
+
+	<li>Merge Sort is useful for sorting linked lists.</li>
+<li>	Merge Sort is a stable sort which means that the same element in an array maintain their original positions with respect to each other.</li>
+<li>	Overall time complexity of Merge sort is O(nLogn). It is more efficient as it is in worst case also the runtime is O(nlogn)</li>
+	<li>The space complexity of Merge sort is O(n). This means that this algorithm takes a lot of space and may slower down operations for the last data sets.</li>
+</ul>
+    </p>
+
+    <p class="p1">
+    	
+   	<h1 class="h1">ALGORITHM</h1>
+   <pre>
+    MergeSort(A, p, r)
+    If p > r 
+     return;
+    q = (p+r)/2;
+    mergeSort(A, p, q)
+    mergeSort(A, q+1, r)
+    merge(A, p, q, r)
+</pre>
+
+    </p>
+
+
+    <p class="p1">
+ 		<h3 style="color:hotpink">Program to implement merge sort</h3>   
+    <div class="program">
+    <pre>
+   #include&ltstdio.h&gt
+   #include&ltstdlib.h&gt
+
+ // Merges two subarrays of arr[]. 
+// First subarray is arr[l..m] 
+// Second subarray is arr[m+1..r] 
+void merge(int arr[], int l, int m, int r) 
+{ 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 =  r - m; 
+  
+    /* create temp arrays */
+    int L[n1], R[n2]; 
+  
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1+ j]; 
+  
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0; // Initial index of first subarray 
+    j = 0; // Initial index of second subarray 
+    k = l; // Initial index of merged subarray 
+    while (i < n1 && j < n2) 
+    { 
+        if (L[i] <= R[j]) 
+        { 
+            arr[k] = L[i]; 
+            i++; 
+        } 
+        else
+        { 
+            arr[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+  
+    /* Copy the remaining elements of L[], if there 
+       are any */
+    while (i < n1) 
+    { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+  
+    /* Copy the remaining elements of R[], if there 
+       are any */
+    while (j < n2) 
+    { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+  
+/* l is for left index and r is right index of the 
+   sub-array of arr to be sorted */
+void mergeSort(int arr[], int l, int r) 
+{ 
+    if (l < r) 
+    { 
+        // Same as (l+r)/2, but avoids overflow for 
+        // large l and h 
+        int m = l+(r-l)/2; 
+  
+        // Sort first and second halves 
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m+1, r); 
+  
+        merge(arr, l, m, r); 
+    } 
+} 
+
+    </pre>			
+	</div>
+
+    </p>
+     <p>
+   <pre>
+   	<b>Best = O(n * logn)</b>
+
+	<b>Average = O(n * logn)</b>
+
+	<b>Worst = O(n * logn)</b>
+	
+</pre>
+      </p>
+	
+</section>
+</body>
+</html>

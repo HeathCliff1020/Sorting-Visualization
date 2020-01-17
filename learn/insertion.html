@@ -1,0 +1,150 @@
+<!Doctype html>
+<html>
+<head><title>SELECTION SORT</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="insert.css" type="text/css" >
+</head>
+
+<body>
+
+	<header>
+		<h1>INSERTION SORT</h1>
+
+		<input type="checkbox" class="nav-toggle" id="nav-toggle" >
+		<nav>
+			<ul>
+				<li><a href="mergesort.html" alt=""> MERGE SORTING </a> </li>
+				<li><a href="selectionsort.html" > SELECTION SORT </a> </li>
+				<li><a href=" " > BUBBLE SORT </a> </li>
+				<li><a href=" "  > INSERTION SORT </a> </li>
+				<li><a href="mainpage.html">SORTING</a></li>
+				<li><a href="../index.html">HOME</a></li>
+			</ul>	
+		</nav>	
+		<label for="nav-toggle" class="nav-toggle-label" id="nav-toggle-label">
+			<span> </span>
+		</label>
+
+	</header>
+<section class="content">
+		<p class="p1">
+					
+	Insertion sort is a sorting algorithm that builds a final sorted array (sometimes called a list) one element at a time. While sorting is a simple concept, it is a basic principle used in complex computer programs such as file search, data compression, and path finding.
+</p>
+		
+			<p class="p1">
+					<h1 class="h1"> How insertion sort works</h1>
+<ol class="li1">
+	<li>In the first step the second element of array is taken as the key element,</li>
+	<li>we compare the key element with the element or elements before it</li>
+<ul class="li1">
+	<li>if key < 1st element then we insert key before the first element.</li>
+	<li>if key > 1st element then we insert it after the first element</li>
+</ul>
+<li>Then we take  third element  of  the array as key and compare it with its left elements .</li>
+<li>unitl array  is sorted we repeatidly follow steps</li>
+</ol class="li1">
+		</p>
+
+<p class="p1">
+	<img href="file:///C:/Users/Dell/Desktop/mn/ins.png" src="ins.png ">
+
+</p>
+
+
+
+
+			<p class="p1">
+					<h1 class="h1">Complexity of Insertion Sort</h1>
+
+Insertion sort runs in O(n) time in its best case and runs in O(n^2) in its worst and average cases.
+
+<h4 style="color:blue ; text-align: left;padding:0px,margin:0px">Best Case Analysis:</h4>
+Insertion sort performs two operations: it scans through the list, comparing each pair of elements, and it swaps elements if they are out of order. Each operation contributes to the running time of the algorithm. If the input array is already in sorted order, insertion sort compares O(n) elements and performs no swaps Therefore, in the best case, insertion sort runs in O(n) time.
+<ul class="li1">
+<li><b>Worst Case Time Complexity [ Big-O ]</b>: O(n2)</li>
+<li><b>Best Case Time Complexity [Big-omega]</b>: O(n)</li>
+<li><b>Average Time Complexity [Big-theta]</b>: O(n2)</li>
+
+<li><b>Space Complexity</b>: O(1)</li></ul>
+		</p>
+			<p class="p1">
+					<h1 class="h1"> Important characteristics of Insertion Sort:</h1>
+					<ul class="li1">
+<li>	It is efficient for smaller data sets, but very inefficient for larger lists.</li>
+	<li>Insertion Sort is adaptive, that means it reduces its total number of steps if a partially sorted array is provided as input, making it efficient.</li>
+	<li>It is better than Selection Sort and Bubble Sort algorithms.</li>
+	<li>Its space complexity is less. Like bubble Sort, insertion sort also requires a single additional memory space.</li>
+	<li>It is a stable sorting technique, as it does not change the relative order of elements which are equal.
+	</li>
+</ul>
+		</p>
+			<p class="p1">
+					<h1 class="h1"> Implementing Insertion Sort Algorithm</h1>
+<br>
+Below we have a simple implementation of Insertion sort in C++ languag<br><br>
+<div class="program">
+<pre>
+#include&ltstdlib.h&gt
+
+#include&ltiostream&gt
+
+using namespace std;
+ 
+//member functions declaration
+void insertionSort(int arr[], int length);
+void printArray(int array[], int size);
+ 
+// main function
+int main()
+{
+	int array[5] = {5, 1, 6, 2, 4, 3};
+	// calling insertion sort function to sort the array
+	insertionSort(array, 6);
+	return 0;
+}
+ 
+void insertionSort(int arr[], int length)
+{
+	int i, j, key;
+	for (i = 1; i < length; i++) 
+	{
+		j = i;
+ 		while (j > 0 && arr[j - 1] > arr[j])
+ 		{
+ 			key = arr[j];
+ 			arr[j] = arr[j - 1];
+ 			arr[j - 1] = key;
+ 			j--;
+ 		}
+	}
+	cout << "Sorted Array: ";
+	// print the sorted array
+	printArray(arr, length);
+}
+
+// function to print the given array
+void printArray(int array[], int size)
+{ 
+ 	int j;
+	for (j = 0; j < size; j++)
+	{
+ 		cout <<" "<< array[j];
+ 	}
+ 	cout << endl;
+}
+</pre>
+
+</div>
+		</p>
+			<p class="p1">
+					<h1 class="h1"> </h1>
+
+		</p>
+
+
+
+</section>
+</body>
+</html>

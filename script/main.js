@@ -90,6 +90,12 @@ function myFunction()
 {
 	if (isFrameByFrame)
 		sort.nextFrame();
+
+	if (changingValue)
+		alert("Cannot sort while in edit mode!!");
+	else if (!isFrameByFrame)
+		alert("Check the step-by-step checkbox to view the sorting one step at a time.");
+
 }
 
 requestAnimationFrame(animationLoop);
@@ -292,6 +298,9 @@ function recreateBars(changedValue)
 function startAnimation()
 {
 	animating = true;
+
+	if (isFrameByFrame)
+		alert("Uncheck the step-by-step check box to view the animation!!");
 }
 
 /*Pauses the animation*/

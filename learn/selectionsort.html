@@ -1,0 +1,172 @@
+<!Doctype html>
+<html>
+<head><title>SELECTION SORT</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="selection.css" type="text/css" >
+</head>
+
+<body>
+
+	<header>
+		<h1>SELECTION SORT</h1>
+
+		<input type="checkbox" class="nav-toggle" id="nav-toggle" >
+		<nav>
+			<ul>
+				<li><a href="mergesort.html" alt=""> MERGE SORTING </a> </li>
+				<li><a href="selectionsort.html" > SELECTION SORT </a> </li>
+				<li><a href=" " > BUBBLE SORT </a> </li>
+				<li><a href="insertion.html" > INSERTION SORT </a> </li>
+				<li><a href="mainpage.html">HOME</a></li>
+				<li><a href="../index.html">HOME</a></li>
+			</ul>	
+		</nav>	
+		<label for="nav-toggle" class="nav-toggle-label" id="nav-toggle-label">
+			<span> </span>
+		</label>
+
+	</header>
+<section class="content"> 
+	<p class="p1">
+		<br><br><b>Selection Sort is very basic and easy sorting algorithm to understand and implement.
+
+		</b></p>
+	
+	<p>
+			<h1 class="h1">Selection sort works</h1>	
+<ul>			
+<li>Finding smallest element from the array and.</li>
+
+ 
+<li>Replace the smallest element found to first position in array.</li>
+
+<li>Once the smallest element is found and placed at first position,
+Now task is to place 2nd smallest element in the second position.</li>
+<li>
+For finding the 2nd smallest element,
+we will repeat the same process and find smallest element but this time we will not include FIRST position in searching smallest number.</li>
+</ul>
+<p class="p1">
+
+<h1> </h1>
+	<img href="file:///C:/Users/Dell/Desktop/mn/selection.png" src="selection.png" >
+	</p>
+
+	<p class="p1">
+		<h1 class="h1">
+			Selection sort Time Complexity Analysis
+		</h1>
+	<ol>
+		<li><b>Best Case : </b> O(n)^2 </li>
+			<li><b>Worst Case : </b>O(n)^2 </li>
+		<li>    <b>Average Case :</b> O(n)^2 </li>
+			<li><b>Worst Case Space Complexity :</b> O(1) </li>
+
+				<li><b>Stable :</b> No</li>
+	</ol>
+</p>
+
+
+	<p class="p1">
+		<h1 class="h1">
+			Why is Selection sort faster than Bubble sort?
+		</h1>
+		<ul>
+<li>When using Selecting sort it swaps elements "n" times in worst case, but Bubble sort swaps almost n*(n-1) times.</li>
+
+We all know, Reading time is less than writing time even in-memory
+		
+			<li>If we have a system where write operations are extremely expensive and read operations are not, then Selection sort could be ideal.</li>
+	<li>Selection sort is good for sorting arrays of small size.</li>
+
+	<li>Selection sort is better than Bubble sort due to less swapping required.</li>
+<p class="p1">
+<h1 style="color:red">Note:</h1>
+	<ul>
+<li>In Bubble sort, we can identify whether list is sorted or not in 1st iteration but in Selection sort we can't able to identify that.
+Compared to Selection sort, Bubble sort should be used when the given array is almost sorted. </li>
+	
+	</ul>
+	</p>
+	<p class="p1">
+		<h1 class="h1" style="margin-left:-48px">ALGORITHM</h1>
+	<ul class="li1">
+		<li><b>Step 1 </b>− Set MIN to location 0</li>
+		<li><b>Step 2 </b>− Search the minimum element in the list</li>
+		<li><b>Step 3</b> − Swap with value at location MIN</li>
+		<li><b>Step 4</b> −Increment MIN to point to next element</li>
+		<li><b>Step 5 −</b> Repeat until list is sorted</li>
+	</ul>
+
+	</p>
+
+	<p class="p1">
+		<b>Program to implement Selection Sort
+		// C program implementing Selection Sort<b><br>
+#include&ltstdio.h&gt
+<pre>
+	<div class="program">
+// function to swap elements at the given index values
+
+void swap(int arr[], int firstIndex, int secondIndex) 
+{   
+    int temp;
+    temp = arr[firstIndex];
+    arr[firstIndex] = arr[secondIndex];
+    arr[secondIndex] = temp;
+}
+
+// function to look for smallest element in the given subarray
+int indexOfMinimum(int arr[], int startIndex, int n) 
+{
+    int minValue = arr[startIndex];
+    int minIndex = startIndex;
+
+    for(int i = minIndex + 1; i < n; i++) {
+        if(arr[i] < minValue) 
+        {
+            minIndex = i;
+            minValue = arr[i];
+        }
+    } 
+    return minIndex;
+}
+
+void selectionSort(int arr[], int n) 
+{
+    for(int i = 0; i < n; i++) 
+    {
+        int index = indexOfMinimum(arr, i, n);
+        swap(arr, i, index);
+    }
+    
+}
+
+void printArray(int arr[], int size)
+{
+    int i;
+    for(i = 0; i < size; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main()
+{
+    int arr[] = {46, 52, 21, 22, 11};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    selectionSort(arr, n);
+    printf("Sorted array: \n");
+    printArray(arr, n);
+    return 0;
+}
+</div>
+</pre>
+
+	</p>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,20 @@
+body{
+	background-color:pink;	
+}
+
+header{
+	background-color:green;	
+	font-size:32px;
+}
+
+section{
+	background-color:yellow;	
+}
+
+aside{
+	background-color:blue;	
+}
+
+footer{
+	background-color:orange;	
+}

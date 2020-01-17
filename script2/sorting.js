@@ -99,6 +99,7 @@ class Sorting
 			ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
 			this.drawStats(ctx);
+			this.drawArrayBox();
 
 			for (var i = 0; i < this.len; i++)
 				this.bars[i].draw(ctx);
@@ -106,6 +107,11 @@ class Sorting
 			if (!this.isAnimating)
 				this.waiting = true;
 		}
+	}
+
+	drawArrayBox()
+	{
+
 	}
 
 	/*

@@ -1,0 +1,79 @@
+<!Doctype html>
+<html>
+<head><title>the main page</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="main1.css" type="text/css" >
+</head>
+
+<body>
+
+	<header>
+		<h1>SORTING</h1>
+
+		<input type="checkbox" class="nav-toggle" id="nav-toggle" >
+		<nav>
+			<ul>
+				<li><a href="mergesort.html" alt=""> MERGE SORTING </a> </li>
+				<li><a href="selectionsort.html" > SELECTION SORT </a> </li>
+				<li><a href=" " > BUBBLE SORT </a> </li>
+				<li><a href="insertion.html"  > INSERTION SORT </a> </li>
+				<li><a href="mainpage.html">SORTING</a></li>
+				<li><a href="../index.html">HOME</a></li>
+			</ul>	
+		</nav>	
+		<label for="nav-toggle" class="nav-toggle-label" id="nav-toggle-label">
+			<span> </span>
+		</label>
+
+	</header>
+
+<section class="content">
+	
+				<p class="p1">
+
+					<h2 class="h1">Sorting</h2>
+	Sorting is a process of ordering individual elements of a list according to their proper rank, either in ascending or descending order. A programming logic with few steps which can sort a bunch of elements are called sorting algorithms. Different types of sorting algorithms have different logics and steps. C programming language is the best to start understanding sorting algorithms. However, sorting algorithms are not limited to C programming language. These can be implemented by any programming languages like C++, C#, JAVA, Python, Javascript, Objective C etc. We can easily sort a list of elements by means of iterations and condition check statements.
+				</p>
+
+	<p class="p1">
+		<h2 class="h1">Sorting efficiency</h2>
+The count of the element is small the number of iterations in the sorting will be less. As the number grows the number of iterations also increases. Now suppose we have a record of elements inside a database having count of several thousands. The problem comes with the performance of the sorting. Computer takes much longer time to sort the elements in the list. Efficiency of a sorting algorithm is often expressed with the order of O(n) and denoted with Big-O notation. A simple sorting algorithm implements two loops where outer loop can grow to N and for each iteration of outer loop, the inner loop can take (N - 1) iterations. So total number of steps for this sorting algorithm will be N times (N-1). This sorting will have a time complexities of the order of O(n*n) or O(n^2). A sorting algorithms is always chosen based on its time performance. Order of O(n^2) is for small number of elements but not a good value for considering a large number of elements. Some sorting algorithms uses recursion and better logic to give better performance. We will discuss all algorithms one by one.
+
+	</p>
+
+	<p class="p1">
+		<h2 class="h1">Sorting scaling</h2>
+Another problem comes when the size of individual elements are large and total number of elements are also large that the entire list of elements cannot be fitted in main memory for sorting at one go. Entire elements are then divided into smaller groups. Groups are sorted and merged back.
+
+	<h1>Therefore considering the scale, the sorting mechanism has been divided into are two main categories :-</h1>
+
+	<ul>
+			<li>Internal Sorting</li>
+			<li>External Sorting</li>
+			
+
+	</ul>
+	
+	</p >
+
+	<p class="p1">
+		<h1 class="h1">Types of sortings in practical use</h1>
+			<ol>
+				<li>Bubble Sort- A sorting algorithm which compares one element to its next element and if requires it swaps like a bubble.</li>
+				<li>Selection Sort - A sorting algorithm which selects a position in the elements and compares it to the rest of the positions one by one.
+</li>
+				<li>Insertion Sort - A sorting algorithm which selects one element from the array and is compared to the one side of the array. Element is inserted to the proper position while shifting others.</li>
+				<li>Quick Sort - A sorting algorithm which divides the elements into two subsets and again sorts recursively.</li>
+				<li>Heap Sort - A sorting algorithm which is a comparison based sorting technique based on Binary Heap data structure. </li>
+
+				<li>Merge sort - A sorting algorithm which divides the elements to subgroups and then merges back to make a sorted.</li>
+				<li>Radix Sort - A sorting algorithm used for numbers. It sorts the elements by rank of the individual digits.</li>
+				
+			</ol>
+	</p>
+
+
+</section>
+</body>
+</html>

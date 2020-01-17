@@ -106,7 +106,7 @@ function animationLoop(timeStamp)
 					bars[index].finishColor2 = true;
 				}
 				
-				sort.onlyDraw(ctx, ctx2);
+				sort.onlyDraw(ctx);
 				index += finishInc;
 
 				if (index == bars.length)

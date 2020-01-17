@@ -1,0 +1,49 @@
+body{
+	background-color:white;
+	margin:0px;
+
+
+}
+header{
+	text-align:center;
+	background-color:hotpink;
+	width:100%;
+	height:50px;
+	font-size:40px;
+	padding:0px;
+	margin:0px;
+	position:fixed;
+}
+
+.split{
+		
+		position:fixed;
+		z-index:1;
+}
+.column1{
+	right:0;
+	height:500px;
+	width:250px;
+	background-color:blue;
+	margin:0px;
+	padding:0px;
+	position:fixed;
+}
+.column2{
+	
+	background-color:green;
+	height:500px;
+	width:250px;
+	position:absolute;
+	left:0;
+	padding:0px;
+	margin:0px;
+	position:fixed;
+
+}
+
+.para{
+			text-align:justify;
+			
+	
+}

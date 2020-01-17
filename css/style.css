@@ -181,7 +181,7 @@ body
 
   body
   {
-    background: url(../images/g2.jpg) no-repeat center center fixed;
+    background: url(../images/g22.jpg) no-repeat center center fixed;
     background-size: cover;
   }
 }
@@ -286,4 +286,59 @@ footer div
   margin-right: 20px;
   font-size: 30px;
   color: #4da6ff;
+}
+
+.changer1::before
+{
+  content: 'No. of elements';
+  display: inline;
+  position: absolute;
+  color: blue;
+  font-weight: bold;
+  top: -20px;
+}
+
+.changer12
+{
+  display: none;
+}
+
+.changer2::before
+{
+  content: 'Change Value';
+  display: none;
+  position: absolute;
+  color: blue;
+  font-weight: bold;
+  top: -20px;
+}
+
+.changer22::before
+{
+  display: inline;
+}
+
+.edit::before
+{
+  content: 'Edit';
+  display: inline;
+  position: absolute;
+  color: red;
+  font-weight: bold;
+  top: -20px;
+}
+
+.ind::before
+{
+  content: 'Index';
+  display: none;
+  position: absolute;
+  color: red;
+  font-weight: bold;
+  top: -20px;
+}
+
+.ind2::before
+{
+  display: inline;
 }

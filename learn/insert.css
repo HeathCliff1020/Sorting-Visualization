@@ -1,0 +1,161 @@
+body{
+	background-color:white;
+	margin:0px;
+	padding:0px;
+}
+
+
+/*navigation starts here*/
+
+header{
+	text-align:center;
+	background-color: #aaaccc;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	position:fixed;
+	z-index: 999;
+
+}
+h1{
+	text-align:center;
+}
+nav{
+	position:absolute;
+	text-align:left;
+	top:100%;
+	left:0;
+	padding:0px;
+	background:#aaaccc;
+	width:100%;
+	transform:scale(1,0);
+	transform-origin:top;
+	transition:transform 400ms ease-in-out;
+
+
+	
+}
+
+nav ul{
+
+	list-style:none;
+	padding:0px;
+	margin:3px;
+	
+
+}
+nav li{
+		margin:20px;
+	
+}
+nav a{
+	margin:0px;
+	padding:0px;
+	color:green;
+	font-size: 1.2rem;
+	text-decoration: none;
+	opacity:0;
+	transition:opacity 150ms ease-in-out;
+}
+
+nav a:hover{
+	color:black;
+	transition:
+}
+
+.nav-toggle{
+	display:none;
+}
+
+.nav-toggle-label{
+	position:absolute;
+	top:0;
+    left:0;
+	margin-left: 1em;
+	height:100%;
+	display: flex;
+	align-items:center;
+
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after{
+
+	display:block;
+	background:white;
+	height:2px;
+	width:2em;
+	border-radius:2px;
+	position:relative;
+}
+.nav-toggle-label span::before,
+.nav-toggle-label span::after{
+
+		content:'';
+		position:absolute;
+
+	}
+
+
+.nav-toggle-label span::before
+{
+	bottom:7px;
+
+}
+.nav-toggle-label span::after{
+	top:7px;
+
+}
+
+.nav-toggle:checked ~ nav{
+	transform:scale(1,1);
+	
+}
+.nav-toggle:checked ~ nav a{
+	opacity:1;
+	transition:opacity 250ms ease-in-out 250ms;
+}
+
+section{
+	padding:60px;
+	margin:10px;
+
+
+}
+
+.content{
+	
+	position:absolute;
+}
+
+.p1{
+		text-align: left;
+}
+
+.h1{
+	margin:0px;
+	padding:0px;
+	color:green;
+	text-decoration: underline;
+	text-align: left;
+}
+
+ul ol .li1{
+	padding:0px;
+	margin:0px;
+}
+img{
+	height:300px;
+}
+
+div{
+	background:black;
+	width:60%;
+
+}
+.program{
+	color:white;
+	margin:5px;
+	padding:20px;
+}

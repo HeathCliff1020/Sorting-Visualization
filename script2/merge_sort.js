@@ -1,77 +1,3 @@
-/*void merge(int arr[], int l, int m, int r) 
-{ 
-    int i, j, k; 
-    int n1 = m - l + 1; 
-    int n2 =  r - m; 
-  
-    // create temp arrays 
-    int L[n1], R[n2]; 
-  
-    // Copy data to temp arrays L[] and R[] 
-    for (i = 0; i < n1; i++) 
-        L[i] = arr[l + i]; 
-    for (j = 0; j < n2; j++) 
-        R[j] = arr[m + 1+ j]; 
-  
-    // Merge the temp arrays back into arr[l..r]
-    
-    i = 0; // Initial index of first subarray 
-    j = 0; // Initial index of second subarray 
-    k = l; // Initial index of merged subarray 
-    while (i < n1 && j < n2) 
-    { 
-        if (L[i] <= R[j]) 
-        { 
-            arr[k] = L[i]; 
-            i++; 
-        } 
-        else
-        { 
-            arr[k] = R[j]; 
-            j++; 
-        } 
-        k++; 
-    } 
-  
-    // Copy the remaining elements of L[], if there 
-       are any 
-    while (i < n1) 
-    { 
-        arr[k] = L[i]; 
-        i++; 
-        k++; 
-    } 
-  
-    // Copy the remaining elements of R[], if there 
-       are any 
-    while (j < n2) 
-    { 
-        arr[k] = R[j]; 
-        j++; 
-        k++; 
-    } 
-} 
-  
-// l is for left index and r is right index of the 
-//   sub-array of arr to be sorted 
-void mergeSort(int arr[], int l, int r) 
-{ 
-    if (l < r) 
-    { 
-        // Same as (l+r)/2, but avoids overflow for 
-        // large l and h 
-        int m = l+(r-l)/2; 
-  
-        // Sort first and second halves 
-        mergeSort(arr, l, m); 
-        mergeSort(arr, m+1, r); 
-  
-        merge(arr, l, m, r); 
-    } 
-} 
-*/
-
-//  a class containing the information about the starting, mid and end of a particular split
 function Info(start, mid, end, split)
 {
 	this.start = start;
@@ -80,15 +6,13 @@ function Info(start, mid, end, split)
 	this.split = split;
 }
 
-
-
 class MergeSort extends Sorting
 {
-	constructor(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo)
+	constructor(bars, canvasWidth, canvasHeight, whichAlgo)
 	{
 
 		// Calling the super classes' constuctor
-		super(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
+		super(bars, canvasWidth, canvasHeight, whichAlgo);
 
 		this.outterVar = 0;			// The i variable in bubble_sort
 		this.innerVar = 0;			// The j variable in bubble_sort
@@ -96,10 +20,6 @@ class MergeSort extends Sorting
 		this.callStack = [];       // stack to store the starting, mid and end of the array at different splits.
 
 		this.callStack.push( new Info(0, parseInt((this.bars.length - 1) / 2), this.bars.length - 1, 0) );
-
-		this.tempBoxPadding = 120;
-		this.centerUp = 30;
-		this.boxAdjustment = (this.tempBoxPadding / 2) + (this.boxWidth / 2) - this.centerUp;
 
 		this.splitting = false;
 		this.merging = false;
@@ -119,130 +39,116 @@ class MergeSort extends Sorting
 		this.startX3 = 0;
 
 		this.tempBoxStartY = this.boxStartY - this.tempBoxPadding + this.boxAdjustment;
+
+		this.displayComparision = false;
+		this.previ = -1;
+		this.prevj = -1;
+
+		this.showArrows = false;
+		this.showIndex1 = -1;
+		this.showIndex2 = -1;
+
+		this.showArrows2 = false;
+		this.show2Index1 = -1;
+		this.show2Index2 = -1;
+		this.show2Index3 = -1;
+
+		this.showArrows3 = false;
+		this.show3Index1 = -1;
+		this.show3Index2 = -1;
+		this.show3Index3 = -1;
+		this.shos3Index4 = -1;
+		this.show3Num = -1;
+
+		this.popIt = false;
 	}
 
-	printNumber(ctx, num, size, xPos, yPos, color)
+	drawArrayBox()
 	{
-		ctx.fillStyle = color;
-		var font = "bold " + size + "pt Calibari"
-		ctx.font = font;
-		var x = xPos - ctx.measureText(num.toString()).width / 2;
-		var y = yPos + parseInt(ctx.font.match(/\d+/), 10) / 2;
-		ctx.fillText(num.toString(), x, y);
-	}
 
-	drawBoxWithIndex(boxStartY, ctx)
-	{
-		ctx.fillStyle = "#99ff99";
-		ctx.fillRect(this.horizMargin, boxStartY, this.boxLength, this.boxWidth);
-		ctx.lineWidth = 3;
-		ctx.fillStyle = "#000";
-		drawRect(ctx, this.horizMargin, boxStartY, this.boxLength, this.boxWidth);
-		
-		// drawing the divider lines
-
-		var startX = this.lineOffset + this.horizMargin;	// start drawing lines for the offset 
-
-		for (var i = 1; i <= this.bars.length - 1; i++)
+		if (this.showArrows)
 		{
-			drawLine(ctx, startX, boxStartY, startX, boxStartY + this.boxWidth);
-			startX += this.lineOffset;
-		}
 
-		startX = this.horizMargin + (this.lineOffset / 2);
-		for (var i = 0; i < this.len; i++)
-		{
-			ctx.fillStyle = "#000";
-			ctx.font = "bold 10pt Calibari";
-			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, boxStartY - 5);
-			startX += this.lineOffset;
-		}	
-	}
-
-	drawArrayBox(ctx)
-	{
-		//console.log("Draws the box for the array elements.");
-
-		//drawing the box
-
-		this.drawBoxWithIndex(this.boxStartY + this.boxAdjustment, ctx);
-		this.drawBoxWithIndex(this.tempBoxStartY, ctx);
-
-		ctx.font = "bold 20pt Calibari";
-		ctx.fillStyle = "#00f";
-		ctx.fillText("Temporary Array", this.horizMargin, this.tempBoxStartY - 30);
-
-		var size = 10;
-		var x = this.horizMargin + this.lineOffset / 2;
-		var y = this.tempBoxStartY + this.bars[0].boxWidth / 2;
-
-		for (var i = 0; i < this.temp.length; i++)
-		{
-			if (this.temp[i] != null)
-				this.printNumber(ctx, this.temp[i].len, size, x, y, "#00f");
-			x += this.lineOffset;
-		}
-
-
-		var max = -1;
-
-		for ( var i = this.callStack.length - 1; i >= 0 ; i-- )
-		{
-			if (this.callStack[i].start > max)
+			for (var i = this.showIndex1; i <= this.showIndex2; i++)
 			{
-				max = this.callStack[i].end;
-				this.drawSplitLine(this.callStack[i].start, this.callStack[i].end, ctx);
+				this.bars[i].useFourth = true;
+			}
+
+			this.showArrows = false;
+
+			for (i = this.showIndex1; i <= this.showIndex2; i++)
+				this.temp[i] = null;
+		}
+		else
+		{
+			if (this.showIndex1 != -1)
+			{
+				for (var i = this.showIndex1; i <= this.showIndex2; i++)
+				{
+					this.bars[i].useFourth = false;
+				}
+			}			
+		}
+
+		if (this.showArrows2)
+		{	
+			this.bars[this.show2Index1].useThird = true;
+			this.bars[this.show2Index3].useThird = true;
+			this.showArrows2 = false;
+		}
+		else
+		{
+			if (this.show2Index1 != -1)
+			{
+				this.bars[this.show2Index1].useThird = false;
+				this.bars[this.show2Index3].useThird = false;
 			}
 		}
 
-		if (this.done)
+		if (this.showArrows3)
 		{
-			this.printMessage(ctx, "Array Sorted", this.boxStartY + this.boxWidth + 60);
-		}
-		else if (this.isAnimating && !this.comparing)
-		{
-			this.printMessage(ctx, this.animationMessage(), this.boxStartY + this.boxWidth + 60);
-		}
-		else if (this.comparing)
-		{
-			this.printMessage(ctx, this.comparingMessage(), this.boxStartY + this.boxWidth + 60);
-		}	
-		else if (this.swapped)
-		{
-			this.printMessage(ctx, this.swappingMessage(), this.boxStartY + this.boxWidth + 60);
-		}
+			var I = this.show3Index2;
+			var K = this.show3Index1;
+			for (var k = 0; k < this.show3Num; k++)
+			{
+				I++;
+				K++;
+			}
 
+			for (var i = this.show3Index3; i <= this.show3Index4; i++)
+			{
+				this.bars[i].finishColor = true;
+			}
+			this.showArrows3 = false;
+		}
+		else if (this.show3Index1 != -1)
+		{
+			for (var i = this.show3Index3; i <= this.show3Index4; i++)
+			{
+				this.bars[i].finishColor = false;
+			}
+		}
 	}
 
-	drawSplitLine(start, end, ctx)
-	{
-		var x1 = this.bars[start].numberXPos;
-		var x2 = this.bars[end].numberXPos;
-		var y1 = this.bars[start].numberYPos;
-		var y2 = this.bars[end].numberYPos;
-		var w = this.bars[start].boxWidth;
-		drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
-		drawLine(ctx, x2, y2 + w / 2, x2, y2 + w / 2 + 30);
-		drawLine(ctx, x1, y1 + w / 2 + 30, x2, y2 + w / 2 + 30);
-	}
 
 	merge()
 	{
 
 		if (!this.merging)
 		{
-
-			console.log("came here");
-
 			this.i = this.top.start;
 			this.j = this.top.mid + 1;
 			this.k = this.top.start;
+
+			if (this.i == this.top.end)
+				this.bars[this.i].useThird = true;
 
 			//starting pos for the bor
 			this.startX2 = this.bars[this.top.start].xPos;
 			this.startX3 = this.bars[this.top.start].numberXPos;
 
 			this.merging = true;
+			this.displayComparision = true;
 		}
 
 
@@ -258,36 +164,94 @@ class MergeSort extends Sorting
 				this.startX2 += (this.bars[a].width * 2 );
 				this.startX3 += this.lineOffset;
 
-				this.temp[a] = null;
+				this.showArrows = true;
+				this.showIndex1 = this.top.start;
+				this.showIndex2 = this.top.end;
 			}
 
-			this.callStack.pop();
+			this.popIt = true;
 			return; 
 		}
 
+
 		if (this.i <= this.top.mid && this.j <= this.top.end )
 		{
-
-			if (this.bars[this.i].len <= this.bars[this.j].len)
-				this.temp[this.k++] = this.bars[this.i++];
+			if (this.displayComparision)
+			{
+				this.bars[this.i].isCompaired = true;
+				this.bars[this.j].isCompaired = true;
+				this.displayComparision = false;
+				this.previ = this.i;
+				this.prevj = this.j;
+			}
 			else
-				this.temp[this.k++] = this.bars[this.j++];
+			{
+
+				if (this.previ != -1)
+				{
+					this.bars[this.previ].isCompaired = false;
+				}
+				if (this.prevj != -1)
+				{
+					this.bars[this.prevj].isCompaired = false;
+				}
+
+				if (++this.numOfComparisions && this.bars[this.i].len <= this.bars[this.j].len)
+				{
+					this.temp[this.k++] = this.bars[this.i++];
+					this.showArrows2 = true;
+					this.show2Index1 = this.i - 1;
+					this.show2Index2 = this.k - 1;
+					this.show2Index3 = this.j;
+				}
+				else
+				{
+					this.temp[this.k++] = this.bars[this.j++];
+					this.showArrows2 = true;
+					this.show2Index1 = this.j - 1;
+					this.show2Index2 = this.k - 1;
+					this.show2Index3 = this.i;				
+				}
+		
+				this.displayComparision = true;
+			}
+
 		}
 		else
 		{
+			this.showArrows3 = true;
+			this.show3Index1 = this.k;
+			this.show3Index3 = this.top.start;
+			this.show3Index4 = this.top.end;
+
 			if (this.i <= this.top.mid)
+				this.show3Index2 = this.i;
+			else
+				this.show3Index2 = this.j;
+
+			this.show3Num = 0;
+
+			while (this.i <= this.top.mid)
 			{
 				this.temp[this.k++] = this.bars[this.i++];
+				this.show3Num++;
 			}
-			if (this.j <= this.top.end)
+			while (this.j <= this.top.end)
 			{
 				this.temp[this.k++] = this.bars[this.j++];
+				this.show3Num++;
 			}
 		}
 	}
 
 	update(timeStamp)
 	{
+
+		if (this.popIt)
+		{
+			this.callStack.pop();
+			this.popIt = false;
+		}
 
 		if (this.callStack.length <= 0 )
 			this.done = true;
@@ -300,6 +264,7 @@ class MergeSort extends Sorting
 
 			if (!this.merging)
 			{
+
 				this.top = this.callStack[this.callStack.length - 1];
 
 				if (this.top.split == 0)

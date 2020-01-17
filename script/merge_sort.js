@@ -139,6 +139,8 @@ class MergeSort extends Sorting
 		this.show3Index3 = -1;
 		this.shos3Index4 = -1;
 		this.show3Num = -1;
+
+		this.popIt = false;
 	}
 
 	printNumber(ctx, num, size, xPos, yPos, color)
@@ -211,7 +213,7 @@ class MergeSort extends Sorting
 			if (this.callStack[i].start > max)
 			{
 				max = this.callStack[i].end;
-				this.drawSplitLine(this.callStack[i].start, this.callStack[i].end, ctx);
+				this.drawSplitLine(this.callStack[i].start, this.callStack[i].mid, this.callStack[i].end, this.callStack[i].split,  ctx);
 			}
 		}
 
@@ -322,16 +324,54 @@ class MergeSort extends Sorting
 
 	}
 
-	drawSplitLine(start, end, ctx)
+	drawSplitLine(start, mid, end, split, ctx)
 	{
+
 		var x1 = this.bars[start].numberXPos;
 		var x2 = this.bars[end].numberXPos;
+		var x3 = this.bars[mid].numberXPos;
+		var x4 = this.bars[mid + 1].numberXPos;
 		var y1 = this.bars[start].numberYPos;
 		var y2 = this.bars[end].numberYPos;
+		var y3 = this.bars[mid].numberYPos;
 		var w = this.bars[start].boxWidth;
-		drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
-		drawLine(ctx, x2, y2 + w / 2, x2, y2 + w / 2 + 30);
-		drawLine(ctx, x1, y1 + w / 2 + 30, x2, y2 + w / 2 + 30);
+
+		if (split == 0 || start == end - 1)
+		{
+			drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
+			drawLine(ctx, x2, y2 + w / 2, x2, y2 + w / 2 + 30);
+			drawLine(ctx, x1, y1 + w / 2 + 30, x2, y2 + w / 2 + 30);
+		}
+		else
+		{
+			if (mid > start)
+			{
+				drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 20);
+				drawLine(ctx, x1, y1 + w / 2 + 20, x3, y1 + w / 2 + 20);
+				drawLine(ctx, x3, y1 + w / 2 + 20, x3, y1 + w / 2);
+				drawLine(ctx, (x3 + x1) / 2, y1 + w / 2 + 20, (x3 + x1) / 2, y1 + w / 2 + 30);
+				drawLine(ctx, (x3 + x1) / 2, y1 + w / 2 + 30, (x2 + x4) / 2, y1 + w / 2 + 30);
+				drawLine(ctx, (x2 + x4) / 2, y1 + w / 2 + 30, (x2 + x4) / 2, y1 + w / 2 + 20);
+			}
+			else
+			{
+				drawLine(ctx, x1, y1 + w / 2, x1, y1 + w / 2 + 30);
+				drawLine(ctx, x1, y1 + w / 2 + 30, (x2 + x4) / 2, y1 + w / 2 + 30);
+				drawLine(ctx, (x2 + x4) / 2, y1 + w / 2 + 30, (x2 + x4) / 2, y1 + w / 2 + 20);
+			}
+
+			if (end > mid + 1)
+			{
+				drawLine(ctx, x4, y1 + w / 2, x4, y1 + w / 2 + 20);
+				drawLine(ctx, x4, y1 + w / 2 + 20, x2, y1 + w / 2 + 20);
+				drawLine(ctx, x2, y1 + w / 2 + 20, x2, y1 + w / 2);
+			}
+			else
+			{
+				drawLine(ctx, x4, y1 + w / 2, x4, y1 + w / 2 + 30);
+				drawLine(ctx, x2, y1 + w / 2 + 30, (x1 + x3) / 2, y1 + w / 2 + 30);
+			}
+		}
 	}
 
 	drawLineItoJ(ctx, i, j)
@@ -361,12 +401,12 @@ class MergeSort extends Sorting
 
 		if (!this.merging)
 		{
-
-			console.log("came here");
-
 			this.i = this.top.start;
 			this.j = this.top.mid + 1;
 			this.k = this.top.start;
+
+			if (this.i == this.top.end)
+				this.bars[this.i].useThird = true;
 
 			//starting pos for the bor
 			this.startX2 = this.bars[this.top.start].xPos;
@@ -394,7 +434,7 @@ class MergeSort extends Sorting
 				this.showIndex2 = this.top.end;
 			}
 
-			this.callStack.pop();
+			this.popIt = true;
 			return; 
 		}
 
@@ -472,6 +512,12 @@ class MergeSort extends Sorting
 	update(timeStamp)
 	{
 
+		if (this.popIt)
+		{
+			this.callStack.pop();
+			this.popIt = false;
+		}
+
 		if (this.callStack.length <= 0 )
 			this.done = true;
 
@@ -483,6 +529,7 @@ class MergeSort extends Sorting
 
 			if (!this.merging)
 			{
+
 				this.top = this.callStack[this.callStack.length - 1];
 
 				if (this.top.split == 0)
