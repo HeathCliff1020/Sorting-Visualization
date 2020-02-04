@@ -184,15 +184,15 @@ class InsertionSort extends Sorting
 	swappingMessage()
 	{
 		if (this.animatingBars.length > 1)
-			return this.key.len + " placed in its correct position.";
+			return this.key.len + " Placed Correctly";
 		else
-			return this.key.len + " is already in its correct position.";
+			return this.key.len + " Is In Correct Index";
 	}
 
 	comparingMessage()
 	{
 		if (this.animatingBars.length > 1)
-			return this.key.len + " should be at index " + this.animatingBars[this.animatingBars.length - 2].index;
+			return this.key.len + " Should Be At Index " + this.animatingBars[this.animatingBars.length - 2].index;
 		else
 			return " ";
 	}

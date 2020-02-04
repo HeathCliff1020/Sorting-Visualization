@@ -102,7 +102,7 @@ class Bar
 
 		if (this.isCompaired || this.useThird)
 		{
-			if (this.whichAlgo != 4)
+			if (this.whichAlgo != 4 && this.whichAlgo != 5)
 			{
 				if (this.useThird)
 				ctx2.fillStyle = "#f00";
@@ -128,8 +128,10 @@ class Bar
 		
 		if (this.lineOffset >= 20)
 			ctx2.font = "bold 10pt Calibari";
-		else
+		else if (this.lineOffset >= 15)
 			ctx2.font = "bold 8pt Calibari";
+		else
+			ctx2.font = "bold 7pt Calibari";
 
 		ctx2.fillText(this.len.toString(), this.numberXPos - ctx2.measureText(this.len.toString()).width / 2, this.numberYPos + parseInt(ctx2.font.match(/\d+/), 10) / 2);
 

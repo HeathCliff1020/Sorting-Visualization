@@ -33,7 +33,7 @@ canvasWidth = myCanvas.width;
 
 canvasHeight2 = myCanvas2.height;
 canvasWidth2 = myCanvas2.width;
-*/
+/*/
 
 /**********************************************/
 
@@ -212,8 +212,10 @@ function createArray(mode)
 		sort = new InsertionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 	else if (whichAlgo == 3)
 		sort = new SelectionSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
-	else
+	else if (whichAlgo == 4)
 		sort = new MergeSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
+	else
+		sort = new QuickSort(bars, canvasWidth, canvasHeight, canvasWidth2, canvasHeight2, whichAlgo);
 
 	done = false;		// variable for checking if the sorting is completed or not
 	onlyOnce = true;
@@ -292,6 +294,11 @@ function recreateBars(changedValue)
 
 	emptySelections();
 	fillIndexSelection();
+}
+
+function recreateBars2()
+{
+	recreateBars(document.getElementById("myRange").value);
 }
 
 /*Starts the animating*/

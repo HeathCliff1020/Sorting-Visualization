@@ -106,6 +106,9 @@ class SelectionSort extends Sorting
 
 						//console.log(minimum + " " + this.outterVar);
 
+						this.bars[this.min].moveSpeed = (this.bars[this.min].baseMoveSpeed) * 3;
+						this.bars[this.outterVar].moveSpeed = this.bars[this.min].moveSpeed;
+
 						this.swap(this.min, this.outterVar);
 							
 						//setting animation to true for swapping the bars
@@ -140,19 +143,95 @@ class SelectionSort extends Sorting
 
 	}
 
+	abs(v)
+	{
+		if (v < 0)
+			return -v;
+		else
+			return v;
+	}
+
+	//Draw the rectangular box inside which the array elements can reside
+	drawArrayBox(ctx)
+	{
+		//console.log("Draws the box for the array elements.");
+
+		//drawing the box
+
+		ctx.fillStyle = "#99ff99";
+		ctx.fillRect(this.horizMargin, this.boxStartY, this.boxLength, this.boxWidth);
+		ctx.lineWidth = 3;
+		ctx.fillStyle = "#000";
+		drawRect(ctx, this.horizMargin, this.boxStartY, this.boxLength, this.boxWidth);
+		
+		// drawing the divider lines
+
+		var startX = this.lineOffset + this.horizMargin;	// start drawing lines for the offset 
+
+		for (var i = 1; i <= this.bars.length - 1; i++)
+		{
+			drawLine(ctx, startX, this.boxStartY, startX, this.boxStartY + this.boxWidth);
+			startX += this.lineOffset;
+		}
+
+		startX = this.horizMargin + (this.lineOffset / 2);
+		for (var i = 0; i < this.len; i++)
+		{
+			ctx.fillStyle = "#000";
+			if (this.lineOffset >= 20)
+				ctx.font = "bold 10pt Calibari";
+			else if (this.lineOffset >= 16)
+				ctx.font = "bold 8pt Calibari";
+			else
+				ctx.font = "bold 7pt Calibari";
+			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, this.boxStartY - 5);
+			startX += this.lineOffset;
+		}
+
+		if (this.done)
+		{
+			this.printMessage(ctx, "Array Sorted", this.boxStartY + this.boxWidth + 60);
+		}
+		else if (this.isAnimating && !this.comparing && !this.swapped)
+		{
+			this.printMessage(ctx, this.animationMessage(), this.boxStartY + this.boxWidth + 60);
+		}
+		else if (this.comparing)
+		{
+			this.printMessage(ctx, this.comparingMessage(), this.boxStartY + this.boxWidth + 60);
+		}	
+		else if (this.swapped)
+		{
+			this.printMessage(ctx, this.swappingMessage(), this.boxStartY + this.boxWidth + 60);
+		}
+		else if (this.showingMinimum)
+		{
+			this.printMessage(ctx, this.showingMsg(), this.boxStartY + this.boxWidth + 60);
+		}
+
+	}
+
 	animationMessage()
 	{
-		return "Animating";
+		return "Swapping Elements";
 	}
 
 	swappingMessage()
 	{
-		return "Swapping";
+		return "Items Swapped";
 	}
 
 	comparingMessage()
 	{
-		return "Comparing";
+		return this.bars[this.outterVar - 1].len + " Will Go to Index " + (this.outterVar - 1);
+	}
+
+	showingMsg()
+	{
+		if (this.min == this.outterVar)
+			return this.bars[this.min].len + " is in Correct Index";
+		else
+			return this.bars[this.min].len + " is Minimum";
 	}
 
 }

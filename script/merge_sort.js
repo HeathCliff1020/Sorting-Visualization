@@ -175,7 +175,12 @@ class MergeSort extends Sorting
 		for (var i = 0; i < this.len; i++)
 		{
 			ctx.fillStyle = "#000";
-			ctx.font = "bold 10pt Calibari";
+			if (this.lineOffset >= 20)
+				ctx.font = "bold 10pt Calibari";
+			else if (this.lineOffset >= 16)
+				ctx.font = "bold 8pt Calibari";
+			else
+				ctx.font = "bold 7pt Calibari";
 			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, boxStartY - 5);
 			startX += this.lineOffset;
 		}	

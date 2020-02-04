@@ -35,23 +35,25 @@
 			<div class="menu-sidebar">
 				<ul class="menu">
 					<li><i class="fa fa-home icons"></i><a href="#" style="text-decoration: none;">Home</a></li>
-					<li><i class="fa fa-id-card-alt icons"></i><a href="about.html" style="text-decoration: none;">About</a></li>
 					<li><i class="fa fa-graduation-cap icons"></i><a href="learn/mainPage.html" style="text-decoration: none;">Learn</a></li>
 					<li><i class="fa fa-arrow-circle-right icons"></i><a href="mode.html" style="text-decoration: none;">Mode 2</a></li>
+					<li><i class="fa fa-id-card-alt icons"></i><a href="about.html" style="text-decoration: none;">About</a></li>
 				</ul>			
 			</div>
 		</div>
 
-	  <h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
+	  	<h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
 	 
-	  <div class="dropdown">
-		<select class="form-control text-center" id="select_sort" onchange="changeAlgo()">
+	 	<div class="selector">
+		<select class="form-control dropdown text-center" id="select_sort" onchange="changeAlgo()">
 			<option>Bubble Sort</option>
 			<option>Insertion Sort</option>
 			<option>Selection Sort</option>
 			<option>Merge Sort</option>
 			<option>Quick Sort</option>
-		</select>
+	  	</select>
+	
+	  	<input type="button" class="form-inline align-self-center" value="Generate Random" id="generateRandom" onclick="recreateBars2();"/>	
 	  </div>
 	
 	</nav>
@@ -98,10 +100,10 @@
 				<canvas id="myCanvas" height="400" width="200"></canvas>
 			</div>
 
-			<div class="col-lg-1 my-col-button text-center">
-				<input type="checkbox" id="frameByFrame" onclick="changeFrameByFrame(this.checked)">
-				<input type="button" value="" id="next"/>
-				<label class="label1">Step By Step</label>
+			<div class="col-lg-1 my-col-button text-center align-self-center align-items-center">
+				<input type="checkbox" id="frameByFrame" class="align-self-center" onclick="changeFrameByFrame(this.checked)">
+				<input type="button" value="" class="align-self-center" id="next"/>
+				<label class="label1 align-self-center">Step By Step</label>
 			</div>
   
 			<div class="col-lg-5 my-col" id="secondCanvas">
@@ -112,7 +114,7 @@
 
 	</div>
 
-
+	<!--
 	<footer class="page-footer font-small">
 
 	  <div class="footer-copyright text-center py-3">
@@ -123,6 +125,7 @@
 	  </div>
 
 	</footer>
+	-->
 
 	<script type="text/javascript" src="script/style.js"></script>
 	<script type="text/javascript" src="script/myFunctions.js"></script>
@@ -132,6 +135,7 @@
 	<script type="text/javascript" src="script/insertion_sort.js"></script>
 	<script type="text/javascript" src="script/selection_sort.js"></script>
 	<script type="text/javascript" src="script/merge_sort.js"></script>
+	<script type="text/javascript" src="script/quick_sort.js"></script>
 	<script type="text/javascript" src="script/main.js"></script>
 
 </body>

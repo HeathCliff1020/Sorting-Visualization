@@ -309,3 +309,8 @@ function changePosAndWidth()
 	sort.increment = 2 * bars[0].width;
 
 }
+
+function recreateBars2()
+{
+	recreateBars(document.getElementById("myRange").value);
+}

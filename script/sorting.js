@@ -100,7 +100,12 @@ class Sorting
 		for (var i = 0; i < this.len; i++)
 		{
 			ctx.fillStyle = "#000";
-			ctx.font = "bold 10pt Calibari";
+			if (this.lineOffset >= 20)
+				ctx.font = "bold 10pt Calibari";
+			else if (this.lineOffset >= 16)
+				ctx.font = "bold 8pt Calibari";
+			else
+				ctx.font = "bold 7pt Calibari";
 			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, this.boxStartY - 5);
 			startX += this.lineOffset;
 		}
@@ -186,10 +191,10 @@ class Sorting
 
 			if (this.bars[0].width >= 10)
 				ctx.font = "bold 10pt Calibari";
-			else if (this.bars[0].width >= 8)
+			else if (this.bars[0].width >= 7)
 				ctx.font = "bold 8pt Calibari";
 			else
-				ctx.font = "bold 7pt Calibari";
+				ctx.font = "bold 6pt Calibari";
 
 			ctx.fillText(i.toString(), startX - ctx.measureText(i.toString()).width / 2, canvasHeight - 5);
 			startX += this.increment;
@@ -242,6 +247,8 @@ class Sorting
 		{
 			this.bar1.isCompaired = false;
 			this.bar2.isCompaired = false;
+			this.bar1.moveSpeed = this.bar1.baseMoveSpeed;
+			this.bar2.moveSpeed = this.bar1.baseMoveSpeed;
 			this.bar1.useThird = true;
 			this.bar2.useThird = true;
 			this.isAnimating = false;
@@ -345,8 +352,12 @@ class Sorting
 		
 		var text2 = `No. of comparisions :- ${this.numOfComparisions}`;
 
-		ctx.fillText(text, 5, 37);
-		ctx.fillText(text2, 5, 57);
+		if (this.whichAlgo != 4)
+			ctx.fillText(text, 5, 37);
+		if (this.whichAlgo != 4)
+			ctx.fillText(text2, 5, 57);
+		else
+			ctx.fillText(text2, 3, 45);
 	}
 
 

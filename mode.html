@@ -15,7 +15,7 @@
 
 	<script src="script/script.js"></script>
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style22.css">
 	<link rel="stylesheet" href="css/style2.css">
 
 </head>
@@ -35,23 +35,25 @@
 			<div class="menu-sidebar">
 				<ul class="menu">
 					<li><i class="fa fa-home icons"></i><a href="index.html" style="text-decoration: none;">Home</a></li>
-					<li><i class="fa fa-id-card-alt icons"></i><a href="about.html" style="text-decoration: none;">About</a></li>
-					<li><i class="fa fa-graduation-cap icons"></i><a href="learn.html" style="text-decoration: none;">Learn</a></li>
+					<li><i class="fa fa-graduation-cap icons"></i><a href="learn/mainPage.html" style="text-decoration: none;">Learn</a></li>
 					<li><i class="fa fa-arrow-circle-right icons"></i><a href="#" style="text-decoration: none;">Mode 2</a></li>
+					<li><i class="fa fa-id-card-alt icons"></i><a href="about.html" style="text-decoration: none;">About</a></li>
 				</ul>			
 			</div>
 		</div>
 
 	  <h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
 	 
-	  <div class="dropdown">
-		<select class="form-control text-center" id="select_sort" onchange="changeAlgo()">
+	  <div class="selector">
+		<select class="form-control dropdown text-center" id="select_sort" onchange="changeAlgo()">
 			<option>Bubble Sort</option>
 			<option>Insertion Sort</option>
 			<option>Selection Sort</option>
 			<option>Merge Sort</option>
 			<option>Quick Sort</option>
-		</select>
+	  	</select>
+	
+	  	<input type="button" class="form-inline align-self-center" value="Generate Random" id="generateRandom" onclick="recreateBars2();"/>	
 	  </div>
 	
 	</nav>
@@ -72,7 +74,7 @@
 			</div>
 
 			<div class="slidecontainer col-4 col-sm-4 col-md-4 col-lg-4">
-  				<input type="range" min="50" max="400" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+  				<input type="range" min="50" max="500" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
 	  		</div>
 
 		</div>
@@ -87,6 +89,7 @@
 
 	</div>
 
+	<!--
 	<footer class="page-footer font-small">
 
 	  <div class="footer-copyright text-center py-3">
@@ -97,6 +100,7 @@
 	  </div>
 
 	</footer>
+	-->
 
 	<script type="text/javascript" src="script/myFunctions.js"></script>
 	<script type="text/javascript" src="script2/bar.js"></script>

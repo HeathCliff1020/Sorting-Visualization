@@ -162,14 +162,14 @@ class BubbleSort extends Sorting
 
 	comparingMessage()
 	{
-		var msg = "Comparing : ";
+		var msg = "";
 
 		if (this.bar1.len > this.bar2.len)
-			msg += this.bar1.len + " > " + this.bar2.len + ", so will be swapped.";
+			msg += this.bar1.len + " > " + this.bar2.len + " :  Will be Swapped";
 		else if (this.bar1.len < this.bar2.len) 
-			msg += this.bar1.len + " < " + this.bar2.len + ", so not be swapped.";
+			msg += this.bar1.len + " < " + this.bar2.len + " : No Swapping.";
 		else
-			msg += this.bar1.len + " = " + this.bar2.len + ", so not be swapped.";
+			msg += this.bar1.len + " = " + this.bar2.len + " : No Swapping.";
 
 		return msg;
 	}
