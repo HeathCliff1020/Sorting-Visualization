@@ -50,6 +50,10 @@ var startBarY = canvasHeight - bottomMargin;
 var barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 var barWidth = barGap;
 
+var output = document.getElementById("output1");
+
+output.value = document.getElementById("myRange").value;
+
 //var barWidth = (canvasWidth - ((numOfBars + 1) * barGap)) / numOfBars;
 
 var bars;
@@ -206,6 +210,8 @@ function recreateBars(changedValue)
 	barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 	barWidth = barGap;
 	createArray(1);
+
+	output.value = changedValue;
 }
 
 /*Starts the animating*/

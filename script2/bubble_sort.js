@@ -114,7 +114,6 @@ class BubbleSort extends Sorting
 		this.update22(timeStamp, 100);
 	}
 
-	
 	compareBars()
 	{
 		this.swapped = false;

@@ -42,8 +42,9 @@
 			</div>
 		</div>
 
+		<button class="homeButton" onclick="window.location.href = 'index.html';">Home</button>
+
 	  <h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
-	 
 	  <div class="selector">
 		<select class="form-control dropdown text-center" id="select_sort" onchange="changeAlgo()">
 			<option>Bubble Sort</option>
@@ -62,19 +63,17 @@
 		
 		<div class="row buttons align-items-center">
 
-			<div class="col-1 col-sm-1 col-md-2 d-lg-none">
-			</div>
-
-			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
+			<div class="col-2 col-sm-2 col-md-1 col-lg-1">
 				<input type="button" value="" class="btn" onclick="startAnimation()"/>
 			</div>
 
-			<div class="col-3 col-sm-3 col-md-2 col-lg-1">
+			<div class="col-2 col-sm-2 col-md-1 col-lg-1">
 	  			<input type="button" value="" class="btn2" onclick="pauseAnimation()"/>
 			</div>
 
-			<div class="slidecontainer col-4 col-sm-4 col-md-4 col-lg-4">
-  				<input type="range" min="50" max="500" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+			<div class="slidecontainer col-8 col-sm-8 col-md-10 col-lg-10">
+  				<input type="range" min="50" max="200" value="10" class="slider" id="myRange" oninput="recreateBars(this.value)" />
+  				<output id="output1">5</output>
 	  		</div>
 
 		</div>

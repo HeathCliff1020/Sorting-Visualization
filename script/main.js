@@ -23,8 +23,6 @@ myCanvas.width = canvasWidth;
 myCanvas2.height = canvasHeight2;
 myCanvas2.width = canvasWidth2;
 
-
-
 // canvas values to variable values
 
 /*
@@ -60,6 +58,11 @@ var startBarY = canvasHeight - bottomMargin;
 
 var barGap = (canvasWidth - ( 2 * horizMargin )) / (2 * numOfBars - 1);
 var barWidth = barGap;
+var output1 = document.getElementById("output1");
+var output2 = document.getElementById("output2");
+
+output1.value = document.getElementById("myRange").value;
+output2.value = document.getElementById("numbers").value;
 
 //var barWidth = (canvasWidth - ((numOfBars + 1) * barGap)) / numOfBars;
 
@@ -294,6 +297,8 @@ function recreateBars(changedValue)
 
 	emptySelections();
 	fillIndexSelection();
+
+	output1.value = changedValue;
 }
 
 function recreateBars2()
@@ -340,6 +345,8 @@ function changeArrayElement()
 	{
 		var index = document.getElementById("index");
 		var selection = document.getElementById("numbers");
+
+		output2.value = selection.value;
 
 		bars[index.selectedIndex].len = eval(selection.value);
 

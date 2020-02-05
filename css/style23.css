@@ -59,6 +59,7 @@ body
     font-weight: bold !important;
     padding-right: 1em;
     padding-left: 30px;
+    margin-left: 20px;
 }
 @media screen and (min-width: 601px) {
   .title {
@@ -88,6 +89,15 @@ body
   }
 }
 
+@media screen and (max-width: 380px) {
+   
+  .title
+   {
+    font-size: 15px !important;
+  }
+}
+
+
 .icons
 {
   margin-right: 20px;
@@ -116,4 +126,13 @@ body
 .para
 {
   text-align: justify;
+}
+
+.homeButton
+{
+  font-size: 12px;
+  border-radius: 5px;
+  position: absolute;
+  left: 5px;
+  top: 60px;
 }

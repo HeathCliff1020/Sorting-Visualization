@@ -42,6 +42,8 @@
 			</div>
 		</div>
 
+		<button class="homeButton" onclick="window.location.href = '#">Home</button>
+
 	  	<h1 class="navbar-brand title"><img src="images/brand.png" id="g-logo" />Sorting Visualizer</h1>
 	 
 	 	<div class="selector">
@@ -79,9 +81,11 @@
 			<div class="slidecontainer col-6 col-sm-6 col-md-8 col-lg-3 align-self-center">
 				<div class="changer1">
   					<input type="range" min="5" max="20" value="10" class="slider align-middle" id="myRange" oninput="recreateBars(this.value)" />
+  					<output id="output1">5</output>
   				</div>
   				<div class="changer2">
   					<input type="range" min="1" max="99" class="slider2 align-middle" id="numbers" oninput="changeArrayElement()" />
+  					<output id="output2" class="o2">1</output>
   				</div>
   			</div>
 
